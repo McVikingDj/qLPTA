@@ -422,13 +422,146 @@ body.light .search-detail-box {
 }
 </style>
 
+
+<style id="search-page-compact-v241">
+.search-page-wrap {
+  max-width: 980px !important;
+  margin: 36px auto !important;
+  gap: 12px !important;
+}
+
+.search-hero {
+  padding: 16px 18px !important;
+  gap: 16px !important;
+}
+
+.search-hero h1 {
+  font-size: clamp(30px, 4vw, 42px) !important;
+  letter-spacing: -.035em !important;
+}
+
+.search-hero p {
+  margin-top: 8px !important;
+  font-size: 14px !important;
+  max-width: 620px !important;
+}
+
+.search-kicker {
+  margin-bottom: 4px !important;
+}
+
+.search-control-card {
+  padding: 14px 16px !important;
+}
+
+.search-control-top {
+  margin-bottom: 10px !important;
+  gap: 12px !important;
+}
+
+.search-control-card h3,
+.search-results-card h3,
+.search-detail-card h3 {
+  font-size: 17px !important;
+}
+
+.search-input-row {
+  grid-template-columns: minmax(240px, 1fr) minmax(170px, 220px) auto !important;
+  gap: 10px !important;
+}
+
+.search-input-wrap .input,
+.search-filter .select {
+  min-height: 40px !important;
+  font-size: 14px !important;
+}
+
+.search-input-wrap .input {
+  padding-left: 38px !important;
+}
+
+.search-input-icon {
+  left: 13px !important;
+  font-size: 13px !important;
+}
+
+.search-match-pill {
+  min-height: 40px !important;
+  min-width: 86px !important;
+  padding: 5px 12px !important;
+  border-radius: 12px !important;
+}
+
+.search-match-pill strong {
+  font-size: 18px !important;
+}
+
+.search-workspace {
+  grid-template-columns: minmax(300px, .95fr) minmax(340px, 1.05fr) !important;
+  gap: 12px !important;
+}
+
+.search-results-card,
+.search-detail-card {
+  min-height: 480px !important;
+  padding: 14px 16px !important;
+}
+
+.search-section-heading {
+  margin-bottom: 10px !important;
+}
+
+.search-results-list {
+  gap: 6px !important;
+}
+
+.search-results-list li {
+  padding: 7px 8px !important;
+  border-radius: 9px !important;
+  font-size: 14px !important;
+}
+
+.search-detail-box {
+  padding: 12px !important;
+  border-radius: 14px !important;
+}
+
+#backToMenu.search-page-button {
+  min-height: 38px !important;
+  padding: 8px 13px !important;
+  font-size: 14px !important;
+}
+
+#backToMenu .search-page-button-icon {
+  width: 22px !important;
+  height: 22px !important;
+  font-size: 12px !important;
+}
+
+@media (max-width: 860px) {
+  .search-page-wrap {
+    margin: 24px auto !important;
+  }
+
+  .search-results-card,
+  .search-detail-card {
+    min-height: 380px !important;
+  }
+
+  .search-input-row,
+  .search-workspace {
+    grid-template-columns: 1fr !important;
+  }
+}
+</style>
+
 </head>
 <body>
   <div class="container search-shell">
     <div class="vstack search-page-wrap">
       <header class="search-hero card">
         <div class="search-hero-copy">
-          <div class="small search-kicker">ATPL Question Bank · Version <strong>v2.4</strong></div>
+          <div class="small search-kicker">ATPL Question Bank · Version <strong>v2.4.1</strong></div>
           <h1>Question Search</h1>
           <p>Search across every loaded subject, preview answer options, and quickly identify the correct answer without starting a test session.</p>
         </div>

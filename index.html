@@ -252,7 +252,7 @@ body.light #goSearch .search-page-button-icon {
 <div id="menuHeaderBar" class="hstack" style="justify-content:space-between;align-items:center;gap:12px; margin-bottom:8px;">
   <div id="menuTitleBlock" class="vstack">
     <h1 style="margin:0">ATPL Question Bank</h1>
-    <div class="small">Version <strong>v2.4</strong></div>
+    <div class="small">Version <strong>v2.4.1</strong></div>
   </div>
   <div class="hstack" style="justify-content:flex-end;">
     <a id="goSearch" class="button search-page-button" href="search.html"><span class="search-page-button-icon">🔎</span><span>Search questions</span></a>
@@ -394,7 +394,7 @@ body.light #goSearch .search-page-button-icon {
 
 <script>
 /*** LOGIN ***/
-const PASSWORD_HASH = "508f8d85f900866e90d30e1e4e0126984dd0f2f85c443800e5956aae2887120b"; // sha256("School related")
+const PASSWORD_HASH = "508f8d85f900866e90d30e1e4e0126984dd0f2f85c443800e5956aae2887120b"; // sha256("OSM2026")
 const AUTH_KEY = 'atpl_authenticated_v1';
 async function sha256hex(str){const enc=new TextEncoder();const data=enc.encode(str);const hash=await crypto.subtle.digest('SHA-256',data);return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,'0')).join('');}
 async function tryLogin(){const val=document.getElementById('loginInput').value||'';const d=await sha256hex(val);if(d===PASSWORD_HASH){sessionStorage.setItem(AUTH_KEY,'1');hideLogin();}else{const e=document.getElementById('loginError');e.style.display='block';e.textContent='Incorrect password. Try again.';}}
