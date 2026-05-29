@@ -61,41 +61,6 @@
 </style>
 
 
-<style id="changelog-scrollbar-hide">
-  #changelogList { scrollbar-width: none; }
-  #changelogList::-webkit-scrollbar { display: none; }
-</style>
-
-
-<style id="changelog-fullbleed">
-  /* Make changelog entries span full card width */
-  #changelogCard #changelogList { gap: 0 !important; padding: 0 !important; }
-  #changelogCard #changelogList > section {
-    /* full-bleed: extend into card padding without altering layout */
-    margin-left: -12px !important;
-    margin-right: -12px !important;
-    border-left: none !important;
-    border-right: none !important;
-    border-radius: 0 !important;
-    padding: 12px 16px !important;
-    border-top: 1px solid rgba(255,255,255,.08) !important;
-    border-bottom: none !important;
-    background: transparent !important;
-  }
-  #changelogCard #changelogList > section:first-child { border-top: none !important; }
-</style>
-
-
-<style id="changelog-fullbleed-bottom">
-  /* Bottom polish for full-bleed changelog */
-  #changelogCard #changelogList { padding-bottom: 12px !important; }
-  #changelogCard #changelogList > section:last-child {
-    border-bottom: 1px solid rgba(255,255,255,.08) !important;
-    margin-bottom: 2px !important; /* tiny visual buffer */
-  }
-</style>
-
-
 
 
 <style id="clean-build-styles">
@@ -107,42 +72,57 @@
 </style>
 
 
-<style id="changelog-equal-height-v238">
-/* v2.3.8: Setup and Changelog equal height, changelog content scrolls internally */
+<style id="changelog-direct-scroll-v2310">
+/* v2.3.10: setup card and changelog card stay equal height; changelog entries scroll internally */
 #menu .grid.grid-2 {
   align-items: stretch !important;
+  grid-auto-rows: minmax(620px, 72vh) !important;
 }
 
-/* Keep both top menu cards in the same row height */
 #menu .grid.grid-2 > section.card {
+  height: 100% !important;
   min-height: 0 !important;
+  box-sizing: border-box !important;
 }
 
-/* The changelog card must not expand with its content */
 #changelogCard {
   display: flex !important;
   flex-direction: column !important;
-  height: 100% !important;
-  min-height: 0 !important;
-  max-height: 100% !important;
   overflow: hidden !important;
+  min-height: 0 !important;
 }
 
-/* Only the list/log content scrolls */
-#changelogCard #changelogList,
-#changelogCard .changelog-list,
-#changelogCard .vstack:not(:first-child) {
+#changelogCard > .hstack {
+  flex: 0 0 auto !important;
+}
+
+#changelogScroll {
   flex: 1 1 auto !important;
   min-height: 0 !important;
   overflow-y: auto !important;
   overflow-x: hidden !important;
-  padding-right: 8px !important;
-  scrollbar-gutter: stable;
+  padding-right: 10px !important;
+  margin-top: 18px !important;
+  scrollbar-gutter: stable !important;
 }
 
-/* Prevent long entries from forcing the card taller */
-#changelogCard * {
-  min-height: 0;
+#changelogList {
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+@media (max-width: 760px) {
+  #menu .grid.grid-2 {
+    grid-auto-rows: auto !important;
+  }
+
+  #changelogCard {
+    max-height: 620px !important;
+  }
+
+  #changelogScroll {
+    max-height: 520px !important;
+  }
 }
 </style>
 
@@ -168,7 +148,7 @@
 <div id="menuHeaderBar" class="hstack" style="justify-content:space-between;align-items:center;gap:12px; margin-bottom:8px;">
   <div id="menuTitleBlock" class="vstack">
     <h1 style="margin:0">ATPL Question Bank</h1>
-    <div class="small">Version <strong>v2.3.8</strong></div>
+    <div class="small">Version <strong>v2.3.10</strong></div>
   </div>
   <div class="hstack" style="justify-content:flex-end;">
     <a id="goSearch" class="button" href="search.html" style="text-decoration:none">🔎 Search for a question</a>
@@ -201,9 +181,13 @@
 <section class="card vstack" id="changelogCard">
   <div class="hstack" style="justify-content:space-between;align-items:center">
     <h3 style="margin:0">Changelog</h3>
-    <span class="small" id="clStatus" style="opacity:.7">Loading…</span>
   </div>
-  <div id="changelogList" class="vstack" style="gap:10px; margin-top:8px; padding-right:6px; scrollbar-gutter:stable;"></div>
+
+  <div id="changelogScroll">
+    <span class="small" id="clStatus" style="opacity:.7">Loading…</span>
+    <div id="changelogList" class="vstack" style="gap:10px; margin-top:8px; padding-right:6px; scrollbar-gutter:stable;"></div>
+  </div>
+
 </section>
 <script>
 // v1.8.8.11: Load changelog from external JSON file
