@@ -1,17 +1,6 @@
 {
   "entries": [
     {
-      "version": "v2.3.1-clean",
-      "date": "2026-05-29",
-      "title": "Cleanup build",
-      "changes": [
-        "Consolidated legacy patch scripts into direct fixes.",
-        "Added one unified theme/search utility script.",
-        "Made answer text clickable.",
-        "Reduced duplicate theme, feedback, and search logic."
-      ]
-    },
-    {
       "version": "v2.3",
       "date": "2026-04-21",
       "title": "SERA update",
