@@ -137,7 +137,7 @@
 <div id="menuHeaderBar" class="hstack" style="justify-content:space-between;align-items:center;gap:12px; margin-bottom:8px;">
   <div id="menuTitleBlock" class="vstack">
     <h1 style="margin:0">ATPL Question Bank</h1>
-    <div class="small">Version <strong>v2.3.1-clean</strong></div>
+    <div class="small">Version <strong>v2.3.2-themefix</strong></div>
   </div>
   <div class="hstack" style="justify-content:flex-end;">
     <button id="goSearch" class="button">🔎 Search for a question</button>
@@ -727,70 +727,8 @@ document.addEventListener('keydown',(e)=>{
 
 
 
-<script>
-(function(){
-  function applyTheme(){
-    var light = localStorage.getItem('light') === '1';
-    document.body.classList.toggle('light', light);
-    document.querySelectorAll('#themeBtn').forEach(function(btn){
-      btn.textContent = light ? '☀️' : '🌙';
-      btn.title = light ? 'Switch to Dark' : 'Switch to Light';
-      btn.setAttribute('aria-label', light ? 'Switch to Dark' : 'Switch to Light');
-    });
-  }
-  function makeControl(){
-    var wrap = document.createElement('span');
-    wrap.id = 'themeWrap';
-    wrap.className = 'themewrap';
-    var lbl = document.createElement('span');
-    lbl.id = 'themeLabel';
-    lbl.className = 'themelabel';
-    lbl.textContent = 'Light / Dark Mode';
-    var btn = document.createElement('button');
-    btn.id = 'themeBtn';
-    btn.className = 'iconbtn';
-    btn.addEventListener('click', function(){
-      var light = localStorage.getItem('light') === '1';
-      try{ localStorage.setItem('light', light ? '0' : '1'); }catch(_){}
-      applyTheme();
-    });
-    wrap.appendChild(lbl);
-    wrap.appendChild(btn);
-    return wrap;
-  }
-  function mountMenu(){
-    var menu = document.querySelector('#menu .vstack');
-    if(!menu) return;
-    // remove existing
-    var old = menu.querySelector('#themeWrap'); if(old) old.remove();
-    var ctl = makeControl();
-    ctl.classList.add('menu');
-    menu.insertBefore(ctl, menu.firstChild);
-  }
-  function mountQuiz(){
-    var right = document.querySelector('#quiz .topbar .container .header > .hstack:last-child');
-    if(!right) return;
-    var old = right.querySelector('#themeWrap'); if(old) old.remove();
-    var ctl = makeControl();
-    right.appendChild(ctl);
-  }
-  function hideLegacy(){
-    var old = document.getElementById('pillTheme'); if(old) old.style.display='none';
-    var oldInput = document.getElementById('theme'); if(oldInput){ var host = oldInput.closest('label'); if(host) host.style.display='none'; }
-  }
-  function init(){
-    hideLegacy();
-    mountMenu();
-    mountQuiz();
-    applyTheme();
-  }
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-})();
-</script>
+<!-- Removed legacy duplicate theme-control injection from earlier builds. -->
+
 
 
 
