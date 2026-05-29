@@ -106,35 +106,43 @@
   .option-list li{cursor:pointer}
 </style>
 
-<style id="changelog-equal-height-v235">
-/* v2.3.5: match changelog card height to setup card and scroll entries inside */
+
+<style id="changelog-equal-height-v238">
+/* v2.3.8: Setup and Changelog equal height, changelog content scrolls internally */
 #menu .grid.grid-2 {
   align-items: stretch !important;
 }
 
+/* Keep both top menu cards in the same row height */
 #menu .grid.grid-2 > section.card {
-  height: 100%;
+  min-height: 0 !important;
 }
 
+/* The changelog card must not expand with its content */
 #changelogCard {
   display: flex !important;
   flex-direction: column !important;
-  min-height: 0 !important;
   height: 100% !important;
-  max-height: none !important;
+  min-height: 0 !important;
+  max-height: 100% !important;
+  overflow: hidden !important;
 }
 
-#changelogCard #changelogList {
+/* Only the list/log content scrolls */
+#changelogCard #changelogList,
+#changelogCard .changelog-list,
+#changelogCard .vstack:not(:first-child) {
   flex: 1 1 auto !important;
   min-height: 0 !important;
-  max-height: none !important;
   overflow-y: auto !important;
   overflow-x: hidden !important;
-  scrollbar-width: thin;
+  padding-right: 8px !important;
+  scrollbar-gutter: stable;
 }
 
-#changelogCard #changelogList::-webkit-scrollbar {
-  width: 8px;
+/* Prevent long entries from forcing the card taller */
+#changelogCard * {
+  min-height: 0;
 }
 </style>
 
@@ -160,7 +168,7 @@
 <div id="menuHeaderBar" class="hstack" style="justify-content:space-between;align-items:center;gap:12px; margin-bottom:8px;">
   <div id="menuTitleBlock" class="vstack">
     <h1 style="margin:0">ATPL Question Bank</h1>
-    <div class="small">Version <strong>v2.3.7</strong></div>
+    <div class="small">Version <strong>v2.3.8</strong></div>
   </div>
   <div class="hstack" style="justify-content:flex-end;">
     <a id="goSearch" class="button" href="search.html" style="text-decoration:none">🔎 Search for a question</a>
