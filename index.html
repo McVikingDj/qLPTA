@@ -155,6 +155,81 @@
 }
 </style>
 
+
+<style id="search-button-style-v2312">
+/* v2.3.12: polished main-page search button */
+#goSearch.search-page-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  min-height: 40px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: .01em;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.035));
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 8px 22px rgba(0,0,0,.18);
+  color: inherit;
+  transition:
+    transform .14s ease,
+    border-color .14s ease,
+    background .14s ease,
+    box-shadow .14s ease;
+}
+
+#goSearch.search-page-button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255,255,255,.24);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.055));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.11),
+    0 12px 28px rgba(0,0,0,.24);
+}
+
+#goSearch.search-page-button:active {
+  transform: translateY(0);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.06),
+    0 6px 16px rgba(0,0,0,.18);
+}
+
+#goSearch .search-page-button-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.08);
+  font-size: 13px;
+}
+
+body.light #goSearch.search-page-button {
+  background:
+    linear-gradient(180deg, rgba(15,23,42,.045), rgba(15,23,42,.02));
+  border-color: rgba(15,23,42,.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.65),
+    0 8px 22px rgba(15,23,42,.08);
+}
+
+body.light #goSearch.search-page-button:hover {
+  border-color: rgba(15,23,42,.20);
+  background:
+    linear-gradient(180deg, rgba(15,23,42,.07), rgba(15,23,42,.035));
+}
+
+body.light #goSearch .search-page-button-icon {
+  background: rgba(15,23,42,.07);
+}
+</style>
+
 </head>
 <body>
 <!-- LOGIN -->
@@ -177,10 +252,10 @@
 <div id="menuHeaderBar" class="hstack" style="justify-content:space-between;align-items:center;gap:12px; margin-bottom:8px;">
   <div id="menuTitleBlock" class="vstack">
     <h1 style="margin:0">ATPL Question Bank</h1>
-    <div class="small">Version <strong>v2.3.11</strong></div>
+    <div class="small">Version <strong>v2.3.12</strong></div>
   </div>
   <div class="hstack" style="justify-content:flex-end;">
-    <a id="goSearch" class="button" href="search.html" style="text-decoration:none">🔎 Search for a question</a>
+    <a id="goSearch" class="button search-page-button" href="search.html"><span class="search-page-button-icon">🔎</span><span>Search questions</span></a>
   </div>
 </div>
 
