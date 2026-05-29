@@ -10,14 +10,20 @@
     display: none !important;
   }
 
-/* v2.3.3 changelog scroll area */
+/* v2.3.3: fixed-height scrollable changelog */
 #changelog,
+#changeLog,
+#changelogList,
+#changeLogList,
 .changelog,
 .changelog-card,
-.changelog-box{
-  max-height:250px !important;
-  overflow-y:auto !important;
-  overflow-x:hidden !important;
+.changelog-box,
+.changelog-list {
+  max-height: 250px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding-right: 6px;
+  scrollbar-gutter: stable;
 }
 
 </style>
@@ -53,28 +59,6 @@
   .feedback-inline{margin-top:12px;padding:10px 12px;border-radius:10px;background:rgba(34,197,94,.12);color:#22c55e}
   .feedback-inline.bad{background:rgba(239,68,68,.12);color:#ef4444}
 </style>
-
-<style id="live-score-test-mode">
-  #qLiveBadge { margin: 0 8px; display:none; }
-  .mode-test #qLiveBadge { display:inline-flex; align-items:center; gap:6px; }
-  .mode-st #qLiveBadge, .mode-exam #qLiveBadge { display:none; }
-</style>
-
-
-<style id="hide-finish-in-test">
-  /* Hide the Finish button in Test mode */
-  .mode-test #qFinish { display: none !important; }
-</style>
-
-
-<style id="hide-progress-in-test-st">
-  /* Hide Progress counter in Test and ST modes */
-  .mode-test #qProgress,
-  .mode-st #qProgress {
-    display: none !important;
-  }
-</style>
-
 
 <style id="search-card-styles">
   #mSearchResults li {
@@ -140,6 +124,14 @@
   }
 </style>
 
+
+<style id="clean-build-styles">
+  .theme-wrap{display:inline-flex;align-items:center;gap:8px;margin-left:10px}
+  .theme-label{font-size:12px;color:var(--muted);white-space:nowrap}
+  .theme-btn{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:999px;padding:6px 10px;cursor:pointer}
+  body.light{--bg:#f5f7fb;--bg-soft:#ffffff;--card:#ffffff;--text:#111827;--muted:#6b7280;--border:#d1d5db;--qbox-bg:#e9f6fb;color:var(--text);background:var(--bg)}
+  .option-list li{cursor:pointer}
+</style>
 </head>
 <body>
 <!-- LOGIN -->
@@ -162,7 +154,7 @@
 <div id="menuHeaderBar" class="hstack" style="justify-content:space-between;align-items:center;gap:12px; margin-bottom:8px;">
   <div id="menuTitleBlock" class="vstack">
     <h1 style="margin:0">ATPL Question Bank</h1>
-    <div class="small">Version <strong>v2.3</strong></div>
+    <div class="small">Version <strong>v2.3.3-themefix</strong></div>
   </div>
   <div class="hstack" style="justify-content:flex-end;">
     <button id="goSearch" class="button">🔎 Search for a question</button>
@@ -482,7 +474,7 @@ function render(){
         const answered = isAnswered(INDEX);
         const checked = answered ? (ANSWERS[INDEX]||[]).includes(i) : temp.includes(i);
         input.checked = checked;
-        input.disabled = answered;
+        input.disabled = (MODE==='test' && answered);
         input.addEventListener('change', ()=>{
           if(isAnswered(INDEX)) return;
           const cur = Array.isArray(TEMP_SEL[INDEX]) ? TEMP_SEL[INDEX] : [];
@@ -490,15 +482,16 @@ function render(){
           TEMP_SEL[INDEX]=cur;
           qConfirm.disabled = !(cur.length>0);
         });
-        const label=document.createElement('span'); label.textContent=' '+opt;
+        const label=document.createElement('span'); label.textContent=' '+opt; label.style.cursor='pointer';
+        label.addEventListener('click', ()=>{ if(input.disabled) return; input.checked=!input.checked; input.dispatchEvent(new Event('change',{bubbles:true})); });
         li.appendChild(input); li.appendChild(label); qOptions.appendChild(li);
       });
-      if(!isAnswered(INDEX)){
+      if(!(MODE==='test' && isAnswered(INDEX))){
         qMultiControls.classList.remove('hidden');
         const cur = Array.isArray(TEMP_SEL[INDEX]) ? TEMP_SEL[INDEX] : [];
         qConfirm.disabled = !(cur.length>0);
         qConfirm.onclick = ()=>{
-          if(isAnswered(INDEX)) return;
+          if(MODE==='test' && isAnswered(INDEX)) return;
           const sel = Array.isArray(TEMP_SEL[INDEX]) ? TEMP_SEL[INDEX] : [];
           ANSWERS[INDEX] = sel.slice();
           if(MODE==='test'){
@@ -519,8 +512,8 @@ function render(){
         const input=document.createElement('input'); input.type='radio'; input.name='q';
         input.checked=(ANSWERS[INDEX]===i);
         input.onclick=()=>onSelectSingle(i);
-        if(isAnswered(INDEX)) input.disabled=true;
-        const label=document.createElement('span'); label.textContent=' '+opt;
+        if(MODE==='test' && isAnswered(INDEX)) input.disabled=true;
+        const label=document.createElement('span'); label.textContent=' '+opt; label.style.cursor='pointer'; label.onclick=()=>{ if(!input.disabled) onSelectSingle(i); };
         li.appendChild(input); li.appendChild(label); qOptions.appendChild(li);
       });
     }
@@ -696,6 +689,8 @@ async function loadQuestionBank(){
     }));
 
     RAW = Object.fromEntries(entries);
+    window.ATPL_RAW = RAW;
+    window.dispatchEvent(new Event('atpl-raw-loaded'));
 
     try{
       if(window.__SEARCH && typeof window.__SEARCH.buildDB === 'function'){
@@ -735,1199 +730,49 @@ document.addEventListener('keydown',(e)=>{
 });
 </script>
 
-<script>
-// === MENU-ONLY SIMPLIFY PATCH (non-destructive) ===
-(function(){
-  function byId(id){ return document.getElementById(id); }
-  function closestRow(el){
-    if(!el) return null;
-    let n = el;
-    for(let i=0;i<5 && n;i++){
-      if(n.classList && (n.classList.contains('h') || n.classList.contains('v'))) return n;
-      n = n.parentElement;
-    }
-    return el.parentElement || el;
-  }
-  function visible(el, on){
-    if(!el) return;
-    if(on){
-      el.style.display = (el.__origDisplay && el.__origDisplay !== 'none') ? el.__origDisplay : '';
-    } else {
-      if(!el.__origDisplay){ el.__origDisplay = getComputedStyle(el).display || ''; }
-      el.style.display = 'none';
-    }
-  }
-  function setup(){
-    var elCount = byId('mCount');
-    var elMinutes = byId('mMinutes');
-    var elShuffle = byId('mShuffle');
-    var elShuffleA = byId('mShuffleAnswers');
-    var elAdvance = byId('mAdvance');
-    var stPlan = byId('stPlan');
-
-    var rowQD = (function(){
-      var a = closestRow(elCount);
-      var b = closestRow(elMinutes);
-      return (a===b? a : (a||b));
-    })();
-    var rowOpts = (function(){
-      var a = closestRow(elShuffle);
-      var b = closestRow(elShuffleA);
-      var c = closestRow(elAdvance);
-      return a || b || c;
-    })();
-
-    function isST(){
-      var pillST = byId('pillST');
-      if(pillST){
-        var inp = pillST.querySelector('input[type="radio"]');
-        if(inp) return inp.checked;
-        if(pillST.classList && pillST.classList.contains('active')) return true;
-      }
-      var r = document.querySelector('input[name="m"][value="st"]');
-      return r ? r.checked : false;
-    }
-
-    function apply(){
-      var st = isST();
-      visible(rowQD, !st);
-      visible(rowOpts, !st);
-      if(stPlan){ visible(stPlan, st); }
-    }
-
-    var pillTest = byId('pillTest');
-    var pillST = byId('pillST');
-    [pillTest, pillST].forEach(function(x){
-      if(x) x.addEventListener('click', function(){ setTimeout(apply, 0); });
-    });
-    var radios = document.querySelectorAll('input[name="m"]');
-    radios.forEach(function(r){
-      r.addEventListener('change', function(){ setTimeout(apply, 0); });
-    });
-
-    apply();
-    window.__menuPatchApply = apply;
-  }
-
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', setup);
-  } else {
-    setup();
-  }
-})();
-</script>
-
-<script>
-// === THEME TOGGLE PATCH (non-destructive) ===
-(function(){
-  function ensureToggle(){
-    var has = document.getElementById('theme');
-    if(!has){
-      var bars = document.querySelectorAll('.top .wrap');
-      var host = bars && bars[0] ? bars[0] : document.body;
-      var span = document.createElement('span');
-      span.innerHTML = '<label class="pill" id="pillTheme" style="margin-left:10px;"><input id="theme" type="checkbox" /> Dark mode</label>';
-      host.appendChild(span);
-    }
-  }
-  function applyTheme(){
-    try{
-      var light = localStorage.getItem('light') === '1';
-      document.body.classList.toggle('light', light);
-      var theme = document.getElementById('theme');
-      var pill = document.getElementById('pillTheme');
-      if(theme){ theme.checked = light; }
-      if(pill){ if(light) pill.classList.add('active'); else pill.classList.remove('active'); }
-    }catch(e){}
-  }
-  function hook(){
-    var theme = document.getElementById('theme');
-    if(theme){
-      theme.addEventListener('change', function(e){
-        var light = !!e.target.checked;
-        try{ localStorage.setItem('light', light ? '1' : '0'); }catch(_){}
-        applyTheme();
-      });
-    }
-  }
-  function ensureLightCSS(){
-    var hasLight = document.querySelector('style[data-theme-light]');
-    if(!hasLight){
-      var s = document.createElement('style');
-      s.setAttribute('data-theme-light','1');
-      s.textContent = 'body.light{--bg:#f6f7f9;--panel:#ffffff;--soft:#f2f4f7;--text:#0b0b0b;--muted:#4b5563;--border:#e5e7eb;--accent:#16a34a;--accent-soft:#e6f6ea;--exam:#9ca3af;--qbox:#eef6ff;--qtext:#0b0b0b}';
-      document.head.appendChild(s);
-    }
-  }
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', function(){
-      ensureToggle(); ensureLightCSS(); applyTheme(); hook();
-    });
-  } else {
-    ensureToggle(); ensureLightCSS(); applyTheme(); hook();
-  }
-})();
-</script>
 
 
-<style data-theme-iconbtn>
-.iconbtn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid var(--border);background:var(--soft);border-radius:10px;cursor:pointer;font-size:16px}
-.iconbtn:hover{filter:brightness(1.05)}
-</style>
-<script>
-// === THEME ICON BUTTON PATCH ===
-(function(){
-  function applyTheme(){
-    var light = localStorage.getItem('light') === '1';
-    document.body.classList.toggle('light', light);
-    var btn = document.getElementById('themeBtn');
-    if(btn){ btn.textContent = light ? '☀️' : '🌙'; btn.title = light ? 'Switch to Dark' : 'Switch to Light'; }
-  }
-  function ensureIconInTopbar(){
-    // hide any legacy checkbox toggle if present
-    var old = document.getElementById('pillTheme');
-    if(old) old.style.display = 'none';
-    var oldInput = document.getElementById('theme');
-    if(oldInput){ var host = oldInput.closest('label'); if(host) host.style.display='none'; }
-
-    // find top bar right area (use the first .top .wrap, append at the end)
-    var bars = document.querySelectorAll('.top .wrap');
-    var host = bars && bars[0] ? bars[0] : document.body;
-    // if there's more than one .top .wrap (menu vs quiz), add to all
-    (bars.length ? bars : [host]).forEach(function(h){
-      var existing = h.querySelector('#themeBtn');
-      if(existing) return;
-      var btn = document.createElement('button');
-      btn.id = 'themeBtn';
-      btn.className = 'iconbtn';
-      btn.style.marginLeft = '10px';
-      btn.addEventListener('click', function(){
-        var light = localStorage.getItem('light') === '1';
-        try{ localStorage.setItem('light', light ? '0' : '1'); }catch(_){}
-        applyTheme();
-      });
-      // place near the right side if layout uses space-between
-      h.appendChild(btn);
-    });
-  }
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', function(){ ensureIconInTopbar(); applyTheme(); });
-  } else {
-    ensureIconInTopbar(); applyTheme();
-  }
-})();
-</script>
 
 
-<style data-theme-iconbtn-2>
-.iconbtn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid var(--border);background:var(--soft);border-radius:10px;cursor:pointer;font-size:16px}
-.iconbtn:hover{filter:brightness(1.05)}
-.themewrap{display:inline-flex;align-items:center;gap:8px;margin-left:10px}
-.themelabel{font-size:12px;color:var(--muted)}
-</style>
-<script>
-// === THEME TOGGLE TOP-RIGHT + LABEL PATCH ===
-(function(){
-  function ensureContainers(){
-    var bars = document.querySelectorAll('.top .wrap');
-    bars.forEach(function(wrap){
-      // Prefer the right-side group: last direct child with class "h"
-      var rightGroup = wrap.querySelector(':scope > .h:last-child') || wrap;
-      // Remove old pill/legacy toggles if any
-      var old = rightGroup.querySelector('#pillTheme');
-      if(old) old.style.display='none';
-      // Create or move the theme wrapper
-      var wrapEl = rightGroup.querySelector('#themeWrap');
-      if(!wrapEl){
-        wrapEl = document.createElement('span');
-        wrapEl.id = 'themeWrap';
-        wrapEl.className = 'themewrap';
-        var lbl = document.createElement('span');
-        lbl.id = 'themeLabel';
-        lbl.className = 'themelabel';
-        lbl.textContent = 'Light / Dark Mode';
-        var btn = document.createElement('button');
-        btn.id = 'themeBtn';
-        btn.className = 'iconbtn';
-        rightGroup.appendChild(wrapEl);
-        wrapEl.appendChild(lbl);
-        wrapEl.appendChild(btn);
-      } else {
-        // Ensure it sits at the end of the right group
-        rightGroup.appendChild(wrapEl);
-      }
-    });
-  }
-  function applyTheme(){
-    var light = localStorage.getItem('light') === '1';
-    document.body.classList.toggle('light', light);
-    // Update all buttons
-    document.querySelectorAll('#themeBtn').forEach(function(btn){
-      btn.textContent = light ? '☀️' : '🌙';
-      btn.title = light ? 'Switch to Dark' : 'Switch to Light';
-    });
-  }
-  function hook(){
-    document.querySelectorAll('#themeBtn').forEach(function(btn){
-      btn.onclick = function(){
-        var light = localStorage.getItem('light') === '1';
-        try{ localStorage.setItem('light', light ? '0' : '1'); }catch(_){}
-        applyTheme();
-      };
-    });
-  }
-  function hideLegacy(){
-    // Hide any old checkbox label anywhere
-    var old = document.getElementById('pillTheme');
-    if(old) old.style.display='none';
-    var oldInput = document.getElementById('theme');
-    if(oldInput){ var host = oldInput.closest('label'); if(host) host.style.display='none'; }
-  }
-  function init(){
-    hideLegacy();
-    ensureContainers();
-    applyTheme();
-    hook();
-  }
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-})();
-</script>
 
 
-<style data-theme-iconbtn-3>
-.iconbtn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid var(--border);background:var(--soft);border-radius:10px;cursor:pointer;font-size:16px}
-.iconbtn:hover{filter:brightness(1.05)}
-.themewrap{display:inline-flex;align-items:center;gap:8px;margin-left:10px}
-.themelabel{font-size:12px;color:var(--muted);white-space:nowrap}
-</style>
-<script>
-// === THEME TOGGLE TOP-RIGHT (FIXED) ===
-(function(){
-  function applyTheme(){
-    var light = localStorage.getItem('light') === '1';
-    document.body.classList.toggle('light', light);
-    document.querySelectorAll('#themeBtn').forEach(function(btn){
-      btn.textContent = light ? '☀️' : '🌙';
-      btn.title = light ? 'Switch to Dark' : 'Switch to Light';
-      btn.setAttribute('aria-label', light ? 'Switch to Dark' : 'Switch to Light');
-    });
-  }
-  function mountInBar(wrap){
-    // choose right-most group; if none, create a right group
-    var rightGroup = wrap.querySelector(':scope > .h:last-child');
-    if(!rightGroup){
-      rightGroup = document.createElement('div');
-      rightGroup.className = 'h';
-      wrap.appendChild(rightGroup);
-    }
-    // create themewrap
-    var tw = document.createElement('span');
-    tw.id = 'themeWrap';
-    tw.className = 'themewrap';
-    var lbl = document.createElement('span');
-    lbl.id = 'themeLabel';
-    lbl.className = 'themelabel';
-    lbl.textContent = 'Light / Dark Mode';
-    var btn = document.createElement('button');
-    btn.id = 'themeBtn';
-    btn.className = 'iconbtn';
-    btn.addEventListener('click', function(){
-      var light = localStorage.getItem('light') === '1';
-      try { localStorage.setItem('light', light ? '0' : '1'); } catch(_) {}
-      applyTheme();
-    });
-    tw.appendChild(lbl);
-    tw.appendChild(btn);
-    rightGroup.appendChild(tw);
-  }
-  function init(){
-    // Remove any existing injected theme controls
-    document.querySelectorAll('#themeWrap, #themeBtn').forEach(function(n){
-      if(n && n.parentElement) n.parentElement.removeChild(n);
-    });
-    // Hide any legacy checkbox control
-    var old = document.getElementById('pillTheme'); if(old) old.style.display='none';
-    var oldInput = document.getElementById('theme'); if(oldInput){ var host = oldInput.closest('label'); if(host) host.style.display='none'; }
-    // Require actual top bars to exist; do not append to body
-    var bars = document.querySelectorAll('.top .wrap');
-    if(!bars || bars.length === 0){ return; }
-    bars.forEach(function(wrap){ mountInBar(wrap); });
-    applyTheme();
-  }
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-})();
-</script>
 
 
-<style data-theme-iconbtn-struct>
-.iconbtn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid var(--border);background:var(--bg-soft);border-radius:10px;cursor:pointer;font-size:16px}
-.iconbtn:hover{filter:brightness(1.05)}
-.themewrap{display:inline-flex;align-items:center;gap:8px;margin-left:10px}
-.themelabel{font-size:12px;color:var(--muted);white-space:nowrap}
-.themewrap.menu{align-self:flex-end}
-</style>
-<script>
-(function(){
-  function applyTheme(){
-    var light = localStorage.getItem('light') === '1';
-    document.body.classList.toggle('light', light);
-    document.querySelectorAll('#themeBtn').forEach(function(btn){
-      btn.textContent = light ? '☀️' : '🌙';
-      btn.title = light ? 'Switch to Dark' : 'Switch to Light';
-      btn.setAttribute('aria-label', light ? 'Switch to Dark' : 'Switch to Light');
-    });
-  }
-  function makeControl(){
-    var wrap = document.createElement('span');
-    wrap.id = 'themeWrap';
-    wrap.className = 'themewrap';
-    var lbl = document.createElement('span');
-    lbl.id = 'themeLabel';
-    lbl.className = 'themelabel';
-    lbl.textContent = 'Light / Dark Mode';
-    var btn = document.createElement('button');
-    btn.id = 'themeBtn';
-    btn.className = 'iconbtn';
-    btn.addEventListener('click', function(){
-      var light = localStorage.getItem('light') === '1';
-      try{ localStorage.setItem('light', light ? '0' : '1'); }catch(_){}
-      applyTheme();
-    });
-    wrap.appendChild(lbl);
-    wrap.appendChild(btn);
-    return wrap;
-  }
-  function mountMenu(){
-    var menu = document.querySelector('#menu .vstack');
-    if(!menu) return;
-    // remove existing
-    var old = menu.querySelector('#themeWrap'); if(old) old.remove();
-    var ctl = makeControl();
-    ctl.classList.add('menu');
-    menu.insertBefore(ctl, menu.firstChild);
-  }
-  function mountQuiz(){
-    var right = document.querySelector('#quiz .topbar .container .header > .hstack:last-child');
-    if(!right) return;
-    var old = right.querySelector('#themeWrap'); if(old) old.remove();
-    var ctl = makeControl();
-    right.appendChild(ctl);
-  }
-  function hideLegacy(){
-    var old = document.getElementById('pillTheme'); if(old) old.style.display='none';
-    var oldInput = document.getElementById('theme'); if(oldInput){ var host = oldInput.closest('label'); if(host) host.style.display='none'; }
-  }
-  function init(){
-    hideLegacy();
-    mountMenu();
-    mountQuiz();
-    applyTheme();
-  }
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-})();
-</script>
 
 
-<script>
-// === TEST MODE FEEDBACK RESTORE PATCH ===
-(function(){
-  function patch(){
-    if(typeof window.showFeedbackThenAdvance !== 'function') return;
-    // Override to ensure feedback is visible BEFORE any auto-advance.
-    window.showFeedbackThenAdvance = function(){
-      if(typeof MODE !== 'undefined' && MODE !== 'test'){
-        // Keep original behavior for ST/exam-like modes: no instant feedback
-        // Fallback to simple record + render
-      }
-      var q = (typeof QUESTIONS!=='undefined') ? QUESTIONS[INDEX] : null;
-      if(!q) return;
-      // lock inputs
-      var inputs = document.querySelectorAll('#opts input');
-      inputs.forEach(function(inp){ inp.disabled = true; });
-      // compute correctness
-      var ok = (typeof isCorrect==='function') ? isCorrect(INDEX) : false;
-      // display feedback block
-      try{
-        var correctText = q.multi ? Array.from(q.correctSet).join(', ') : q.correct;
-        if(typeof showFb === 'function'){ showFb(ok, correctText, q.explanation, false); }
-      }catch(e){}
-      // update running score for test mode
-      try{
-        SEEN++; if(ok) COR++; if(typeof score!=='undefined') score.textContent = 'Score '+COR+'/'+SEEN;
-      }catch(e){}
-      // refresh pager colors for current item
-      try{ if(typeof rebuildPager==='function') rebuildPager(); }catch(e){}
-      // Decide on advancing
-      var advSel = document.getElementById('mAdvance');
-      var delay = advSel ? parseInt(advSel.value||'0',10)||0 : 0;
-      if(typeof MODE !== 'undefined' && MODE==='test' && delay>0){
-        setTimeout(function(){
-          if(INDEX < QUESTIONS.length-1){ INDEX++; }
-          if(typeof render==='function') render();
-        }, delay);
-      } else {
-        // Stay on current question to let the user see feedback; do not call render() here.
-      }
-    };
-  }
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', patch);
-  } else {
-    patch();
-  }
-})();
-</script>
 
 
-<script>
-// === FORCE FEEDBACK BEFORE ADVANCE (CAPTURE INTERCEPT) ===
-(function(){
-  function textOfCorrect(q){
-    try{
-      if(q.multi){ return Array.from(q.correctSet).join(', '); }
-      return q.correct;
-    }catch(e){ return ''; }
-  }
-  function lockInputs(){
-    document.querySelectorAll('#opts input').forEach(function(i){ i.disabled = true; });
-  }
-  function updateScore(ok){
-    try{
-      SEEN++; if(ok) COR++;
-      if(typeof score!=='undefined'){ score.textContent = 'Score '+COR+'/'+SEEN; }
-    }catch(e){}
-  }
-  function doAdvanceIfNeeded(){
-    var advSel = document.getElementById('mAdvance');
-    var delay = advSel ? parseInt(advSel.value||'0',10)||0 : 0;
-    if(MODE !== 'test' || delay<=0) return;  // don't auto-advance if off
-    setTimeout(function(){
-      if(INDEX < QUESTIONS.length-1){ INDEX++; }
-      if(typeof render==='function') render();
-    }, delay);
-  }
-  function handleRadioClick(ev){
-    if(!document.getElementById('opts')) return;
-    if(!window.QUESTIONS || !QUESTIONS.length) return;
-    if(typeof MODE==='undefined' || MODE!=='test') return; // only for Test mode
-    var q = QUESTIONS[INDEX];
-    if(!q || q.multi) return; // radios only for single-choice
-    // if already answered, let default flow
-    if(Array.isArray(ANS) && ANS[INDEX] !== null){ return; }
-    // prevent original handlers
-    ev.preventDefault(); ev.stopImmediatePropagation();
-    // determine index of clicked radio among options
-    var inputs = Array.from(document.querySelectorAll('#opts input[type="radio"]'));
-    var idx = inputs.indexOf(ev.target);
-    if(idx<0) return;
-    // mark selection and tick the UI
-    ANS[INDEX] = idx;
-    inputs.forEach(function(el,i){ el.checked = (i===idx); });
-    // show feedback, lock, score, maybe advance
-    try{ var ok = (typeof isCorrect==='function') ? isCorrect(INDEX) : false;
-         if(typeof showFb==='function'){ showFb(ok, textOfCorrect(q), q.explanation, false); } }catch(e){}
-    lockInputs();
-    updateScore(ok);
-    try{ if(typeof rebuildPager==='function') rebuildPager(); }catch(e){}
-    doAdvanceIfNeeded();
-    // do NOT call render() now — keep feedback visible
-  }
-  function handleConfirmClick(ev){
-    if(typeof MODE==='undefined' || MODE!=='test') return; // only adjust Test mode
-    if(!window.QUESTIONS || !QUESTIONS.length) return;
-    var q = QUESTIONS[INDEX];
-    if(!q || !q.multi) return; // only for multi-choice confirm
-    // prevent original fast-advance, we'll do it after feedback
-    ev.preventDefault(); ev.stopImmediatePropagation();
-    var checks = Array.from(document.querySelectorAll('#opts input[type="checkbox"]'));
-    var sel = checks.map((c,i)=>c.checked?i:null).filter(i=>i!==null);
-    if(sel.length===0) return; // nothing selected
-    ANS[INDEX] = sel.slice();
-    // show feedback, lock, score, maybe advance
-    try{ var ok = (typeof isCorrect==='function') ? isCorrect(INDEX) : false;
-         if(typeof showFb==='function'){ showFb(ok, textOfCorrect(q), q.explanation, false); } }catch(e){}
-    lockInputs();
-    updateScore(ok);
-    try{ if(typeof rebuildPager==='function') rebuildPager(); }catch(e){}
-    doAdvanceIfNeeded();
-  }
-  function init(){
-    // Capture phase listeners so they run BEFORE original handlers
-    document.addEventListener('click', function(ev){
-      var t = ev.target;
-      if(!(t instanceof Element)) return;
-      if(t.matches('#opts input[type="radio"]')){ handleRadioClick(ev); return; }
-      if(t.matches('#confirm')){ handleConfirmClick(ev); return; }
-    }, true);
-  }
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-})();
-</script>
 
 
-<style data-v16-inline-feedback>
-/* v1.6-style inline answer feedback */
-.opts li.correct { color: var(--ok); font-weight: 600; }
-.opts li.incorrect { color: var(--bad); }
-.opts li .tag { display:inline-block; min-width:18px; text-align:center; border:1px solid var(--border); border-radius:6px; padding:2px 6px; margin-right:6px; font-size:11px; color:var(--muted); }
-.opts li.correct .tag { border-color: var(--ok); color: var(--ok); }
-.opts li.incorrect .tag { border-color: var(--bad); color: var(--bad); }
-</style>
-
-<script>
-// === v1.6-style inline feedback coloring for Test mode ===
-(function(){
-  function markInline(q){
-    if(typeof MODE==='undefined' || MODE!=='test') return;
-    var list = document.getElementById('opts'); if(!list) return;
-    var items = Array.from(list.querySelectorAll('li'));
-    // clear previous marks
-    items.forEach(function(li){ li.classList.remove('correct','incorrect'); });
-    // Build text arrays
-    var texts = items.map(function(li){
-      var t = li.textContent || '';
-      // if we added a tag span, remove from compare
-      var tag = li.querySelector('.tag');
-      if(tag){ t = t.replace(tag.textContent,'').trim(); }
-      return t.trim();
-    });
-    if(q.multi){
-      // Selected indices
-      var sel = Array.isArray(ANS[INDEX]) ? ANS[INDEX] : [];
-      var correctSet = q.correctSet;
-      items.forEach(function(li, i){
-        var t = texts[i];
-        var isCorrect = correctSet && correctSet.has(String(t));
-        var isSelected = sel.includes(i);
-        if(isCorrect) li.classList.add('correct');
-        if(isSelected && !isCorrect) li.classList.add('incorrect');
-      });
-    } else {
-      // single choice
-      var chosen = ANS[INDEX];
-      var correctText = q.correct;
-      items.forEach(function(li, i){
-        var t = texts[i];
-        if(t === String(correctText)) li.classList.add('correct');
-        if(i === chosen && t !== String(correctText)) li.classList.add('incorrect');
-      });
-    }
-  }
-  // Hook into existing render cycle after user answers
-  var _showFeedbackThenAdvance = window.showFeedbackThenAdvance;
-  window.showFeedbackThenAdvance = function(){
-    if(!_showFeedbackThenAdvance){
-      return;
-    }
-    // Let our intercept layer (if present) set ANS first, then decorate and show feedback
-    var q = (typeof QUESTIONS!=='undefined') ? QUESTIONS[INDEX] : null;
-    if(q){
-      // Prevent immediate advance to ensure visibility when auto-advance is 0
-      // Decoration happens before calling the original for safety
-      markInline(q);
-    }
-    // Call original to handle feedback box + scoring + possible auto-advance
-    try{ _showFeedbackThenAdvance(); }catch(e){}
-    // Re-apply decoration in case original re-rendered
-    if(q){ try{ markInline(q); }catch(e){} }
-  };
-
-  // Also decorate when rendering an already-answered question
-  var _render = window.render;
-  window.render = function(){
-    var r = _render ? _render() : undefined;
-    try{
-      if(typeof MODE!=='undefined' && MODE==='test'){
-        var q = (typeof QUESTIONS!=='undefined') ? QUESTIONS[INDEX] : null;
-        if(q && (Array.isArray(ANS[INDEX]) ? ANS[INDEX].length>0 : ANS[INDEX]!==null)){
-          markInline(q);
-        }
-      }
-    }catch(e){}
-    return r;
-  };
-})();
-</script>
+<!-- Removed legacy duplicate theme-control injection from earlier builds. -->
 
 
-<script>
-/* === v1.8.6 Winds Aloft Filter === */
-(function(){
-  function n(s){ return (s||"").toString().toLowerCase(); }
-  function bad(q){
-    var t="refer to the winds aloft data";
-    var hay=[n(q&&q.question),n(q&&q.explanation),n(q&&q.text),n(q&&q.title)].join(" ");
-    return hay.indexOf(t)!==-1;
-  }
-  function filter(){
-    if(!window.RAW || window.__windsAloftFiltered) return false;
-    var removed=0; Object.keys(window.RAW||{}).forEach(function(sub){
-      var arr = Array.isArray(window.RAW[sub])?window.RAW[sub]:[];
-      var kept = arr.filter(function(q){ return !bad(q); });
-      removed += (arr.length - kept.length);
-      window.RAW[sub]=kept;
-    });
-    window.__windsAloftFiltered=true;
-    try{ if(typeof refreshSubjectLabels==="function") refreshSubjectLabels();
-         if(typeof updateSubjectInfo==="function") updateSubjectInfo(); }catch(e){}
-    console.log("[ATPL QB] Winds Aloft filter removed", removed, "questions.");
-    return true;
-  }
-  var tries=0; function tick(){ tries++; var did=filter(); if(!did&&tries<50) setTimeout(tick,100); }
-  if(document.readyState==="loading"){ document.addEventListener("DOMContentLoaded", tick); } else { tick(); }
-})();
-</script>
 
 
-<script>
-/* === v1.8.6-ST Patch: Keep answers editable in non-Test modes === */
-(function(){
-  function isNonTest(){ try { return (typeof MODE==='undefined') || (MODE !== 'test'); } catch(e){ return true; } }
-  // 1) Wrap lockInputs so it only locks in Test mode
-  try{
-    var _lockInputs = window.lockInputs;
-    window.lockInputs = function(){
-      if (!isNonTest()) { if (typeof _lockInputs === 'function') _lockInputs(); }
-      // else: no-op in ST/Exam
-    };
-  }catch(e){}
-  // 2) Prevent per-selection scoring in non-Test modes by wrapping updateScore
-  try{
-    var _updateScore = window.updateScore;
-    window.updateScore = function(ok){
-      if (!isNonTest()) { if (typeof _updateScore === 'function') _updateScore(ok); }
-      // else: no-op; final scoring happens in finish()
-    };
-  }catch(e){}
-  // 3) After every render, make sure inputs are enabled in non-Test modes
-  function enableInputsIfNeeded(){
-    if (!isNonTest()) return;
-    try{
-      document.querySelectorAll('#qOptions input').forEach(function(inp){
-        inp.disabled = false;
-      });
-      var btn = document.getElementById('qConfirm');
-      if (btn) btn.disabled = false;
-    }catch(e){}
-  }
-  // Try to patch render() to call our enabler
-  try{
-    var _render = window.render;
-    window.render = function(){
-      var r = (typeof _render === 'function') ? _render.apply(this, arguments) : undefined;
-      enableInputsIfNeeded();
-      return r;
-    };
-  }catch(e){}
-  // Also observe DOM changes in case render isn't global
-  var mo = new MutationObserver(function(){ enableInputsIfNeeded(); });
-  mo.observe(document.documentElement, { subtree:true, childList:true, attributes:true, attributeFilter:['disabled'] });
-  // Kick once after load
-  if (document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', enableInputsIfNeeded);
-  } else { enableInputsIfNeeded(); }
-})();
-</script>
 
 
-<script>
-/* === v1.8.7: Live score badge (Test mode) between qTimer and qProgress === */
-(function(){
-  function ensureBadge(){
-    try{
-      var badge = document.getElementById('qLiveBadge');
-      if(!badge){
-        badge = document.createElement('span');
-        badge.id = 'qLiveBadge';
-        badge.className = 'badge';
-        badge.setAttribute('aria-live', 'polite');
-        var tim = document.getElementById('qTimer');
-        if (tim && tim.parentNode){
-          if (tim.nextSibling) tim.parentNode.insertBefore(badge, tim.nextSibling);
-          else tim.parentNode.appendChild(badge);
-        } else {
-          (document.querySelector('.topbar .header .hstack') || document.body).appendChild(badge);
-        }
-      }
-      return badge;
-    }catch(e){ return null; }
-  }
-  function setModeClass(){
-    try{
-      var root = document.documentElement;
-      var classes = (root.className||'').split(' ').filter(function(c){ return !/^mode-/.test(c); });
-      var mode = (typeof MODE==='undefined') ? 'unknown' : (MODE === 'test' ? 'test' : (MODE==='st'?'st':'exam'));
-      classes.push('mode-'+mode);
-      root.className = classes.join(' ').trim();
-    }catch(e){}
-  }
-  function updateBadge(){
-    setModeClass();
-    var badge = ensureBadge();
-    if(!badge) return;
-    try{
-      if (typeof MODE!=='undefined' && MODE==='test'){
-        var corr = (typeof SCORE_CORRECT!=='undefined') ? SCORE_CORRECT : 0;
-        var seen = (typeof QUESTIONS_ANSWERED!=='undefined') ? QUESTIONS_ANSWERED : 0;
-        var pct = seen>0 ? Math.round((corr/seen)*100) : 0;
-        badge.textContent = pct + '%  (' + corr + '/' + seen + ')';
-      } else {
-        badge.textContent = '';
-      }
-    }catch(e){}
-  }
-  // Hook render and updateScore
-  try{
-    var _render = window.render;
-    if (typeof _render === 'function'){
-      window.render = function(){
-        var r = _render.apply(this, arguments);
-        updateBadge();
-        return r;
-      };
-    }
-  }catch(e){}
-  try{
-    var _updateScore = window.updateScore;
-    window.updateScore = function(ok){
-      var r = (typeof _updateScore === 'function') ? _updateScore.apply(this, arguments) : undefined;
-      updateBadge();
-      return r;
-    };
-  }catch(e){}
-  // Safety tick
-  setInterval(updateBadge, 500);
-  // First run
-  if (document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', updateBadge);
-  } else { updateBadge(); }
-})();
-</script>
 
 
-      <script>
-/* === v1.8.8: Main-menu Search across all subjects === */
-(function(){
-  window.__SEARCH = window.__SEARCH || {}; const S = window.__SEARCH = {
-    db: [],          // flat [{subject, idx, text, options, correctSet, correctText, multi, explanation}]
-    built: false,
-    lastQuery: '',
-    tokens: [],
-    timer: null
-  };
-
-  function norm(s){ return (s||'').toString().toLowerCase().normalize('NFKD'); }
-
-  // Mirror the normalizer used in quiz so options/correct are consistent (incl. letter fallback)
-  function normalizeForSearch(q){
-    let options = [];
-    const rawOptions = q.options || q.choices || q.answers || q.alternatives || [];
-    const correctTexts = [];
-    if (Array.isArray(rawOptions) && rawOptions.length){
-      if (typeof rawOptions[0] === 'object' && rawOptions[0] !== null){
-        rawOptions.forEach(o => {
-          const text = o.text != null ? String(o.text) : String(o.label || o.value || '');
-          options.push(text);
-          if (o.correct === true || o.isCorrect === true) correctTexts.push(text);
-        });
-      } else {
-        options = rawOptions.map(o => String(o));
-        let corr = (q.answer !== undefined) ? q.answer : (q.correct_answers || q.correct_answer);
-        if (Array.isArray(corr)){
-          corr.forEach(c => {
-            if (typeof c === 'number' && options[c] != null) correctTexts.push(String(options[c]));
-            else if (typeof c === 'string' && /^[A-Za-z]$/.test(c)) {
-              const idx = c.toUpperCase().charCodeAt(0) - 65;
-              if (options[idx] != null) correctTexts.push(String(options[idx]));
-              else correctTexts.push(String(c)); // letter-as-text fallback
-            } else if (c != null) { correctTexts.push(String(c)); }
-          });
-        } else {
-          if (typeof corr === 'number' && options[corr] != null) correctTexts.push(String(options[corr]));
-          else if (typeof corr === 'string' && /^[A-Za-z]$/.test(corr)) {
-            const idx = corr.toUpperCase().charCodeAt(0) - 65;
-            if (options[idx] != null) correctTexts.push(String(options[idx]));
-            else correctTexts.push(String(corr)); // letter-as-text fallback
-          } else if (corr != null) { correctTexts.push(String(corr)); }
-        }
-      }
-    }
-    const correctSet = new Set(correctTexts.map(String));
-    return {
-      text: String(q.text || q.question || ''),
-      options,
-      correctSet,
-      multi: correctSet.size > 1,
-      explanation: q.explanation || null
-    };
-  }
-
-  function buildDB(){
-    if (!window.RAW || S.built) return;
-    S.db = [];
-    Object.keys(RAW).forEach(subject => {
-      const arr = Array.isArray(RAW[subject]) ? RAW[subject] : [];
-      arr.forEach((q, i) => {
-        const n = normalizeForSearch(q);
-        const rec = {
-          subject,
-          idx: i,
-          text: n.text,
-          options: n.options,
-          correctSet: n.correctSet,
-          multi: n.multi,
-          explanation: n.explanation,
-          _normText: norm(n.text)
-        };
-        S.db.push(rec);
-      });
-    });
-    S.built = true; try{ window.__SEARCH = S; window.__SEARCH.buildDB = buildDB; }catch(e){}
-    try { populateSubjectFilter(); } catch(e){}
-  }
-
-  function populateSubjectFilter(){
-    try{
-      const sel = document.getElementById('mSearchSubject');
-      if(!sel) return;
-      const current = sel.value;
-      const subs = Object.keys(RAW||{});
-      sel.innerHTML = '<option value="">All</option>' + subs.map(s => '<option value="'+s+'">'+s+'</option>').join('');
-      if (current && subs.includes(current)) sel.value = current;
-    }catch(e){}
-  }
-
-  function match(rec, tokens, subj){
-    if (subj && rec.subject !== subj) return false;
-    return tokens.every(t => rec._normText.indexOf(t) !== -1);
-  }
-
-  function doSearch(){
-    const input = document.getElementById('mSearchInput');
-    const list = document.getElementById('mSearchResults');
-    const count = document.getElementById('mSearchCount');
-    const subjSel = document.getElementById('mSearchSubject');
-    if(!input || !list) return;
-    const q = input.value.trim();
-    if(!S.built){ setCount && setCount(0); list.innerHTML=''; return; } if(q.length < 2){
-      list.innerHTML = '';
-      if(count) count.textContent = '0';
-      return;
-    }
-    const subj = subjSel ? (subjSel.value || '') : '';
-    const tokens = q.split(/\s+/).map(norm).filter(Boolean);
-    const results = [];
-    for (let i=0;i<S.db.length;i++){
-      const rec = S.db[i];
-      if (match(rec, tokens, subj)) results.push(rec);
-      if (results.length > 300) break; // cap
-    }
-    if(count) count.textContent = String(results.length);
-    list.innerHTML = results.map((r,idx)=>{
-      const snip = r.text.length>160 ? r.text.slice(0,160)+'…' : r.text;
-      return '<li data-i="'+idx+'" class="res">'+
-             '<div><strong>'+r.subject+'</strong> <span class="small">#'+r.idx+'</span></div>'+
-             '<div class="small">'+snip+'</div>'+
-             '</li>';
-    }).join('');
-    // store last results for click handler mapping
-    S._last = results;
-  }
-
-  function showDetail(rec){
-    const box = document.getElementById('mSearchDetail');
-    if(!box || !rec) return;
-    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-    const opts = (rec.options||[]).map((opt,i)=>{
-      const isCorrect = rec.correctSet && rec.correctSet.has(opt);
-      return '<div class="option '+(isCorrect?'correct':'')+'"><div><strong>'+letters[i]+'.</strong></div><div>'+String(opt)+'</div></div>';
-    }).join('');
-    box.innerHTML = (
-      '<div class="small" style="opacity:.7;margin-bottom:6px">'
-      + '<strong>'+rec.subject+'</strong> • Question #'+rec.idx+
-      (rec.multi? ' • <span class="badge">Multi</span>' : '') +
-      '</div>' +
-      '<div style="margin-bottom:8px">'+rec.text+'</div>' +
-      (opts ? '<div class="vstack" style="gap:6px">'+opts+'</div>' : '<div class="small" style="opacity:.7">No options available</div>') +
-      (rec.explanation ? '<div class="small" style="opacity:.7;margin-top:8px"><em>'+rec.explanation+'</em></div>' : '')
-    );
-  }
-
-  function onResultClick(e){
-    const li = e.target.closest('li.res');
-    if(!li || !S._last) return;
-    const idx = parseInt(li.getAttribute('data-i'),10);
-    const rec = S._last[idx];
-    showDetail(rec);
-  }
-
-  function hookEvents(){
-    const input = document.getElementById('mSearchInput');
-    const list = document.getElementById('mSearchResults');
-    const subj = document.getElementById('mSearchSubject');
-    if(input){
-      input.addEventListener('input', ()=>{
-        if (S.timer) clearTimeout(S.timer);
-        S.timer = setTimeout(doSearch, 200);
-      });
-    }
-    if(list){
-      list.addEventListener('click', onResultClick);
-    }
-    if(subj){
-      subj.addEventListener('change', doSearch);
-    }
-  }
-
-  function init(){
-    hookEvents();
-    // build db after RAW (and winds filter) are ready
-    let tries = 0;
-    function tick(){
-      tries++;
-      if (window.RAW && !S.built){
-        buildDB();
-      }
-      if (tries < 300 && !S.built){
-        setTimeout(tick, 120);
-      }
-    }
-    if(document.readyState === 'loading'){
-      document.addEventListener('DOMContentLoaded', tick);
-    } else {
-      tick();
-    }
-  }
-
-  init();
-})();
-</script>
 
 
-<script>
-/* === v1.8.8.1: Search status & readiness === */
-(function(){
-  function setStatus(text){
-    var el = document.getElementById('mSearchStatus');
-    if(el) el.innerHTML = text;
-  }
-  function setCount(n){
-    var count = document.getElementById('mSearchCount');
-    if(count) count.textContent = String(n||0);
-  }
-  function subjectsCount(){
-    try { return Object.keys(window.RAW||{}).length; } catch(e){ return 0; }
-  }
-  // Wire into existing search module if present
-  function enhance(){
-    if(!window.__SEARCH_ENHANCED && window.RAW){
-      window.__SEARCH_ENHANCED = true;
-    }
-  }
-  // Periodic status updater
-  function tick(){
-    try{
-      var built = !!(window.__SEARCH && window.__SEARCH.built);
-      var n = built ? (window.__SEARCH.db ? window.__SEARCH.db.length : 0) : 0;
-      var subs = subjectsCount();
-      if(!window.RAW){
-        setStatus('Status: <strong>waiting for questions…</strong>');
-      } else if(!built){
-        setStatus('Status: <strong>building index…</strong> ('+subs+' subjects)');
-      } else {
-        setStatus('Status: <strong>ready</strong> — '+n+' questions across '+subs+' subjects');
-      }
-    }catch(e){}
-  }
-  setInterval(tick, 500);
-  document.addEventListener('DOMContentLoaded', tick);
-})();
-</script>
 
 
-<script>
-/* === v1.8.8.3: force build and fallback === */
-(function(){
-  function norm(s){ return (s||'').toString().toLowerCase().normalize('NFKD'); }
-  function setStatus(text){
-    var el = document.getElementById('mSearchStatus');
-    if(el) el.innerHTML = text;
-  }
-  function setCount(n){
-    var count = document.getElementById('mSearchCount');
-    if(count) count.textContent = String(n||0);
-  }
-  function showDetailFallback(rec){
-    var box = document.getElementById('mSearchDetail');
-    if(!box || !rec) return;
-    var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-    var opts = (rec.options||[]).map((opt,i)=>{
-      var isCorrect = rec.correctSet && rec.correctSet.has(opt);
-      return '<div class="option '+(isCorrect?'correct':'')+'"><div><strong>'+letters[i]+'.</strong></div><div>'+String(opt)+'</div></div>';
-    }).join('');
-    box.innerHTML = (
-      '<div class="small" style="opacity:.7;margin-bottom:6px">'
-      + '<strong>'+rec.subject+'</strong> • Question #'+rec.idx+
-      (rec.multi? ' • <span class="badge">Multi</span>' : '') +
-      '</div>' +
-      '<div style="margin-bottom:8px">'+rec.text+'</div>' +
-      (opts ? '<div class="vstack" style="gap:6px">'+opts+'</div>' : '<div class="small" style="opacity:.7">No options available</div>') +
-      (rec.explanation ? '<div class="small" style="opacity:.7;margin-top:8px"><em>'+rec.explanation+'</em></div>' : '')
-    );
-  }
-  async function simpleSearch(query, subject){
-    try{
-      let data = window.__SEARCH_FALLBACK_JSON;
-      if(!data){
-        const subjects = await fetchJsonWithFallback(['subjects.json','./subjects.json']);
-        const entries = await Promise.all(subjects.map(async (entry) => {
-          const file = String(entry.file || '').replace(/^\.\//,'');
-          const arr = await fetchJsonWithFallback([file, './'+file]);
-          return [entry.name, arr];
-        }));
-        data = Object.fromEntries(entries);
-        window.__SEARCH_FALLBACK_JSON = data;
-      }
 
-      const tokens = query.split(/\s+/).map(norm).filter(Boolean);
-      const results = [];
 
-      for (const subj of Object.keys(data||{})){
-        if(subject && subj !== subject) continue;
-        const arr = Array.isArray(data[subj]) ? data[subj] : [];
 
-        for (let i=0; i<arr.length; i++){
-          const q = arr[i];
-          const text = String(q.text || q.question || '');
-          const hay = norm(text);
 
-          if(tokens.every(t => hay.indexOf(t)!==-1)){
-            const rawOptions = q.options || q.choices || q.answers || q.alternatives || [];
-            let options = Array.isArray(rawOptions)
-              ? rawOptions.map(o => (typeof o==='object' && o ? (o.text || o.label || o.value || '') : String(o)))
-              : [];
 
-            let correctTexts = [];
-            let corr = (q.answer !== undefined) ? q.answer : (q.correct_answers || q.correct_answer);
 
-            if (Array.isArray(corr)){
-              corr.forEach(c => {
-                if (typeof c==='number' && options[c]!=null) correctTexts.push(String(options[c]));
-                else if (typeof c==='string' && /^[A-Za-z]$/.test(c)){
-                  const idx = c.toUpperCase().charCodeAt(0) - 65;
-                  if (options[idx] != null) correctTexts.push(String(options[idx]));
-                  else correctTexts.push(String(c));
-                } else if (c != null) {
-                  correctTexts.push(String(c));
-                }
-              });
-            } else if (corr != null) {
-              if (typeof corr==='number' && options[corr]!=null) correctTexts.push(String(options[corr]));
-              else if (typeof corr==='string' && /^[A-Za-z]$/.test(corr)){
-                const idx = corr.toUpperCase().charCodeAt(0) - 65;
-                if (options[idx] != null) correctTexts.push(String(options[idx]));
-                else correctTexts.push(String(corr));
-              } else {
-                correctTexts.push(String(corr));
-              }
-            }
 
-            const rec = {
-              subject: subj,
-              idx: i,
-              text,
-              options,
-              correctSet: new Set(correctTexts),
-              multi: (correctTexts.length > 1),
-              explanation: q.explanation || null
-            };
 
-            results.push(rec);
-            if (results.length > 300) break;
-          }
-        }
 
-        if (results.length > 300) break;
-      }
+      
 
-      const list = document.getElementById('mSearchResults');
-      if(list){
-        list.innerHTML = results.map((r,idx)=>{
-          const snip = r.text.length>160 ? r.text.slice(0,160)+'…' : r.text;
-          return '<li data-i="'+idx+'" class="res">'+
-                 '<div><strong>'+r.subject+'</strong> <span class="small">#'+r.idx+'</span></div>'+
-                 '<div class="small">'+snip+'</div>'+
-                 '</li>';
-        }).join('');
-        setCount(results.length);
-        list.onclick = (e)=>{
-          const li = e.target.closest('li.res'); if(!li) return;
-          const i = parseInt(li.getAttribute('data-i'),10);
-          showDetailFallback(results[i]);
-        };
-      }
-      setStatus('Status: <strong>simple search</strong> — scanning modular subject files directly');
-    }catch(err){
-      setStatus('Status: error in simple search: '+String(err));
-    }
-  }
-  function wireButton(){
-    var btn = document.getElementById('mSearchBuild');
-    if(btn){
-      btn.addEventListener('click', async function(){
-        setStatus('Status: <strong>building index (manual)…</strong>');
-        try{
-          if (!window.RAW){
-            const subjects = await fetchJsonWithFallback(['subjects.json','./subjects.json']);
-            const entries = await Promise.all(subjects.map(async (entry) => {
-              const file = String(entry.file || '').replace(/^\.\//,'');
-              const arr = await fetchJsonWithFallback([file, './'+file]);
-              return [entry.name, arr];
-            }));
-            window.RAW = Object.fromEntries(entries);
-          }
-          if (window.__SEARCH && typeof window.__SEARCH.buildDB==='function'){
-            window.__SEARCH.buildDB();
-            setStatus('Status: <strong>ready</strong> — '+(window.__SEARCH.db?window.__SEARCH.db.length:0)+' questions');
-          } else {
-            setStatus('Status: <strong>no indexer</strong> — using simple search');
-          }
-        }catch(e){
-          setStatus('Status: <strong>build failed</strong> — using simple search');
-        }
-      });
-    }
-    // Fallback on typing if index isn't built
-    var input = document.getElementById('mSearchInput');
-    var subj = document.getElementById('mSearchSubject');
-    function maybeFallback(){
-      var q = (input && input.value || '').trim();
-      if ((!window.__SEARCH || !window.__SEARCH.built) && q.length>=2){
-        simpleSearch(q, subj?subj.value:'');
-      }
-    }
-    if(input){ input.addEventListener('input', maybeFallback); }
-    if(subj){ subj.addEventListener('change', maybeFallback); }
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', wireButton); else wireButton();
-})();
-</script>
+
+
+
+
+
 
 <div id="searchPage" style="display:none">
   <div class="container">
@@ -1966,6 +811,110 @@ document.addEventListener('keydown',(e)=>{
 </div>
 
 
+
+<script id="clean-build-utilities">
+(function(){
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s ?? '').replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+  function applyTheme(){
+    const light = localStorage.getItem('light') === '1';
+    document.body.classList.toggle('light', light);
+    document.querySelectorAll('[data-theme-button]').forEach(btn => {
+      btn.textContent = light ? '☀️' : '🌙';
+      btn.title = light ? 'Switch to dark mode' : 'Switch to light mode';
+    });
+  }
+  function makeThemeControl(){
+    const wrap = document.createElement('div');
+    wrap.className = 'theme-wrap';
+    wrap.innerHTML = '<span class="theme-label">Theme</span><button class="theme-btn" type="button" data-theme-button>🌙</button>';
+    wrap.querySelector('button').addEventListener('click', () => {
+      localStorage.setItem('light', localStorage.getItem('light') === '1' ? '0' : '1');
+      applyTheme();
+    });
+    return wrap;
+  }
+  function installThemeControls(){
+    const menuRight = document.querySelector('#menuHeaderBar > .hstack:last-child');
+    if(menuRight && !menuRight.querySelector('[data-theme-button]')) menuRight.appendChild(makeThemeControl());
+    const quizRight = document.querySelector('#quiz .header > .hstack:last-child');
+    if(quizRight && !quizRight.querySelector('[data-theme-button]')) quizRight.appendChild(makeThemeControl());
+    applyTheme();
+  }
+
+  function normalizeQuestion(q){
+    const rawOptions = q.options || q.choices || q.answers || q.alternatives || [];
+    let options = [];
+    let correctTexts = [];
+    if(Array.isArray(rawOptions)){
+      if(rawOptions[0] && typeof rawOptions[0] === 'object'){
+        options = rawOptions.map(o => String(o.text ?? o.label ?? o.value ?? ''));
+        rawOptions.forEach((o, i) => { if(o.correct === true || o.isCorrect === true) correctTexts.push(options[i]); });
+      } else {
+        options = rawOptions.map(String);
+      }
+    }
+    if(!correctTexts.length){
+      const corr = q.answer !== undefined ? q.answer : (q.correct_answers || q.correct_answer);
+      const add = c => {
+        if(typeof c === 'number' && options[c] != null) correctTexts.push(options[c]);
+        else if(typeof c === 'string' && /^[A-Za-z]$/.test(c)){
+          const idx = c.toUpperCase().charCodeAt(0) - 65;
+          correctTexts.push(options[idx] ?? c);
+        } else if(c != null) correctTexts.push(String(c));
+      };
+      Array.isArray(corr) ? corr.forEach(add) : add(corr);
+    }
+    return { text:String(q.text || q.question || ''), options, correctSet:new Set(correctTexts.map(String)), explanation:q.explanation || '' };
+  }
+  function buildSearch(){
+    const raw = window.ATPL_RAW || {};
+    const db = [];
+    Object.keys(raw).forEach(subject => {
+      (Array.isArray(raw[subject]) ? raw[subject] : []).forEach((q, idx) => db.push({subject, idx, ...normalizeQuestion(q)}));
+    });
+    window.__ATPL_SEARCH_DB = db;
+    const subj = $('mSearchSubject');
+    if(subj){
+      const current = subj.value;
+      subj.innerHTML = '<option value="">All</option>' + Object.keys(raw).map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join('');
+      subj.value = current;
+    }
+    const st = $('mSearchStatus');
+    if(st) st.innerHTML = `Status: <strong>ready</strong> — ${db.length} questions indexed`;
+  }
+  function renderSearch(){
+    const input = $('mSearchInput');
+    const list = $('mSearchResults');
+    const count = $('mSearchCount');
+    const subject = $('mSearchSubject')?.value || '';
+    if(!input || !list) return;
+    const tokens = input.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+    const db = window.__ATPL_SEARCH_DB || [];
+    const results = tokens.length ? db.filter(r => (!subject || r.subject === subject) && tokens.every(t => (r.text+' '+r.options.join(' ')).toLowerCase().includes(t))).slice(0,200) : [];
+    if(count) count.textContent = results.length;
+    list.innerHTML = results.map((r,i)=>`<li data-i="${i}"><div><strong>${esc(r.subject)}</strong> <span class="small">#${r.idx+1}</span></div><div class="small">${esc(r.text.slice(0,180))}${r.text.length>180?'…':''}</div></li>`).join('');
+    list.onclick = e => {
+      const li = e.target.closest('li[data-i]'); if(!li) return;
+      const r = results[Number(li.dataset.i)];
+      const opts = r.options.map((o,i)=>`<div class="option ${r.correctSet.has(String(o))?'correct':''}"><strong>${String.fromCharCode(65+i)}.</strong><span>${esc(o)}</span></div>`).join('');
+      $('mSearchDetail').innerHTML = `<div class="small" style="opacity:.7;margin-bottom:6px"><strong>${esc(r.subject)}</strong> • Question #${r.idx+1}</div><div style="margin-bottom:8px">${esc(r.text)}</div><div class="vstack" style="gap:6px">${opts}</div>${r.explanation?`<div class="small" style="opacity:.7;margin-top:8px"><em>${esc(r.explanation)}</em></div>`:''}`;
+    };
+  }
+  function initSearch(){
+    buildSearch();
+    $('mSearchInput')?.addEventListener('input', renderSearch);
+    $('mSearchSubject')?.addEventListener('change', renderSearch);
+    $('mSearchBuild')?.addEventListener('click', () => { buildSearch(); renderSearch(); });
+  }
+  function boot(){ installThemeControls(); initSearch(); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+  window.addEventListener('load', () => setTimeout(initSearch, 250));
+  window.addEventListener('atpl-raw-loaded', () => setTimeout(initSearch, 0));
+})();
+</script>
+
 <script>
 (function(){
   function $(id){ return document.getElementById(id); }
@@ -1990,35 +939,6 @@ document.addEventListener('keydown',(e)=>{
 </script>
 
 
-<script>
-// v1.8.8.12b: Hide specific main-menu footer notes without altering layout
-(function(){
-  function hideIfMatches(el){
-    if(!el) return false;
-    var t = (el.textContent||'').trim();
-    var targets = [
-      '• Codes like ALW',            // "• Codes like ALW/OPR/HPL... and ASP resolve..."
-      '• Finish enabled only when'   // "• Finish enabled only when all questions are answered."
-    ];
-    for (var i=0;i<targets.length;i++){
-      if (t.indexOf(targets[i]) === 0){ el.style.display='none'; return true; }
-    }
-    return false;
-  }
-  function run(){
-    var menu = document.getElementById('menu'); if(!menu) return;
-    var smalls = menu.querySelectorAll('.small');
-    var hidden = 0;
-    smalls.forEach(function(s){ if (hideIfMatches(s)) hidden++; });
-    // Keep a little breathing space if we hid something
-    if (hidden > 0){
-      var spacer = document.createElement('div');
-      spacer.style.height = '10px';
-      menu.appendChild(spacer);
-    }
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
-})();
-</script>
+
 
 </body>
