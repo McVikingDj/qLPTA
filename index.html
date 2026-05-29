@@ -126,6 +126,35 @@
 }
 </style>
 
+
+<style id="scrollbar-style-v2311">
+/* Minimal modern scrollbar */
+#changelogScroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+#changelogScroll::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.03);
+  border-radius: 999px;
+}
+
+#changelogScroll::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.18);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+#changelogScroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.30);
+}
+
+#changelogScroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.18) rgba(255,255,255,0.03);
+}
+</style>
+
 </head>
 <body>
 <!-- LOGIN -->
@@ -148,7 +177,7 @@
 <div id="menuHeaderBar" class="hstack" style="justify-content:space-between;align-items:center;gap:12px; margin-bottom:8px;">
   <div id="menuTitleBlock" class="vstack">
     <h1 style="margin:0">ATPL Question Bank</h1>
-    <div class="small">Version <strong>v2.3.10</strong></div>
+    <div class="small">Version <strong>v2.3.11</strong></div>
   </div>
   <div class="hstack" style="justify-content:flex-end;">
     <a id="goSearch" class="button" href="search.html" style="text-decoration:none">🔎 Search for a question</a>
