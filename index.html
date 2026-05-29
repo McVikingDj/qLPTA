@@ -9,24 +9,8 @@
   #qRemaining {
     display: none !important;
   }
-
-/* v2.3.3: fixed-height scrollable changelog */
-#changelog,
-#changeLog,
-#changelogList,
-#changeLogList,
-.changelog,
-.changelog-card,
-.changelog-box,
-.changelog-list {
-  max-height: 250px !important;
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-  padding-right: 6px;
-  scrollbar-gutter: stable;
-}
-
 </style>
+
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -112,17 +96,6 @@
 </style>
 
 
-<style id="changelog-fullheight">
-  /* Make the changelog list fill the card and reach the bottom edge */
-  #changelogCard { display: flex; flex-direction: column; height: 100%; }
-  #changelogCard #changelogList {
-    flex: 1 1 auto;
-    max-height: none !important;  /* override earlier cap */
-    min-height: 0;
-    /* pull the list bottom to the card's inner edge (assumes ~12px card padding) */
-    margin-bottom: -12px !important;
-  }
-</style>
 
 
 <style id="clean-build-styles">
@@ -132,6 +105,39 @@
   body.light{--bg:#f5f7fb;--bg-soft:#ffffff;--card:#ffffff;--text:#111827;--muted:#6b7280;--border:#d1d5db;--qbox-bg:#e9f6fb;color:var(--text);background:var(--bg)}
   .option-list li{cursor:pointer}
 </style>
+
+<style id="changelog-equal-height-v235">
+/* v2.3.5: match changelog card height to setup card and scroll entries inside */
+#menu .grid.grid-2 {
+  align-items: stretch !important;
+}
+
+#menu .grid.grid-2 > section.card {
+  height: 100%;
+}
+
+#changelogCard {
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  max-height: none !important;
+}
+
+#changelogCard #changelogList {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  scrollbar-width: thin;
+}
+
+#changelogCard #changelogList::-webkit-scrollbar {
+  width: 8px;
+}
+</style>
+
 </head>
 <body>
 <!-- LOGIN -->
@@ -154,7 +160,7 @@
 <div id="menuHeaderBar" class="hstack" style="justify-content:space-between;align-items:center;gap:12px; margin-bottom:8px;">
   <div id="menuTitleBlock" class="vstack">
     <h1 style="margin:0">ATPL Question Bank</h1>
-    <div class="small">Version <strong>v2.3.3-themefix</strong></div>
+    <div class="small">Version <strong>v2.3.5</strong></div>
   </div>
   <div class="hstack" style="justify-content:flex-end;">
     <button id="goSearch" class="button">🔎 Search for a question</button>
@@ -189,7 +195,7 @@
     <h3 style="margin:0">Changelog</h3>
     <span class="small" id="clStatus" style="opacity:.7">Loading…</span>
   </div>
-  <div id="changelogList" class="vstack" style="gap:10px; max-height:420px; overflow:auto; margin-top:8px"></div>
+  <div id="changelogList" class="vstack" style="gap:10px; margin-top:8px; padding-right:6px; scrollbar-gutter:stable;"></div>
 </section>
 <script>
 // v1.8.8.11: Load changelog from external JSON file
