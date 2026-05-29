@@ -1,7 +1,23 @@
 {
   "entries": [
     {
-      "version": "v2.3.1-clean",
+      "version": "v2.4",
+      "date": "2026-05-29",
+      "title": "Framework Update",
+      "changes": [
+        "Refactored and cleaned legacy code throughout the application.",
+        "Improved overall project structure and maintainability.",
+        "Moved Question Search to a dedicated search page.",
+        "Completely redesigned the Search interface.",
+        "Redesigned Search and Navigation buttons.",
+        "Added a scrollable changelog panel with custom styling.",
+        "Improved layout consistency across the application.",
+        "Fixed duplicate theme controls and UI inconsistencies.",
+        "Enhanced framework readiness for future features and pages."
+      ]
+    },
+    {
+      "version": "v2.3.5",
       "date": "2026-05-29",
       "title": "Cleanup build",
       "changes": [
