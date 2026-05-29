@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "v2.5",
+      "date": "2026-05-30",
+      "title": "Local Statistics",
+      "changes": [
+        "Added a dedicated Statistics page.",
+        "Completed test sessions now save locally in the browser.",
+        "Added overall averages, subject performance, recent attempts, and study time.",
+        "Added export, import, and clear controls for local statistics.",
+        "Added a Statistics button to the main menu."
+      ]
+    },
+    {
       "version": "v2.4",
       "date": "2026-05-29",
       "title": "Framework Update",
