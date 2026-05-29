@@ -160,10 +160,10 @@
 <div id="menuHeaderBar" class="hstack" style="justify-content:space-between;align-items:center;gap:12px; margin-bottom:8px;">
   <div id="menuTitleBlock" class="vstack">
     <h1 style="margin:0">ATPL Question Bank</h1>
-    <div class="small">Version <strong>v2.3.5</strong></div>
+    <div class="small">Version <strong>v2.3.6</strong></div>
   </div>
   <div class="hstack" style="justify-content:flex-end;">
-    <button id="goSearch" class="button">🔎 Search for a question</button>
+    <button id="goSearch" class="button" type="button" onclick="window.location.href=\'search.html\'">🔎 Search for a question</button>
   </div>
 </div>
 
@@ -780,49 +780,14 @@ document.addEventListener('keydown',(e)=>{
 
 
 
-<div id="searchPage" style="display:none">
-  <div class="container">
-    <section class="card vstack">
-      <div class="hstack" style="justify-content:space-between;align-items:center">
-        <h3 style="margin:0">Search</h3>
-        <button id="backToMenu" class="button">← Back to main menu</button>
-      </div>
-    </section>
-    <section class="card vstack" id="searchCard" style="margin-top:12px">
-        <h3 style="margin:0">Search</h3>
-        <div class="small" style="opacity:.8">Find questions across all subjects. Click a result to see options and the correct answer.</div>
-        <input id="mSearchInput" class="input" type="text" placeholder="Type to search… (min. 2 letters)" style="margin-top:8px" />
-        <div class="hstack" style="margin-top:8px;gap:8px">
-          <div class="badge">Matches: <span id="mSearchCount">0</span></div>
-        <div class="small" id="mSearchStatus" style="opacity:.75;margin-top:6px">
-          Status: <em>initializing…</em>
-        </div>
-    
-          <div class="badge">Subject filter: <select id="mSearchSubject"><option value="">All</option></select></div>
-        </div>
-        <div class="grid grid-2" style="margin-top:10px;gap:12px">
-          <div>
-            <div class="small" style="opacity:.7;margin-bottom:4px">Results</div>
-            <ul id="mSearchResults" class="vstack" style="max-height:340px;overflow:auto;gap:6px"></ul>
-          </div>
-          <div>
-            <div class="small" style="opacity:.7;margin-bottom:4px">Details</div>
-            <div id="mSearchDetail" class="vstack" style="min-height:220px;padding:10px;border-radius:10px;background:rgba(255,255,255,.03)">
-              <div class="small" style="opacity:.6">Select a question to see options and the correct answer.</div>
-            </div>
-          </div>
-        </div>
-      </section>
-  </div>
-</div>
+
+<!-- Search moved to search.html in v2.3.6 -->
+
 
 
 
 <script id="clean-build-utilities">
 (function(){
-  const $ = id => document.getElementById(id);
-  const esc = s => String(s ?? '').replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
-
   function applyTheme(){
     const light = localStorage.getItem('light') === '1';
     document.body.classList.toggle('light', light);
@@ -831,6 +796,7 @@ document.addEventListener('keydown',(e)=>{
       btn.title = light ? 'Switch to dark mode' : 'Switch to light mode';
     });
   }
+
   function makeThemeControl(){
     const wrap = document.createElement('div');
     wrap.className = 'theme-wrap';
@@ -841,106 +807,22 @@ document.addEventListener('keydown',(e)=>{
     });
     return wrap;
   }
+
   function installThemeControls(){
     const menuRight = document.querySelector('#menuHeaderBar > .hstack:last-child');
     if(menuRight && !menuRight.querySelector('[data-theme-button]')) menuRight.appendChild(makeThemeControl());
+
     const quizRight = document.querySelector('#quiz .header > .hstack:last-child');
     if(quizRight && !quizRight.querySelector('[data-theme-button]')) quizRight.appendChild(makeThemeControl());
+
     applyTheme();
   }
 
-  function normalizeQuestion(q){
-    const rawOptions = q.options || q.choices || q.answers || q.alternatives || [];
-    let options = [];
-    let correctTexts = [];
-    if(Array.isArray(rawOptions)){
-      if(rawOptions[0] && typeof rawOptions[0] === 'object'){
-        options = rawOptions.map(o => String(o.text ?? o.label ?? o.value ?? ''));
-        rawOptions.forEach((o, i) => { if(o.correct === true || o.isCorrect === true) correctTexts.push(options[i]); });
-      } else {
-        options = rawOptions.map(String);
-      }
-    }
-    if(!correctTexts.length){
-      const corr = q.answer !== undefined ? q.answer : (q.correct_answers || q.correct_answer);
-      const add = c => {
-        if(typeof c === 'number' && options[c] != null) correctTexts.push(options[c]);
-        else if(typeof c === 'string' && /^[A-Za-z]$/.test(c)){
-          const idx = c.toUpperCase().charCodeAt(0) - 65;
-          correctTexts.push(options[idx] ?? c);
-        } else if(c != null) correctTexts.push(String(c));
-      };
-      Array.isArray(corr) ? corr.forEach(add) : add(corr);
-    }
-    return { text:String(q.text || q.question || ''), options, correctSet:new Set(correctTexts.map(String)), explanation:q.explanation || '' };
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', installThemeControls);
+  } else {
+    installThemeControls();
   }
-  function buildSearch(){
-    const raw = window.ATPL_RAW || {};
-    const db = [];
-    Object.keys(raw).forEach(subject => {
-      (Array.isArray(raw[subject]) ? raw[subject] : []).forEach((q, idx) => db.push({subject, idx, ...normalizeQuestion(q)}));
-    });
-    window.__ATPL_SEARCH_DB = db;
-    const subj = $('mSearchSubject');
-    if(subj){
-      const current = subj.value;
-      subj.innerHTML = '<option value="">All</option>' + Object.keys(raw).map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join('');
-      subj.value = current;
-    }
-    const st = $('mSearchStatus');
-    if(st) st.innerHTML = `Status: <strong>ready</strong> — ${db.length} questions indexed`;
-  }
-  function renderSearch(){
-    const input = $('mSearchInput');
-    const list = $('mSearchResults');
-    const count = $('mSearchCount');
-    const subject = $('mSearchSubject')?.value || '';
-    if(!input || !list) return;
-    const tokens = input.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
-    const db = window.__ATPL_SEARCH_DB || [];
-    const results = tokens.length ? db.filter(r => (!subject || r.subject === subject) && tokens.every(t => (r.text+' '+r.options.join(' ')).toLowerCase().includes(t))).slice(0,200) : [];
-    if(count) count.textContent = results.length;
-    list.innerHTML = results.map((r,i)=>`<li data-i="${i}"><div><strong>${esc(r.subject)}</strong> <span class="small">#${r.idx+1}</span></div><div class="small">${esc(r.text.slice(0,180))}${r.text.length>180?'…':''}</div></li>`).join('');
-    list.onclick = e => {
-      const li = e.target.closest('li[data-i]'); if(!li) return;
-      const r = results[Number(li.dataset.i)];
-      const opts = r.options.map((o,i)=>`<div class="option ${r.correctSet.has(String(o))?'correct':''}"><strong>${String.fromCharCode(65+i)}.</strong><span>${esc(o)}</span></div>`).join('');
-      $('mSearchDetail').innerHTML = `<div class="small" style="opacity:.7;margin-bottom:6px"><strong>${esc(r.subject)}</strong> • Question #${r.idx+1}</div><div style="margin-bottom:8px">${esc(r.text)}</div><div class="vstack" style="gap:6px">${opts}</div>${r.explanation?`<div class="small" style="opacity:.7;margin-top:8px"><em>${esc(r.explanation)}</em></div>`:''}`;
-    };
-  }
-  function initSearch(){
-    buildSearch();
-    $('mSearchInput')?.addEventListener('input', renderSearch);
-    $('mSearchSubject')?.addEventListener('change', renderSearch);
-    $('mSearchBuild')?.addEventListener('click', () => { buildSearch(); renderSearch(); });
-  }
-  function boot(){ installThemeControls(); initSearch(); }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
-  window.addEventListener('load', () => setTimeout(initSearch, 250));
-  window.addEventListener('atpl-raw-loaded', () => setTimeout(initSearch, 0));
-})();
-</script>
-
-<script>
-(function(){
-  function $(id){ return document.getElementById(id); }
-  function show(el){ if(el) el.style.display='block'; }
-  function hide(el){ if(el) el.style.display='none'; }
-  function goSearch(){
-    hide($('menu'));
-    show($('searchPage'));
-    window.scrollTo(0,0);
-  }
-  function backMenu(){
-    hide($('searchPage'));
-    show($('menu'));
-    window.scrollTo(0,0);
-  }
-  function initNav(){
-    var b = $('goSearch'); if(b) b.addEventListener('click', goSearch);
-    var back = $('backToMenu'); if(back) back.addEventListener('click', backMenu);
-  }
-  if (document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', initNav); } else { initNav(); }
 })();
 </script>
 

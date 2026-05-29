@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ATPL Question Bank · Search</title>
+  <style id="hide-score-remaining">
+  #score,
+  #remain,
+  #qScoreLive,
+  #qRemaining {
+    display: none !important;
+  }
+</style>
+<style>
+  :root{--bg:#0b0b0b;--bg-soft:#141414;--card:#111315;--text:#fff;--muted:#9ca3af;--border:#262626;--ok:#22c55e;--bad:#ef4444;--flag:#f59e0b;--answered-exam:#6b7280;--qbox-bg:#e9f6fb;--qbox-text:#0b0b0b;}
+  body.light{--bg:#f6f7f9;--bg-soft:#fff;--card:#fff;--text:#0b0b0b;--muted:#4b5563;--border:#e5e7eb;--answered-exam:#9ca3af;}
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+  .container{max-width:1280px;margin:0 auto;padding:16px 24px}
+  .topbar{position:sticky;top:0;z-index:10;background:color-mix(in oklab, var(--bg) 85%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
+  .header{display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .hstack{display:flex;align-items:center;gap:12px} .vstack{display:flex;flex-direction:column;gap:12px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px}
+  .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid var(--border);border-radius:999px;background:var(--bg-soft);color:var(--muted);font-size:12px}
+  .button,.input,.select{padding:10px 12px;border-radius:12px;border:1px solid var(--border);background:var(--bg-soft);color:var(--text)}
+  .button.primary{background:linear-gradient(135deg,#3f3f46,#52525b);border:none;color:#fff;cursor:pointer}
+  .button:disabled{opacity:.6;cursor:not-allowed}
+  .mode-buttons{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .mode-btn{padding:20px;border:2px solid var(--border);border-radius:14px;background:var(--bg-soft);cursor:pointer}
+  .mode-btn.active{border-color:#22c55e}
+  .grid{display:grid;gap:16px} .grid-2{grid-template-columns:1fr 1fr} .grid-3{grid-template-columns:240px 1fr 320px}
+  @media (max-width: 1024px){.grid-3{grid-template-columns:1fr}}
+  .question-box{background:var(--qbox-bg);border-radius:10px;padding:24px;color:var(--qbox-text)}
+  .option-list{list-style:none;margin:0;padding:0} .option-list li{margin:8px 0;display:flex;gap:10px;align-items:center}
+  .grid-pager{display:grid;grid-template-columns:repeat(auto-fill,minmax(36px,1fr));gap:8px}
+  .pager-btn{padding:8px;border:1px solid var(--border);border-radius:8px;background:var(--bg-soft);color:var(--text);font-size:12px;cursor:pointer}
+  .pager-btn.active{outline:2px solid #777} .pager-btn.correct{border-color:var(--ok)} .pager-btn.incorrect{border-color:var(--bad)}
+  .pager-btn.answered-exam{border-color:var(--answered-exam);color:var(--answered-exam)} .pager-btn.flagged{box-shadow:0 0 0 2px color-mix(in oklab, var(--flag) 60%, transparent);border-color:var(--flag)}
+  .hidden{display:none!important} .small{color:var(--muted);font-size:12px}
+  .feedback-inline{margin-top:12px;padding:10px 12px;border-radius:10px;background:rgba(34,197,94,.12);color:#22c55e}
+  .feedback-inline.bad{background:rgba(239,68,68,.12);color:#ef4444}
+</style>
+<style id="search-card-styles">
+  #mSearchResults li {
+    list-style: none;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 10px;
+    padding: 8px 10px;
+    cursor: pointer;
+  }
+  #mSearchResults li:hover {
+    background: rgba(255,255,255,.06);
+  }
+  #mSearchResults li .small { opacity: .7; }
+  #mSearchDetail .correct { color: #22c55e; }
+  #mSearchDetail .option { display: flex; gap: 8px; align-items: baseline; }
+</style>
+<style id="changelog-scrollbar-hide">
+  #changelogList { scrollbar-width: none; }
+  #changelogList::-webkit-scrollbar { display: none; }
+</style>
+<style id="changelog-fullbleed">
+  /* Make changelog entries span full card width */
+  #changelogCard #changelogList { gap: 0 !important; padding: 0 !important; }
+  #changelogCard #changelogList > section {
+    /* full-bleed: extend into card padding without altering layout */
+    margin-left: -12px !important;
+    margin-right: -12px !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-radius: 0 !important;
+    padding: 12px 16px !important;
+    border-top: 1px solid rgba(255,255,255,.08) !important;
+    border-bottom: none !important;
+    background: transparent !important;
+  }
+  #changelogCard #changelogList > section:first-child { border-top: none !important; }
+</style>
+<style id="changelog-fullbleed-bottom">
+  /* Bottom polish for full-bleed changelog */
+  #changelogCard #changelogList { padding-bottom: 12px !important; }
+  #changelogCard #changelogList > section:last-child {
+    border-bottom: 1px solid rgba(255,255,255,.08) !important;
+    margin-bottom: 2px !important; /* tiny visual buffer */
+  }
+</style>
+<style id="clean-build-styles">
+  .theme-wrap{display:inline-flex;align-items:center;gap:8px;margin-left:10px}
+  .theme-label{font-size:12px;color:var(--muted);white-space:nowrap}
+  .theme-btn{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:999px;padding:6px 10px;cursor:pointer}
+  body.light{--bg:#f5f7fb;--bg-soft:#ffffff;--card:#ffffff;--text:#111827;--muted:#6b7280;--border:#d1d5db;--qbox-bg:#e9f6fb;color:var(--text);background:var(--bg)}
+  .option-list li{cursor:pointer}
+</style>
+<style id="changelog-equal-height-v235">
+/* v2.3.5: match changelog card height to setup card and scroll entries inside */
+#menu .grid.grid-2 {
+  align-items: stretch !important;
+}
+
+#menu .grid.grid-2 > section.card {
+  height: 100%;
+}
+
+#changelogCard {
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  max-height: none !important;
+}
+
+#changelogCard #changelogList {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  scrollbar-width: thin;
+}
+
+#changelogCard #changelogList::-webkit-scrollbar {
+  width: 8px;
+}
+</style>
+</head>
+<body>
+  <div class="container" id="searchPage">
+    <div class="vstack" style="max-width:980px;margin:36px auto">
+      <div class="hstack" style="justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px">
+        <div class="vstack">
+          <h1 style="margin:0">Question Search</h1>
+          <div class="small">ATPL Question Bank · Version <strong>v2.3.6</strong></div>
+        </div>
+        <div class="hstack" style="justify-content:flex-end;gap:8px">
+          <button id="backToMenu" class="button" type="button">← Back to main menu</button>
+        </div>
+      </div>
+
+      <section class="card vstack" id="searchCard">
+        <h3 style="margin:0">Search</h3>
+        <div class="small" style="opacity:.8">Find questions across all subjects. Click a result to see options and the correct answer.</div>
+
+        <input id="mSearchInput" class="input" type="text" placeholder="Type to search… (min. 2 letters)" style="margin-top:8px" />
+
+        <div class="hstack" style="margin-top:8px;gap:8px;flex-wrap:wrap">
+          <div class="badge">Matches: <span id="mSearchCount">0</span></div>
+          <div class="badge">Subject filter: <select id="mSearchSubject"><option value="">All</option></select></div>
+          <div class="small" id="mSearchStatus" style="opacity:.75;margin-top:6px">Status: <em>initializing…</em></div>
+        </div>
+
+        <div class="grid grid-2" style="margin-top:10px;gap:12px">
+          <div>
+            <div class="small" style="opacity:.7;margin-bottom:4px">Results</div>
+            <ul id="mSearchResults" class="vstack" style="max-height:520px;overflow:auto;gap:6px"></ul>
+          </div>
+          <div>
+            <div class="small" style="opacity:.7;margin-bottom:4px">Details</div>
+            <div id="mSearchDetail" class="vstack" style="min-height:220px;padding:10px;border-radius:12px;background:rgba(255,255,255,.04)">
+              <div class="small" style="opacity:.7">Select a result to preview it here.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+
+  function esc(value){
+    return String(value ?? '').replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+  }
+
+  function applyTheme(){
+    const light = localStorage.getItem('light') === '1';
+    document.body.classList.toggle('light', light);
+    document.querySelectorAll('[data-theme-button]').forEach(btn => {
+      btn.textContent = light ? '☀️' : '🌙';
+      btn.title = light ? 'Switch to dark mode' : 'Switch to light mode';
+    });
+  }
+
+  function makeThemeControl(){
+    const wrap = document.createElement('div');
+    wrap.className = 'theme-wrap';
+    wrap.innerHTML = '<span class="theme-label">Theme</span><button class="theme-btn" type="button" data-theme-button>🌙</button>';
+    wrap.querySelector('button').addEventListener('click', () => {
+      localStorage.setItem('light', localStorage.getItem('light') === '1' ? '0' : '1');
+      applyTheme();
+    });
+    return wrap;
+  }
+
+  function installThemeControl(){
+    const target = document.querySelector('#backToMenu')?.parentElement;
+    if(target && !target.querySelector('[data-theme-button]')) target.appendChild(makeThemeControl());
+    applyTheme();
+  }
+
+  async function fetchJsonWithFallback(paths){
+    let lastErr;
+    for(const p of paths){
+      try{
+        const res = await fetch(p, {cache:'no-store'});
+        if(!res.ok) throw new Error(res.status + ' ' + res.statusText);
+        return await res.json();
+      }catch(err){
+        lastErr = err;
+      }
+    }
+    throw lastErr || new Error('Failed to fetch JSON');
+  }
+
+  function normalizeQuestion(q){
+    const rawOptions = q.options || q.choices || q.answers || q.alternatives || [];
+    let options = [];
+    let correctTexts = [];
+
+    if(Array.isArray(rawOptions)){
+      if(rawOptions[0] && typeof rawOptions[0] === 'object'){
+        options = rawOptions.map(o => String(o.text ?? o.label ?? o.value ?? ''));
+        rawOptions.forEach((o, i) => {
+          if(o.correct === true || o.isCorrect === true) correctTexts.push(options[i]);
+        });
+      } else {
+        options = rawOptions.map(String);
+      }
+    }
+
+    if(!correctTexts.length){
+      const corr = q.answer !== undefined ? q.answer : (q.correct_answers || q.correct_answer);
+      const add = c => {
+        if(typeof c === 'number' && options[c] != null){
+          correctTexts.push(options[c]);
+        } else if(typeof c === 'string' && /^[A-Za-z]$/.test(c)){
+          const idx = c.toUpperCase().charCodeAt(0) - 65;
+          correctTexts.push(options[idx] ?? c);
+        } else if(c != null){
+          correctTexts.push(String(c));
+        }
+      };
+      Array.isArray(corr) ? corr.forEach(add) : add(corr);
+    }
+
+    return {
+      text: String(q.text || q.question || ''),
+      options,
+      correctSet: new Set(correctTexts.map(String)),
+      explanation: q.explanation || ''
+    };
+  }
+
+  async function loadQuestionBank(){
+    const status = $('mSearchStatus');
+    try{
+      const subjects = await fetchJsonWithFallback(['subjects.json','./subjects.json']);
+      const entries = await Promise.all(subjects.map(async entry => {
+        const file = String(entry.file || '').replace(/^\.\//,'');
+        const arr = await fetchJsonWithFallback([file, './' + file]);
+        return [entry.name, Array.isArray(arr) ? arr : []];
+      }));
+
+      const raw = Object.fromEntries(entries);
+      const db = [];
+
+      Object.keys(raw).forEach(subject => {
+        raw[subject].forEach((q, idx) => {
+          db.push({subject, idx, ...normalizeQuestion(q)});
+        });
+      });
+
+      window.__ATPL_SEARCH_DB = db;
+
+      const subj = $('mSearchSubject');
+      if(subj){
+        subj.innerHTML = '<option value="">All</option>' +
+          Object.keys(raw).map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join('');
+      }
+
+      if(status) status.innerHTML = `Status: <strong>ready</strong> — ${db.length} questions indexed`;
+      renderSearch();
+    }catch(err){
+      console.error(err);
+      if(status) status.innerHTML = 'Status: <strong>failed to load question bank</strong>';
+    }
+  }
+
+  function renderSearch(){
+    const input = $('mSearchInput');
+    const list = $('mSearchResults');
+    const count = $('mSearchCount');
+    const subject = $('mSearchSubject')?.value || '';
+
+    if(!input || !list) return;
+
+    const tokens = input.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+    const db = window.__ATPL_SEARCH_DB || [];
+
+    const results = tokens.length >= 1
+      ? db.filter(r =>
+          (!subject || r.subject === subject) &&
+          tokens.every(t => (r.text + ' ' + r.options.join(' ')).toLowerCase().includes(t))
+        ).slice(0, 200)
+      : [];
+
+    window.__ATPL_SEARCH_RESULTS = results;
+    if(count) count.textContent = results.length;
+
+    if(!results.length){
+      list.innerHTML = tokens.length
+        ? '<li class="small" style="opacity:.7;list-style:none">No matches found.</li>'
+        : '<li class="small" style="opacity:.7;list-style:none">Start typing to search.</li>';
+      return;
+    }
+
+    list.innerHTML = results.map((r, i) => `
+      <li data-i="${i}" style="cursor:pointer;list-style:none;padding:8px;border-radius:10px;background:rgba(255,255,255,.04)">
+        <div class="small" style="opacity:.7">${esc(r.subject)} · Q${r.idx + 1}</div>
+        <div>${esc(r.text).slice(0,220)}${r.text.length > 220 ? '…' : ''}</div>
+      </li>
+    `).join('');
+  }
+
+  function showDetail(result){
+    const detail = $('mSearchDetail');
+    if(!detail || !result) return;
+
+    const options = result.options.map((option, i) => {
+      const correct = result.correctSet.has(String(option));
+      return `
+        <div style="padding:8px;border-radius:10px;${correct ? 'background:rgba(34,197,94,.16);' : 'background:rgba(255,255,255,.035);'}">
+          <strong>${String.fromCharCode(65 + i)}.</strong> ${esc(option)}
+          ${correct ? '<span class="badge" style="margin-left:6px">Correct</span>' : ''}
+        </div>
+      `;
+    }).join('');
+
+    detail.innerHTML = `
+      <div class="small" style="opacity:.7">${esc(result.subject)} · Q${result.idx + 1}</div>
+      <div style="font-weight:700">${esc(result.text)}</div>
+      <div class="vstack" style="gap:6px;margin-top:8px">${options}</div>
+      ${result.explanation ? `<div class="small" style="opacity:.8;margin-top:8px">${esc(result.explanation)}</div>` : ''}
+    `;
+  }
+
+  function init(){
+    installThemeControl();
+    $('backToMenu')?.addEventListener('click', () => { window.location.href = 'index.html'; });
+    $('mSearchInput')?.addEventListener('input', renderSearch);
+    $('mSearchSubject')?.addEventListener('change', renderSearch);
+    $('mSearchResults')?.addEventListener('click', e => {
+      const li = e.target.closest('li[data-i]');
+      if(!li) return;
+      const result = (window.__ATPL_SEARCH_RESULTS || [])[Number(li.dataset.i)];
+      showDetail(result);
+    });
+    loadQuestionBank();
+  }
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+</body>
+</html>
