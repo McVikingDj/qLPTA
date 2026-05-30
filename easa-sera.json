@@ -10,7 +10,7 @@
     "answer": "General air traffic"
   },
   {
-    "question": "Which of the following is specifically excluded from direct application of this Regulation? [Article 1(4), p.21]",
+    "question": "Which of the following is specifically excluded from direct application of this Regulation? (EASA's SERA) [Article 1(4), p.21]",
     "choices": [
       "General aviation aircraft",
       "Model aircraft and toy aircraft",
@@ -564,15 +564,15 @@
     "choices": [
       "The one on the right",
       "The one that has the other on its right",
-      "The faster craft",
-      "The lower craft"
+      "The faster aircraft",
+      "The slower aircraft"
     ],
     "answer": "The one that has the other on its right"
   },
   {
-    "question": "Upon observing or receiving a signal given in Appendix 1, aircraft shall: [SERA.3301(a), p.54]",
+    "question": "Upon observing or receiving a light signal from ATC, aircraft shall: [SERA.3301(a), p.54]",
     "choices": [
-      "Ignore it unless from ATC",
+      "Ignore it unless in an emergency",
       "Take the action required by the interpretation of the signal",
       "Respond only by radio",
       "Continue as filed"
@@ -622,10 +622,10 @@
   {
     "question": "Unless otherwise prescribed, any flight across international borders requires what? [SERA.4001(b)(5), p.56]",
     "choices": [
-      "ATIS",
+      "PBN Equipment",
       "A flight plan",
       "Special VFR clearance",
-      "Mode S only"
+      "Mode S transponder only"
     ],
     "answer": "A flight plan"
   },
@@ -682,9 +682,9 @@
   {
     "question": "Which of the following is one of the required content items of a flight plan? [SERA.4005(a), pp.57-58]",
     "choices": [
-      "Cabin temperature",
+      "Requested fuel",
       "Aircraft identification",
-      "Captain's licence number",
+      "PIC's licence number",
       "Passenger names"
     ],
     "answer": "Aircraft identification"
@@ -693,9 +693,9 @@
     "question": "Which of the following is one of the required content items of a flight plan? [SERA.4005(a), pp.57-58]",
     "choices": [
       "Wake turbulence category",
-      "Engine oil quantity",
-      "Latest QNH",
-      "Take-off runway condition"
+      "Oil endurance",
+      "Take-off weight",
+      "Remarks"
     ],
     "answer": "Wake turbulence category"
   },
@@ -704,7 +704,7 @@
     "choices": [
       "Fuel/energy endurance",
       "Mass and balance graph",
-      "Cruise fuel flow only",
+      "Cruise fuel flow",
       "Taxi fuel only"
     ],
     "answer": "Fuel/energy endurance"
@@ -750,7 +750,7 @@
     "answer": "The aircraft operator"
   },
   {
-    "question": "All changes to a flight plan submitted for an IFR flight shall be reported during the pre-flight phase to whom for flights intended to operate IFR for part or all of the route? [SERA.4015(a)(1), p.60]",
+    "question": "Who must be informed of any flight plan changes made before departure for a flight that will operate IFR on all or part of the route? [SERA.4015(a)(1), p.60]",
     "choices": [
       "The destination aerodrome only",
       "The Network Manager",
@@ -833,8 +833,8 @@
     "question": "Which of the following is an element of an arrival report? [SERA.4020(e), p.61]",
     "choices": [
       "Aircraft identification",
-      "Cruising speed",
-      "Wake turbulence category",
+      "Time flown",
+      "How much fuel left at arrival",
       "Last assigned squawk"
     ],
     "answer": "Aircraft identification"
@@ -1023,14 +1023,14 @@
     "question": "VFR flights in level cruising flight above 3 000 ft from the ground or water, or a higher datum specified by the authority, shall be conducted at what? [SERA.5005(g), p.64]",
     "choices": [
       "Any level chosen by the pilot",
-      "A cruising level appropriate to the track as in Appendix 3",
+      "A cruising level appropriate to the track as in SERA Appendix 3",
       "Even flight levels only",
       "Odd altitudes only"
     ],
-    "answer": "A cruising level appropriate to the track as in Appendix 3"
+    "answer": "A cruising level appropriate to the track as in SERA Appendix 3"
   },
   {
-    "question": "VFR flights shall comply with Section 8 when operated in which airspace classes? [SERA.5005(h)(1), p.64]",
+    "question": "VFR flights shall comply with the provisions of SERA Section 8 when operated in which airspace classes? [SERA.5005(h)(1), p.64]",
     "choices": [
       "A, B and C",
       "B, C and D",
@@ -1182,22 +1182,22 @@
   {
     "question": "An IFR flight cruising in controlled airspace shall normally fly at a cruising level selected from what? [SERA.5020(b), p.68]",
     "choices": [
-      "Table of cruising levels in Appendix 3",
+      "Table of cruising levels in SERA Appendix 3",
       "Pilot preference",
       "ATIS published altitudes",
       "Only semicircular VFR rule"
     ],
-    "answer": "Table of cruising levels in Appendix 3"
+    "answer": "Table of cruising levels in SERA Appendix 3"
   },
   {
     "question": "An IFR flight in level cruising flight outside controlled airspace shall be flown at what cruising level? [SERA.5025(a), p.69]",
     "choices": [
       "Any level chosen by the pilot",
-      "A cruising level appropriate to its track as specified in Appendix 3",
+      "A cruising level appropriate to its track as specified in SERA Appendix 3",
       "Only odd thousands",
       "Only even flight levels"
     ],
-    "answer": "A cruising level appropriate to its track as specified in Appendix 3"
+    "answer": "A cruising level appropriate to its track as specified in SERA Appendix 3"
   },
   {
     "question": "When required in designated areas or routes outside controlled airspace, an IFR flight shall maintain what? [SERA.5025(b), p.69]",
@@ -1274,7 +1274,7 @@
     "choices": [
       "Separation from all flights",
       "Traffic information in respect of all other flights and traffic avoidance advice on request",
-      "Only ATIS",
+      "Traffic information about IFR and traffic avoidance from VFR",
       "No service"
     ],
     "answer": "Traffic information in respect of all other flights and traffic avoidance advice on request"
@@ -1602,7 +1602,7 @@
   {
     "question": "An aircraft equipped with ADS-B may use emergency or urgency mode to indicate which of the following? [GM1 SERA.13015, p.134]",
     "choices": [
-      "Only general emergency",
+      "ONLY general emergency",
       "Communication failure",
       "Weather deviation",
       "Low oil pressure only"
@@ -1802,10 +1802,10 @@
   {
     "question": "What additional signal follows 'PAN PAN' for protected medical transport communications? [SERA.14095(c)(4)(ii), p.210]",
     "choices": [
-      "MEDICAL",
+      "RES-CUE",
       "MAY-DEE-CAL",
-      "LIFEGUARD",
-      "HOSPITAL"
+      "LIFE-GUARD",
+      "HOS-PI-TAL"
     ],
     "answer": "MAY-DEE-CAL"
   },
@@ -1864,8 +1864,8 @@
     "choices": [
       "Number of suspected cases on board",
       "Passenger nationalities",
-      "Cabin baggage count",
-      "Fuel uplift"
+      "Meals uplifted",
+      "MNPS"
     ],
     "answer": "Number of suspected cases on board"
   },
