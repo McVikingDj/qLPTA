@@ -1077,7 +1077,7 @@
       "FMC",
       "INS"
     ],
-    "answer": "clock"
+    "answer": "Clock"
   },
   {
     "question": "Flights planning to operate outside VHF range may request HF exemption under certain circumstances. What condition is applied to any approval being issued?",
@@ -1397,7 +1397,7 @@
       "The Dispatcher.",
       "The Authority."
     ],
-    "answer": "The commander."
+    "answer": "The Commander."
   },
   {
     "question": "Identify if this is a true or false statement. Digital flight data monitoring programmes use data from operations for safety and disciplinary purposes.",

@@ -1913,9 +1913,9 @@
     "question": "Engine auxiliary gearboxes:",
     "choices": [
       "Are driven by the output from the free power turbine.",
-      "Provide the drives for...airframe.",
-      "Always provide drives for...",
-      "Never provide a torque..."
+      "Provide the drives for a wide variety of services and may even provide for the support of the engine in the airframe.",
+      "Always provide drives for the turbine.",
+      "Never provide a torque."
     ],
     "answer": "Provide the drives for a wide variety of services and may even provide for the support of the engine in the airframe."
   },
@@ -2203,9 +2203,9 @@
     "question": "As altitude increases, if the mixture is not leaned:",
     "choices": [
       "The volume of air...decreases and the amount of fuel decreases.",
-      "The volume of air...fuel...",
-      "The density of air...increases.",
-      "The density of air...constant."
+      "The volume of air to fuel decreses.",
+      "The density of air increases.",
+      "The density of air entering the carburettor decreases and the amount of fuel remains constant."
     ],
     "answer": "The density of air entering the carburettor decreases and the amount of fuel remains constant."
   },
@@ -2883,8 +2883,8 @@
     "question": "The purpose of the manifold drain is:",
     "choices": [
       "To drain excess oil from the combustor.",
-      "To prevent fouling...during engine running.",
-      "To prevent fouling...after shut-down.",
+      "To prevent fouling of the spray nozzles and sooting of the combustor during engine running.",
+      "To prevent fouling of the spray nozzles and sooting of the combustor after shut-down.",
       "To expel fuel from the engine during an engine fire."
     ],
     "answer": "To prevent fouling of the spray nozzles and sooting of the combustor after shut-down."
@@ -3262,10 +3262,10 @@
   {
     "question": "Pre-ignition is:",
     "choices": [
-      "The rapid chemical...before the spark plug has fired.",
-      "Caused by hot spots...",
-      "The ignition of the...fired.",
-      "The detonation of the...TDC)."
+      "The rapid chemical decomposition before the spark plug has fired.",
+      "Caused by hot spots in the cylinder.",
+      "The ignition of the mixture before the spark plug has fired.",
+      "The detonation of the mixure before TDC)."
     ],
     "answer": "The ignition of the mixture before the spark plug has fired."
   },
@@ -3623,9 +3623,9 @@
     "question": "The primary functions of the lubrication system of an air-cooled piston engine is to:",
     "choices": [
       "Operate constant speed propellers.",
-      "Provide cooling and...control unit.",
-      "Reduce internal friction...",
-      "Reduce internal friction...warm."
+      "Provide cooling and power to the control unit.",
+      "Reduce internal friction and provide cooling.",
+      "Reduce internal friction and warm the cabin."
     ],
     "answer": "Reduce internal friction and provide cooling."
   },
@@ -3683,9 +3683,9 @@
     "question": "The reading on the engine oil pressure gauge is the:",
     "choices": [
       "pressure in the oil tank.",
-      "difference between...pump pressure.",
-      "pressure of the oil...pump.",
-      "pressure of the oil...pump."
+      "difference between oil tank and pump pressure.",
+      "pressure of the oil downstream of the pressure pump.",
+      "pressure of the oil upstream of the pressure pump."
     ],
     "answer": "pressure of the oil downstream of the pressure pump."
   },
@@ -3713,9 +3713,9 @@
     "question": "The ultimate purpose of propeller synchronising and synchrophasing systems is:",
     "choices": [
       "To reduce engine wear.",
-      "To reduce metal fatigue...",
+      "To reduce metal fatigue in the propeller.",
       "To reduce cabin pressure.",
-      "To increase comfort..."
+      "To increase comfort for passengers and crew."
     ],
     "answer": "To increase comfort for passengers and crew."
   },
@@ -3952,10 +3952,10 @@
   {
     "question": "What are the actions to un-feather a variable pitch prop:",
     "choices": [
-      "Push the propeller lever forward...producing thrust.",
-      "Pull the propeller backward...",
-      "Push the propeller lever...no thrust.",
-      "Pull the propeller lever...no thrust."
+      "Push the propeller lever forward into the normal operating range which results in a blade angle producing thrust.",
+      "Pull the propeller backward to increase thrust output.",
+      "Push the propeller lever upward to no thrust.",
+      "Pull the propeller lever for more thrust."
     ],
     "answer": "Push the propeller lever forward into the normal operating range which results in a blade angle producing thrust."
   },
@@ -3973,9 +3973,9 @@
     "question": "On an aeroplane equipped with a manual feathering system the pilot can feather the propeller by:",
     "choices": [
       "pulling the power levers rearwards.",
-      "pushing the propeller...",
+      "pushing the propeller levers forwards.",
       "pushing the power lever forwards.",
-      "pulling the propeller control..."
+      "pulling the propeller control lever rearwards."
     ],
     "answer": "pulling the propeller control lever rearwards."
   },
@@ -4032,10 +4032,10 @@
   {
     "question": "When altitude increases without adjustment of the mixture ratio, the piston engine performance is affected because of:",
     "choices": [
-      "An increase of air density...becomes too high.",
-      "A decrease of air density...becomes too low.",
-      "A decrease of air density...too high.",
-      "An increase of air density...too low."
+      "An increase of air density with a fuel flow which becomes too high.",
+      "A decrease of air density with a fuel flow which becomes too low.",
+      "A decrease of air density with a fuel flow which becomes too high.",
+      "An increase of air density with a fuel flow which too low."
     ],
     "answer": "A decrease of air density with a fuel flow which becomes too high."
   },
@@ -4073,8 +4073,8 @@
     "question": "To prevent vapour locking, which can lead to fuel starvation, a common type of limitation imposed by the MEL in large transport aeroplanes for complete boost pump failure is:",
     "choices": [
       "Extra reserve fuel has to be carried.",
-      "No fuel may be carried...",
-      "Maximum operating altitude...",
+      "No fuel may be carried in the center tank.",
+      "Maximum operating altitude limitation.",
       "Minimum fuel temperature limitation."
     ],
     "answer": "Maximum operating altitude limitation."
@@ -4423,9 +4423,9 @@
     "question": "For piston engines fuel/air ratio or mixture is the ratio between the:",
     "choices": [
       "Mass of fuel and volume of air entering the carburettor.",
-      "Volume of fuel and volume of air...",
-      "Mass of fuel and mass...",
-      "Volume of fuel and volume of air...carburettor."
+      "Volume of fuel and volume of air entering the cylinder.",
+      "Mass of fuel and mass of air entering the cylinder.",
+      "Volume of fuel and volume of air entering the carburettor."
     ],
     "answer": "Mass of fuel and mass of air entering the cylinder."
   },
@@ -4453,9 +4453,9 @@
     "question": "The crank assembly of a piston engine comprises the:",
     "choices": [
       "propeller, crankshaft, pistons and connecting rods.",
-      "crankshaft, camshaft,...push rods.",
-      "crankshaft, connecting...",
-      "crankcase, crankshaft, connecting rods and pistons."
+      "crankshaft, camshaft, valves, push rods.",
+      "crankshaft, connecting rods and pistons.",
+      "crankcase, camshaft, connecting rods and pistons."
     ],
     "answer": "crankshaft, connecting rods and pistons."
   },
@@ -4994,8 +4994,8 @@
     "choices": [
       "Supply the Passenger Service Unit (PSU) with fresh air.",
       "Cool the APU compartment.",
-      "Supply the heat exchangers...cruise.",
-      "Supply the heat exchangers...ground."
+      "Supply the heat exchangers with cooling air during cruise.",
+      "Supply the heat exchangers with cooling air during slow flights and ground operation."
     ],
     "answer": "Supply the heat exchangers with cooling air during slow flights and ground operation."
   },
@@ -5183,9 +5183,9 @@
     "question": "Select the correct statement concerning chemical oxygen generators:",
     "choices": [
       "They combust 2 elements in a sealed container producing a supply of warm oxygen for a maximum of 5 minutes.",
-      "They combust 2 elements in a sealed container producing a supply of warm oxygen...mask.",
-      "They combust 2 elements in a sealed container producing a supply of cold oxygen...mask.",
-      "They combust 2 elements in a sealed container producing a supply of warm oxygen...mask."
+      "They combust 2 elements in a sealed container producing a supply of warm oxygen delivered continuously to each unsealed passenger mask.",
+      "They combust 2 elements in a sealed container producing a supply of cold oxygen delivered continuously to each unsealed passenger mask.",
+      "They combust 2 elements in a sealed container producing a supply of warm oxygen delivered continuously to one unsealed passenger mask."
     ],
     "answer": "They combust 2 elements in a sealed container producing a supply of warm oxygen delivered continuously to each unsealed passenger mask."
   },
@@ -5315,7 +5315,7 @@
       "Feed engines with fuel, run ground supply units, move fuel for mass and balance purposes.",
       "Feed engines with fuel, heat up the aircraft, isolate tanks, allow fuel dumping.",
       "Feed engines with fuel, isolate tanks, allow fuel dumping, power in house electrical equipment.",
-      "Feed engines with fuel,...optimization of centre of gravity."
+      "Feed engines with fuel, allowing refuelling and defuelling, isolate tanks, allow fuel dumping, optimization of centre of gravity."
     ],
     "answer": "Feed engines with fuel, allowing refuelling and defuelling, isolate tanks, allow fuel dumping, optimization of centre of gravity."
   },
@@ -5983,9 +5983,9 @@
     "question": "Which of the following design features contribute towards the safety of normal access doors fitted to commercial air transport aircraft?",
     "choices": [
       "Tapered edges, single locking mechanism, positive cabin pressure.",
-      "Tapered edges, single locking...negative",
-      "Tapered edges, pins and stops,...",
-      "Serrated edges, pins and stops,..."
+      "Tapered edges, single locking mechanism, negative cabin pressure.",
+      "Tapered edges, pins and stops, positive cabin pressure.",
+      "Serrated edges, pins and stops, positive cabin pressure."
     ],
     "answer": "Tapered edges, pins and stops, positive cabin pressure."
   },
@@ -6050,12 +6050,12 @@
     "answer": "A lack of response."
   },
   {
-    "question": "Pascal’s Law states that:",
+    "question": "Pascal's Law states that:",
     "choices": [
-      "Pressure exerted externally...directions throughout the fluid.",
-      "Pressure exerted anywhere...vertically...",
-      "Pressure increases with...fluid.",
-      "Pressure exerted anywhere...directions..."
+      "Pressure exerted externally forces all directions throughout the fluid.",
+      "Pressure exerted anywhere vertically oh the fluid, compresses it.",
+      "Pressure increases with fluid flow.",
+      "Pressure exerted anywhere in a confined, incompressible fluid is transmitted equally in all directions throughout the fluid."
     ],
     "answer": "Pressure exerted anywhere in a confined, incompressible fluid is transmitted equally in all directions throughout the fluid."
   },
@@ -6093,9 +6093,9 @@
     "question": "Select the correct statement below:",
     "choices": [
       "Hydraulic systems are much heavier than mechanical systems.",
-      "Hydraulic systems are better than...",
-      "Mechanical systems are preferable to...",
-      "A large amount of energy is lost..."
+      "Hydraulic systems are better than mechanical ones because they can deliver very large amounts of force with little effort.",
+      "Mechanical systems are preferable to hydraulic systems, because they require less maintenance.",
+      "A large amount of energy is lost when operating the flight controls in mechanical systems."
     ],
     "answer": "Hydraulic systems are better than mechanical ones because they can deliver very large amounts of force with little effort."
   },
@@ -6373,9 +6373,9 @@
     "question": "What is the function of an auto-slat system?",
     "choices": [
       "It provides improved handling qualities by retracting the slats at high angles of attack.",
-      "It provides improved stall...landing.",
-      "It is activated together with...slat setting.",
-      "It provides for increased...icing conditions."
+      "It provides improved stall characteristics at high angles of attack during take-off, approach, and landing.",
+      "It is activated together with flap and slat setting.",
+      "It provides for increased performance in icing conditions."
     ],
     "answer": "It provides improved stall characteristics at high angles of attack during take-off, approach, and landing."
   },
@@ -6712,10 +6712,10 @@
   {
     "question": "Which of the following statements is correct:",
     "choices": [
-      "Commercial aircraft require...third.",
-      "Commercial aircraft require...separate.",
-      "Commercial aircraft may use a PTU...",
-      "Commercial aircraft require...system."
+      "Commercial aircraft requires THREE hydraulic systems to be safe.",
+      "Commercial aircraft require, as a minimum, duplicated hydraulic systems which are completely separate.",
+      "Commercial aircraft may use a PTU to switch between two hydraulic systems.",
+      "Commercial aircraft require ONE hydraulic system as a minimum."
     ],
     "answer": "Commercial aircraft require, as a minimum, duplicated hydraulic systems which are completely separate."
   },
@@ -6902,10 +6902,10 @@
   {
     "question": "If a piston in a cylinder is connected by a tube to another cylinder which also has a piston:",
     "choices": [
-      "The mass of one piston is slowly translated into the movement...",
+      "The mass of one piston is slowly translated into the movement of the other piston.",
       "A venturi effect is created.",
-      "Pressure on one piston is not felt...",
-      "Pressure on one piston is immediately..."
+      "Pressure on one piston is not felt on the other cylinder.",
+      "Pressure on one piston is immediately translated into a force on the other."
     ],
     "answer": "Pressure on one piston is immediately translated into a force on the other."
   },
@@ -7378,16 +7378,6 @@
       "2025-02-03 00:00:00"
     ],
     "answer": "2025-02-03 00:00:00"
-  },
-  {
-    "question": "nan",
-    "choices": [
-      "nan",
-      "nan",
-      "nan",
-      "nan"
-    ],
-    "answer": "nan"
   },
   {
     "question": "When starting a turbine engine, the igniters were incorrectly left off and a wet start occurred. The pilot aborted the start sequence, waited a while, and then initiated the start sequence again with the igniters correctly selected on. After ignition in the second start sequence, what will happen?",

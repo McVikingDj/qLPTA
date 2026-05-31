@@ -10,24 +10,24 @@
     "answer": "9; 30"
   },
   {
-    "question": "According to Rasmussen’s SRK model:\nThe __________ mode involves execution of actions based on __________ which have been learned.",
-    "answers": [
+    "question": "According to Rasmussen's SRK model: The __________ mode involves execution of actions based on __________ which have been learned.",
+    "choices": [
       "Rule; rules",
       "Rule; skill",
       "Knowledge; rules",
       "Knowledge; skill"
     ],
-    "correct_answer": "Rule; rules"
+    "answer": "Rule; rules"
   },
   {
     "question": "Deep-seated tiredness caused by continuous exposure to jet-lag is a characteristic of:",
-    "answers": [
+    "choices": [
       "Incapacitation",
       "Chronic fatigue",
       "Short-term fatigue",
       "Fatigue"
     ],
-    "correct_answer": "Chronic fatigue"
+    "answer": "Chronic fatigue"
   },
   {
     "question": "The purpose of the __________ is to carry air from the nose or mouth to the lungs.",

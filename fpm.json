@@ -1372,7 +1372,7 @@
   {
     "question": "Given the following NOTAM information, when can the aerodrome be expected to be operating on Tuesday? >>> LKPD PARDUBICE <<< AD OPR HR CHANGED: MON-FRI 0700-1830 SAT 0700-1800 SUN 0700-1830:NOTAM LK/B1453/15 >>> END OF BULLETIN<<<",
     "choices": [
-      "07:00 - 18:00 UTC",
+      "07:00 - 16:00 UTC",
       "07:00 - 18:30 LT",
       "07:00 - 18:30 UTC",
       "07:00 - 18:00 UTC"

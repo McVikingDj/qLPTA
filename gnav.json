@@ -1760,14 +1760,14 @@
     "answer": "45 nm"
   },
   {
-    "question": "With which of the following radio navigation aids is magnetic variation applied at the ground station (select all that apply)?",
+    "question": "With which of the following radio navigation aids is magnetic variation applied at the ground station?",
     "choices": [
       "NDB",
       "DME",
       "VDF",
       "AWR"
     ],
-    "answer": "VOR"
+    "answer": "VDF"
   },
   {
     "question": "Which one of the following describes the angle applied to the track to calculate the heading?",
@@ -2018,16 +2018,6 @@
       "64.62°"
     ],
     "answer": "12.86°"
-  },
-  {
-    "question": "With which of the following aids to navigation is magnetic variation applied at the aircraft (select all that apply)?",
-    "choices": [
-      "VDF",
-      "DME",
-      "Land features",
-      "NDB"
-    ],
-    "answer": "VOR"
   },
   {
     "question": "An aircraft is located on the R-153 radial from a VOR/DME. Local magnetic variation is 12°E. Ignoring convergency, what is the QUJ to the VOR/DME?",
@@ -2507,7 +2497,7 @@
       "Nigeria - N09°30’ E009°45’ - 16.35 UTC on 15th April 2018",
       "Chad - N09°30’ E016°30’ - 07.06 UTC on 16th April 2018"
     ],
-    "answer": "Nigeria - N09°30’ E006°"
+    "answer": "Nigeria - N09°30’ E006°30’ - 16.32 UTC on 15th April 2018"
   },
   {
     "question": "Chart Convergency = Change of __________ x n",
@@ -2940,14 +2930,14 @@
     "answer": "It will follow a slight curve, away from the Equator, convex to the pole."
   },
   {
-    "question": "How is scale shown on charts (select all that apply)?",
+    "question": "How is scale shown on charts?",
     "choices": [
       "Distance rule.",
       "Using isoscalic lines, to depict areas of common scale.",
       "Relationship of distance units.",
       "Ratio."
     ],
-    "answer": "Using layer tinting, to depict areas of common scale."
+    "answer": "Using isoscalic lines, to depict areas of common scale."
   },
   {
     "question": "Two locations A and B have the same latitude and are located on a meridian and anti-meridian. On a Lambert conical projection map, the angle between these two meridians is 156°. What is the parallel of the origin of this map?",
@@ -3177,7 +3167,7 @@
       "1 / Scale = Earth Distance / Chart Distance.",
       "Scale / 1 = Chart Distance / Earth Distance."
     ],
-    "answer": "1 / Scale = Chart Distance / Earth Distance"
+    "answer": "1 / Scale = Chart Distance / Earth Distance."
   },
   {
     "question": "The properties of a Direct Mercator projection are: ________ of longitude = parallel, equally spaced, vertical straight lines.",

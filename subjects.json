@@ -7,7 +7,7 @@
   {
     "name": "GNAV",
     "file": "gnav.json",
-    "count": 554
+    "count": 553
   },
   {
     "name": "RNAV",
@@ -17,12 +17,12 @@
   {
     "name": "ASP",
     "file": "asp.json",
-    "count": 803
+    "count": 802
   },
   {
     "name": "INS",
     "file": "ins.json",
-    "count": 611
+    "count": 610
   },
   {
     "name": "M&B",
