@@ -1059,8 +1059,10 @@ function saveCurrentSessionStats(correct, answered, total, usedMs, accPct){
 }
 
 function selectedAnswerText(q, answer){
-  if(!Array.isArray(answer) || !answer.length) return 'No answer';
-  return answer.map(idx => q.options[idx]).filter(v => v != null).join(', ') || 'No answer';
+  if(answer == null) return 'No answer';
+  const indexes = Array.isArray(answer) ? answer : [answer];
+  if(!indexes.length) return 'No answer';
+  return indexes.map(idx => q.options[idx]).filter(v => v != null).join(', ') || 'No answer';
 }
 
 function correctAnswerText(q){
