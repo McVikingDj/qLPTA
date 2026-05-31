@@ -288,6 +288,209 @@ body.light #goStats .search-page-button-icon {
 }
 </style>
 
+<style id="results-screen-v26">
+  .results-screen {
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .results-hero {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 20px;
+    border-bottom: 1px solid var(--border);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.018));
+  }
+
+  .results-hero h2 {
+    margin: 0;
+    font-size: 28px;
+    line-height: 1.05;
+  }
+
+  .results-hero p {
+    margin: 8px 0 0;
+    color: var(--muted);
+  }
+
+  .results-badge {
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 13px;
+    background: rgba(34,197,94,.14);
+    color: #22c55e;
+    white-space: nowrap;
+  }
+
+  .results-badge.mid { background: rgba(245,158,11,.14); color: #f59e0b; }
+  .results-badge.low { background: rgba(239,68,68,.14); color: #ef4444; }
+
+  .results-body {
+    padding: 16px;
+  }
+
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .result-stat {
+    padding: 14px;
+    border-radius: 12px;
+    background: rgba(255,255,255,.035);
+    border: 1px solid rgba(255,255,255,.07);
+    min-width: 0;
+  }
+
+  .result-stat-label {
+    color: var(--muted);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+
+  .result-stat-value {
+    margin-top: 8px;
+    font-size: 24px;
+    line-height: 1;
+    font-weight: 900;
+  }
+
+  .result-stat-sub {
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .result-map {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 14px;
+  }
+
+  .result-chip {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,.08);
+    color: var(--text);
+    background: var(--bg-soft);
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  .result-chip.correct { border-color: rgba(34,197,94,.55); color: #22c55e; }
+  .result-chip.incorrect { border-color: rgba(239,68,68,.58); color: #ef4444; }
+  .result-chip.unanswered { border-color: rgba(156,163,175,.5); color: var(--muted); }
+  .result-chip.flagged { box-shadow: 0 0 0 2px rgba(245,158,11,.35); }
+
+  .result-review {
+    margin-top: 16px;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+  }
+
+  .result-review-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .result-review-head h3 {
+    margin: 0;
+  }
+
+  .result-review-list {
+    display: grid;
+    gap: 10px;
+  }
+
+  .review-item {
+    padding: 12px;
+    border-radius: 12px;
+    background: rgba(255,255,255,.035);
+    border: 1px solid rgba(255,255,255,.07);
+  }
+
+  .review-item-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .review-pill {
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 12px;
+    background: rgba(239,68,68,.14);
+    color: #ef4444;
+    white-space: nowrap;
+  }
+
+  .review-pill.unanswered {
+    background: rgba(156,163,175,.14);
+    color: var(--muted);
+  }
+
+  .review-answer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .review-answer {
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(0,0,0,.15);
+    border: 1px solid rgba(255,255,255,.06);
+  }
+
+  .review-answer strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+
+  .review-empty {
+    padding: 24px 14px;
+    text-align: center;
+    color: var(--muted);
+    border: 1px dashed rgba(255,255,255,.13);
+    border-radius: 12px;
+  }
+
+  body.light .result-stat,
+  body.light .review-item {
+    background: rgba(15,23,42,.035);
+    border-color: rgba(15,23,42,.08);
+  }
+
+  body.light .review-answer {
+    background: rgba(15,23,42,.035);
+    border-color: rgba(15,23,42,.08);
+  }
+
+  @media (max-width: 760px) {
+    .results-hero { flex-direction: column; }
+    .results-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .review-answer-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
 </head>
 <body>
 <!-- LOGIN -->
@@ -433,13 +636,48 @@ body.light #goStats .search-page-button-icon {
           <button class="button primary" id="qFinish" disabled title="Answer all questions to finish">Finish</button>
         </div>
       </div>
-      <section class="card vstack hidden" id="qResults">
-        <h3 style="margin:0">Results</h3>
-        <div class="hstack">
-          <div class="badge">Accuracy: <span id="qAccuracy" style="margin-left:6px">0% (0/0)</span></div>
-          <div class="badge">Time used: <span id="qTimeUsed" style="margin-left:6px">00:00</span></div>
+      <section class="card results-screen hidden" id="qResults">
+        <div class="results-hero">
+          <div>
+            <h2 id="qResultTitle">Results</h2>
+            <p id="qResultSubtitle">Session complete</p>
+          </div>
+          <div class="results-badge" id="qResultBadge">0%</div>
         </div>
-        <div class="vstack small" id="qBreakdown" style="margin-top:8px"></div>
+        <div class="results-body">
+          <div class="results-grid">
+            <div class="result-stat">
+              <div class="result-stat-label">Accuracy</div>
+              <div class="result-stat-value" id="qAccuracy">0%</div>
+              <div class="result-stat-sub" id="qAccuracySub">0 / 0 correct</div>
+            </div>
+            <div class="result-stat">
+              <div class="result-stat-label">Correct</div>
+              <div class="result-stat-value" id="qResultCorrect">0</div>
+              <div class="result-stat-sub">answered correctly</div>
+            </div>
+            <div class="result-stat">
+              <div class="result-stat-label">Needs review</div>
+              <div class="result-stat-value" id="qResultMissed">0</div>
+              <div class="result-stat-sub">wrong or unanswered</div>
+            </div>
+            <div class="result-stat">
+              <div class="result-stat-label">Time used</div>
+              <div class="result-stat-value" id="qTimeUsed">00:00</div>
+              <div class="result-stat-sub" id="qResultMode">Test mode</div>
+            </div>
+          </div>
+          <div class="result-map" id="qResultMap"></div>
+          <div class="result-review">
+            <div class="result-review-head">
+              <div>
+                <h3>Review</h3>
+                <div class="small" id="qReviewSummary">Missed questions appear here.</div>
+              </div>
+            </div>
+            <div class="result-review-list" id="qBreakdown"></div>
+          </div>
+        </div>
       </section>
     </main>
     <aside class="vstack">
@@ -473,6 +711,8 @@ const qBack=document.getElementById('qBack'),qSubject=document.getElementById('q
 const qNumber=document.getElementById('qNumber'),qStatus=document.getElementById('qStatus'),qText=document.getElementById('qText'),qOptions=document.getElementById('qOptions');
 const qPrev=document.getElementById('qPrev'),qNext=document.getElementById('qNext'),qFinish=document.getElementById('qFinish'),qPager=document.getElementById('qPager');
 const qResults=document.getElementById('qResults'),qBreakdown=document.getElementById('qBreakdown');const qAccuracy=document.getElementById('qAccuracy'), qTimeUsed=document.getElementById('qTimeUsed');
+const qResultTitle=document.getElementById('qResultTitle'), qResultSubtitle=document.getElementById('qResultSubtitle'), qResultBadge=document.getElementById('qResultBadge');
+const qAccuracySub=document.getElementById('qAccuracySub'), qResultCorrect=document.getElementById('qResultCorrect'), qResultMissed=document.getElementById('qResultMissed'), qResultMode=document.getElementById('qResultMode'), qResultMap=document.getElementById('qResultMap'), qReviewSummary=document.getElementById('qReviewSummary');
 const qFlagBtn=document.getElementById('qFlagBtn'); const logoutBtn=document.getElementById('logoutBtn'); const qModeLabel=document.getElementById('qModeLabel'); const qPlan=document.getElementById('qPlan');
 const qMultiControls=document.getElementById('qMultiControls'); const qConfirm=document.getElementById('qConfirm');
 
@@ -775,18 +1015,121 @@ function saveCurrentSessionStats(correct, answered, total, usedMs, accPct){
   });
 }
 
+function selectedAnswerText(q, answer){
+  if(!Array.isArray(answer) || !answer.length) return 'No answer';
+  return answer.map(idx => q.options[idx]).filter(v => v != null).join(', ') || 'No answer';
+}
+
+function correctAnswerText(q){
+  return q.multi ? Array.from(q.correctSet || []).join(', ') : (q.correct || '');
+}
+
+function resultTone(accPct){
+  if(accPct < 75) return 'low';
+  if(accPct < 85) return 'mid';
+  return '';
+}
+
 function finish(){
   ensureTimerStopped();
-  let correct=0,answered=0; qBreakdown.innerHTML='';
+  let correct=0,answered=0;
+  const reviewItems = [];
+  qBreakdown.innerHTML='';
+  qResultMap.innerHTML='';
   QUESTIONS.forEach((q,i)=>{
     const has=isAnswered(i); const ok=isCorrect(i);
     if(has){ answered++; if(ok) correct++; }
+    const chip=document.createElement('button');
+    chip.type='button';
+    chip.className='result-chip '+(ok?'correct':(has?'incorrect':'unanswered'))+(FLAGGED[i]?' flagged':'');
+    chip.textContent=i+1;
+    chip.title=(ok?'Correct':(has?'Incorrect':'Unanswered'))+(FLAGGED[i]?' - flagged':'');
+    chip.onclick=()=>{ INDEX=i; render(); document.getElementById('qBox')?.scrollIntoView({behavior:'smooth',block:'center'}); };
+    qResultMap.appendChild(chip);
+    if(!ok){ reviewItems.push({q,i,has}); }
     const row=document.createElement('div'); row.innerHTML=`${ok?'<span style="color:#22c55e">✔</span>':(has?'<span style="color:#ef4444">✖</span>':'<span style="color:#9ca3af">•</span>')} <strong>${i+1}.</strong> ${q.text}`; qBreakdown.appendChild(row);
   });
-  const accPct=answered? Math.round(100*correct/answered):0; qAccuracy.textContent=`${accPct}% (${correct}/${answered})`;
-  const usedMs=Math.max(0, Date.now() - (START_TS || Date.now())); qTimeUsed.textContent=fmtDur(usedMs);
+  qBreakdown.innerHTML='';
+  const total=QUESTIONS.length;
+  const accPct=answered? Math.round(100*correct/answered):0;
+  const usedMs=Math.max(0, Date.now() - (START_TS || Date.now()));
+  const missedCount=reviewItems.length;
+  const tone=resultTone(accPct);
+
+  qAccuracy.textContent=`${accPct}%`;
+  qAccuracySub.textContent=`${correct} / ${answered} correct`;
+  qResultCorrect.textContent=correct;
+  qResultMissed.textContent=missedCount;
+  qTimeUsed.textContent=fmtDur(usedMs);
+  qResultMode.textContent=MODE === 'st' ? 'ST mode' : 'Test mode';
+  qResultTitle.textContent=missedCount ? 'Results' : 'Clean pass';
+  qResultSubtitle.textContent=`${SUBJECT || 'Unknown subject'} - ${MODE === 'st' ? 'ST Mode' : 'Test Mode'} - ${answered}/${total} answered`;
+  qResultBadge.textContent=`${accPct}%`;
+  qResultBadge.className='results-badge'+(tone?' '+tone:'');
+  qReviewSummary.textContent=missedCount ? `${missedCount} question${missedCount===1?'':'s'} to review` : 'No missed questions in this session.';
+
+  if(!reviewItems.length){
+    const empty=document.createElement('div');
+    empty.className='review-empty';
+    empty.textContent='No wrong or unanswered questions.';
+    qBreakdown.appendChild(empty);
+  } else {
+    reviewItems.forEach(({q,i,has})=>{
+      const item=document.createElement('article');
+      item.className='review-item';
+
+      const top=document.createElement('div');
+      top.className='review-item-top';
+
+      const title=document.createElement('div');
+      const strong=document.createElement('strong');
+      strong.textContent=`${i+1}. ${q.text}`;
+      title.appendChild(strong);
+      if(FLAGGED[i]){
+        const flag=document.createElement('div');
+        flag.className='small';
+        flag.textContent='Flagged';
+        title.appendChild(flag);
+      }
+
+      const pill=document.createElement('span');
+      pill.className='review-pill'+(has?'':' unanswered');
+      pill.textContent=has ? 'Incorrect' : 'Unanswered';
+
+      top.appendChild(title);
+      top.appendChild(pill);
+      item.appendChild(top);
+
+      const answers=document.createElement('div');
+      answers.className='review-answer-grid';
+
+      const selected=document.createElement('div');
+      selected.className='review-answer';
+      const selectedLabel=document.createElement('strong');
+      selectedLabel.textContent='Your answer';
+      const selectedText=document.createElement('span');
+      selectedText.textContent=selectedAnswerText(q, ANSWERS[i]);
+      selected.appendChild(selectedLabel);
+      selected.appendChild(selectedText);
+
+      const correctBox=document.createElement('div');
+      correctBox.className='review-answer';
+      const correctLabel=document.createElement('strong');
+      correctLabel.textContent='Correct answer';
+      const correctText=document.createElement('span');
+      correctText.textContent=correctAnswerText(q);
+      correctBox.appendChild(correctLabel);
+      correctBox.appendChild(correctText);
+
+      answers.appendChild(selected);
+      answers.appendChild(correctBox);
+      item.appendChild(answers);
+      qBreakdown.appendChild(item);
+    });
+  }
   saveCurrentSessionStats(correct, answered, QUESTIONS.length, usedMs, accPct);
   qResults.classList.remove('hidden');
+  qResults.scrollIntoView({behavior:'smooth',block:'start'});
 }
 qFinish.onclick=finish;
 
