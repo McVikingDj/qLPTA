@@ -337,6 +337,32 @@ body.light #goStats .search-page-button-icon {
       font-size:12px;
     }
 
+    .stats-hero-actions {
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:8px;
+      flex-shrink:0;
+    }
+
+    .stats-action-row {
+      display:grid;
+      grid-template-columns:auto auto;
+      gap:8px;
+      justify-content:flex-end;
+      white-space:nowrap;
+    }
+
+    .stats-action-row button {
+      grid-row:1;
+    }
+
+    .stats-action-row a {
+      grid-column:1 / -1;
+      grid-row:2;
+      justify-self:stretch;
+    }
+
     .stats-grid {
       display:grid;
       grid-template-columns:repeat(4, minmax(0, 1fr));
@@ -485,6 +511,9 @@ body.light #goStats .search-page-button-icon {
     @media (max-width:860px){
       .stats-wrap { margin:24px auto; }
       .stats-hero { flex-direction:column; align-items:flex-start; }
+      .stats-hero-actions { align-items:stretch; width:100%; }
+      .stats-action-row { justify-content:flex-start; }
+      .stats-action-row a { justify-self:start; }
       .stats-grid { grid-template-columns:repeat(2, minmax(0,1fr)); }
       .stats-main { grid-template-columns:1fr; }
     }
@@ -499,10 +528,12 @@ body.light #goStats .search-page-button-icon {
           <h1>Statistics</h1>
           <p>Local performance tracking for completed test sessions. Data is saved only in this browser using localStorage.</p>
         </div>
-        <div class="hstack" style="gap:8px;flex-wrap:wrap">
+        <div class="stats-hero-actions">
+          <div class="stats-action-row">
           <a class="stats-page-button" href="index.html"><span class="stats-page-button-icon">←</span><span>Main menu</span></a>
           <button class="stats-page-button" id="exportStats"><span class="stats-page-button-icon">⇩</span><span>Export</span></button>
           <button class="stats-page-button" id="importStats"><span class="stats-page-button-icon">⇧</span><span>Import</span></button>
+          </div>
         </div>
       </header>
 
