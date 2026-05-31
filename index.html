@@ -491,6 +491,38 @@ body.light #goStats .search-page-button-icon {
   }
 </style>
 
+<style id="st-mode-polish-v26">
+  .manual-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: opacity .16s ease, filter .16s ease;
+  }
+
+  .manual-settings-faded {
+    opacity: .36;
+  }
+
+  .manual-settings-faded label,
+  .manual-settings-faded input,
+  .manual-settings-faded select {
+    pointer-events: none;
+  }
+
+  .manual-setting-note {
+    display: none;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: rgba(34,197,94,.08);
+    border: 1px solid rgba(34,197,94,.18);
+    color: var(--muted);
+  }
+
+  .manual-settings-faded + .manual-setting-note {
+    display: block;
+  }
+</style>
+
 </head>
 <body>
 <!-- LOGIN -->
@@ -528,14 +560,17 @@ body.light #goStats .search-page-button-icon {
         <select class="select" id="mSubject"><option selected disabled>Loading…</option></select>
         <div class="small" id="mSubjectInfo"></div>
         <div class="small" id="mSTInfo" style="display:none"></div>
-        <label class="small" style="margin-top:4px"><input type="checkbox" id="mShuffle" checked> Shuffle questions</label>
-        <label class="small" style="margin-top:4px"><input type="checkbox" id="mShuffleAnswers" checked> Shuffle answers</label>
-        <label class="small">Number of questions</label>
-        <input class="input" id="mCount" type="number" min="1" value="50" />
-        <label class="small">Duration (minutes)</label>
-        <input class="input" id="mMinutes" type="number" min="0" value="60" />
-        <label class="small">Auto-advance (Test mode)</label>
-        <select class="select" id="mAdvance"><option value="0">Off</option><option value="600" selected>Normal (600 ms)</option><option value="250">Fast (250 ms)</option></select>
+        <div class="manual-settings" id="manualSettings">
+          <label class="small" style="margin-top:4px"><input type="checkbox" id="mShuffle" checked> Shuffle questions</label>
+          <label class="small" style="margin-top:4px"><input type="checkbox" id="mShuffleAnswers" checked> Shuffle answers</label>
+          <label class="small">Number of questions</label>
+          <input class="input" id="mCount" type="number" min="1" value="50" />
+          <label class="small">Duration (minutes)</label>
+          <input class="input" id="mMinutes" type="number" min="0" value="60" />
+          <label class="small">Auto-advance (Test mode)</label>
+          <select class="select" id="mAdvance"><option value="0">Off</option><option value="600" selected>Normal (600 ms)</option><option value="250">Fast (250 ms)</option></select>
+        </div>
+        <div class="small manual-setting-note" id="manualSettingNote">ST mode uses its own fixed question count, duration, and randomisation.</div>
         <label class="small">Mode</label>
         <div class="mode-buttons">
           <div class="mode-btn active" id="btnTest"><strong>Test Mode</strong><div class="small">Instant feedback</div></div>
@@ -706,6 +741,7 @@ ensureLogin();
 const menu=document.getElementById('menu'),quiz=document.getElementById('quiz');
 const mSubject=document.getElementById('mSubject'),mSubjectInfo=document.getElementById('mSubjectInfo'),mSTInfo=document.getElementById('mSTInfo');
 const mCount=document.getElementById('mCount'),mMinutes=document.getElementById('mMinutes'),mShuffle=document.getElementById('mShuffle'),mAdvance=document.getElementById('mAdvance'),mShuffleAnswers=document.getElementById('mShuffleAnswers');
+const manualSettings=document.getElementById('manualSettings');
 const btnTest=document.getElementById('btnTest'),btnST=document.getElementById('btnST'),mStart=document.getElementById('mStart');
 const qBack=document.getElementById('qBack'),qSubject=document.getElementById('qSubject'),qTimer=document.getElementById('qTimer'),qProgress=document.getElementById('qProgress'),qScoreLive=document.getElementById('qScoreLive'),qRemaining=document.getElementById('qRemaining');
 const qNumber=document.getElementById('qNumber'),qStatus=document.getElementById('qStatus'),qText=document.getElementById('qText'),qOptions=document.getElementById('qOptions');
@@ -1213,8 +1249,18 @@ function beginSession(subject){
 }
 
 /*** CONTROLS ***/
-btnTest.onclick=()=>{ btnTest.classList.add('active');btnST.classList.remove('active'); mCount.disabled=false;mMinutes.disabled=false;mShuffle.disabled=false; refreshSubjectLabels(); updateSubjectInfo(); qPlan.classList.add('hidden'); };
-btnST.onclick=()=>{ btnST.classList.add('active');btnTest.classList.remove('active'); mCount.disabled=true;mMinutes.disabled=true;mShuffle.disabled=true; refreshSubjectLabels(); updateSubjectInfo(); };
+function syncModeSettings(){
+  const usingST = btnST.classList.contains('active');
+  manualSettings.classList.toggle('manual-settings-faded', usingST);
+  mCount.disabled=usingST;
+  mMinutes.disabled=usingST;
+  mShuffle.disabled=usingST;
+  mShuffleAnswers.disabled=usingST;
+  mAdvance.disabled=usingST;
+}
+
+btnTest.onclick=()=>{ btnTest.classList.add('active');btnST.classList.remove('active'); syncModeSettings(); refreshSubjectLabels(); updateSubjectInfo(); qPlan.classList.add('hidden'); };
+btnST.onclick=()=>{ btnST.classList.add('active');btnTest.classList.remove('active'); syncModeSettings(); refreshSubjectLabels(); updateSubjectInfo(); };
 
 mSubject.addEventListener('change', ()=>{ SUBJECT=mSubject.value; updateSubjectInfo(); });
 qPrev.onclick=()=>{ if(INDEX>0){ INDEX--; render(); } };
