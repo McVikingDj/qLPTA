@@ -1,0 +1,1002 @@
+[
+  {
+    "question": "According to FCL.060, what recent experience is required before carrying passengers as PIC by day?",
+    "choices": [
+      "Three take-offs and landings within the preceding 90 days",
+      "One take-off and landing within the preceding 30 days",
+      "Five take-offs within the preceding 180 days",
+      "A proficiency check within the preceding 90 days"
+    ],
+    "answer": "Three take-offs and landings within the preceding 90 days"
+  },
+  {
+    "question": "According to FCL.060, what additional recent experience is required before carrying passengers as PIC at night?",
+    "choices": [
+      "At least one of the required recent take-offs and landings shall be at night",
+      "A night proficiency check must be completed every 90 days",
+      "A night rating automatically removes all recent-experience requirements",
+      "Five night landings are required within the preceding 30 days"
+    ],
+    "answer": "At least one of the required recent take-offs and landings shall be at night"
+  },
+  {
+    "question": "According to FCL.205.A, what is a basic privilege of the holder of a PPL(A)?",
+    "choices": [
+      "To act as PIC or co-pilot on aeroplanes engaged in non-commercial operations without remuneration",
+      "To act as PIC on commercial air transport flights",
+      "To conduct paid aerial work without further qualification",
+      "To act as pilot-in-command of any multi-pilot aeroplane"
+    ],
+    "answer": "To act as PIC or co-pilot on aeroplanes engaged in non-commercial operations without remuneration"
+  },
+  {
+    "question": "According to FCL.210.A, what is the minimum age for the issue of a PPL(A)?",
+    "choices": [
+      "16 years",
+      "17 years",
+      "18 years",
+      "21 years"
+    ],
+    "answer": "17 years"
+  },
+  {
+    "question": "According to FCL.210.A, where must an applicant for a PPL complete the required training course?",
+    "choices": [
+      "At an ATO or a DTO",
+      "Only at an airline training organisation",
+      "Only with a freelance instructor outside an approved structure",
+      "Only at a national aviation authority"
+    ],
+    "answer": "At an ATO or a DTO"
+  },
+  {
+    "question": "According to FCL.040, what must a pilot hold to exercise the privileges of a licence?",
+    "choices": [
+      "A valid medical certificate appropriate to the privileges exercised",
+      "Only a logbook signed by an instructor",
+      "A valid aircraft insurance certificate",
+      "A valid ATC clearance"
+    ],
+    "answer": "A valid medical certificate appropriate to the privileges exercised"
+  },
+  {
+    "question": "According to NCO.GEN.105, who has final authority as to the disposition of the aircraft while in command?",
+    "choices": [
+      "The pilot-in-command",
+      "The aerodrome operator",
+      "Air traffic control",
+      "The maintenance organisation"
+    ],
+    "answer": "The pilot-in-command"
+  },
+  {
+    "question": "According to NCO.GEN.105, who is responsible for the safety of the aircraft and persons on board during flight operations?",
+    "choices": [
+      "The pilot-in-command",
+      "The aircraft owner only",
+      "The fuel supplier",
+      "The air traffic controller"
+    ],
+    "answer": "The pilot-in-command"
+  },
+  {
+    "question": "According to NCO.OP.105, before commencing a flight the PIC shall be familiar with which information?",
+    "choices": [
+      "All available information appropriate to the intended operation",
+      "Only the destination weather",
+      "Only the aircraft fuel state",
+      "Only information provided by ATC"
+    ],
+    "answer": "All available information appropriate to the intended operation"
+  },
+  {
+    "question": "According to NCO.OP.125, when may the PIC commence a flight?",
+    "choices": [
+      "Only if the aircraft carries sufficient fuel and oil for the intended operation",
+      "Whenever the aircraft tanks are full",
+      "Only if ATC confirms the fuel plan",
+      "Whenever the destination is within gliding range"
+    ],
+    "answer": "Only if the aircraft carries sufficient fuel and oil for the intended operation"
+  },
+  {
+    "question": "According to NCO.GEN.135, which document is normally required to be carried on board?",
+    "choices": [
+      "The certificate of airworthiness",
+      "The pilot's school progress report",
+      "The aircraft maintenance programme only",
+      "The previous owner's sales contract"
+    ],
+    "answer": "The certificate of airworthiness"
+  },
+  {
+    "question": "According to NCO.GEN.135, which pilot document is normally required to be carried on board?",
+    "choices": [
+      "The licence of each flight crew member",
+      "A copy of the pilot's written exam results",
+      "The pilot's employment contract",
+      "The pilot's complete training syllabus"
+    ],
+    "answer": "The licence of each flight crew member"
+  },
+  {
+    "question": "According to SERA.3210, when two aircraft of the same category are converging at approximately the same altitude, which aircraft shall give way?",
+    "choices": [
+      "The aircraft that has the other on its right",
+      "The aircraft that has the other on its left",
+      "The faster aircraft always",
+      "The aircraft flying at the lower altitude always"
+    ],
+    "answer": "The aircraft that has the other on its right"
+  },
+  {
+    "question": "According to SERA.3210, which aircraft has right-of-way over power-driven heavier-than-air aircraft?",
+    "choices": [
+      "Balloons",
+      "Faster aeroplanes",
+      "Aircraft flying higher",
+      "Aircraft with retractable landing gear"
+    ],
+    "answer": "Balloons"
+  },
+  {
+    "question": "According to SERA.3210, what should an aircraft that is being overtaken do?",
+    "choices": [
+      "Maintain its course and speed",
+      "Turn right immediately",
+      "Descend to allow the other aircraft to pass",
+      "Climb above the overtaking aircraft"
+    ],
+    "answer": "Maintain its course and speed"
+  },
+  {
+    "question": "According to SERA.3210, when two aircraft are approaching head-on or nearly so, what shall each aircraft do?",
+    "choices": [
+      "Alter heading to the right",
+      "Alter heading to the left",
+      "The lower aircraft shall descend",
+      "The faster aircraft shall climb"
+    ],
+    "answer": "Alter heading to the right"
+  },
+  {
+    "question": "According to SERA.5005, except when necessary for take-off or landing, what is the general minimum height over congested areas for VFR flight?",
+    "choices": [
+      "At least 1 000 ft above the highest obstacle within a radius of 600 m",
+      "At least 500 ft above ground level",
+      "At least 2 000 ft above mean sea level",
+      "At least 300 ft above the highest obstacle"
+    ],
+    "answer": "At least 1 000 ft above the highest obstacle within a radius of 600 m"
+  },
+  {
+    "question": "According to SERA.5005, except when necessary for take-off or landing, what is the general minimum height elsewhere than over congested areas?",
+    "choices": [
+      "500 ft above the ground or water, or 500 ft above the highest obstacle within 150 m",
+      "1 000 ft above the highest obstacle within 600 m",
+      "2 000 ft above mean sea level",
+      "100 ft above ground level if visibility is good"
+    ],
+    "answer": "500 ft above the ground or water, or 500 ft above the highest obstacle within 150 m"
+  },
+  {
+    "question": "According to SERA.5001, what is the purpose of VMC visibility and distance-from-cloud minima?",
+    "choices": [
+      "To help pilots maintain visual separation from cloud, terrain and other traffic",
+      "To reduce fuel consumption",
+      "To remove the need for radio communication",
+      "To determine aircraft loading limits"
+    ],
+    "answer": "To help pilots maintain visual separation from cloud, terrain and other traffic"
+  },
+  {
+    "question": "During pre-flight inspection you discover blue staining around a fuel drain. What is the most appropriate interpretation and action? [NCO.GEN.105 Scenario]",
+    "choices": [
+      "It may indicate a fuel leak and should be assessed before flight",
+      "It is normal and always expected after refuelling",
+      "It indicates water contamination only and can be ignored after draining",
+      "It means the engine oil level is too high"
+    ],
+    "answer": "It may indicate a fuel leak and should be assessed before flight"
+  },
+  {
+    "question": "During a planned daytime VFR flight, a landing light is found inoperative. What is the most appropriate PIC action? [NCO.GEN.105 Scenario]",
+    "choices": [
+      "Assess whether the aircraft remains airworthy and legal for the intended operation",
+      "Cancel automatically regardless of the operation",
+      "Depart because lighting is never required for daytime VFR",
+      "Ask ATC to approve the defect"
+    ],
+    "answer": "Assess whether the aircraft remains airworthy and legal for the intended operation"
+  },
+  {
+    "question": "During a navigation exercise, weather ahead is deteriorating towards VMC minima and your personal minima. What is the safest decision? [SERA.5001 / PPL Skill Test Scenario]",
+    "choices": [
+      "Take early action, such as diverting or turning back",
+      "Continue until the weather is definitely below legal minima",
+      "Descend lower to maintain ground contact regardless of terrain",
+      "Wait for ATC to make the decision"
+    ],
+    "answer": "Take early action, such as diverting or turning back"
+  },
+  {
+    "question": "After an engine failure after take-off, what should be the pilot's first priority? [PPL Skill Test Scenario]",
+    "choices": [
+      "Maintain control of the aircraft",
+      "Transmit a MAYDAY call immediately",
+      "Attempt a restart before lowering the nose",
+      "Change radio frequency"
+    ],
+    "answer": "Maintain control of the aircraft"
+  },
+  {
+    "question": "During flight, oil pressure decreases while oil temperature increases. What is the most appropriate interpretation? [PPL Skill Test Scenario]",
+    "choices": [
+      "A possible lubrication system problem requiring prompt action",
+      "Normal operation during cruise",
+      "Carburettor icing",
+      "A blocked pitot tube"
+    ],
+    "answer": "A possible lubrication system problem requiring prompt action"
+  },
+  {
+    "question": "ATC issues a clearance that you believe would compromise safety. What should you do? [NCO.GEN.105 / SERA Scenario]",
+    "choices": [
+      "Decline or request an alternative clearance and advise ATC as necessary",
+      "Accept it because ATC has final authority over safety",
+      "Ignore ATC without communication",
+      "Accept it and report the issue after landing only"
+    ],
+    "answer": "Decline or request an alternative clearance and advise ATC as necessary"
+  },
+  {
+    "question": "According to FCL.040, when may a pilot exercise the privileges of a licence?",
+    "choices": [
+      "Only when holding a valid licence and appropriate medical certificate",
+      "Only when carrying passengers",
+      "Only when flying within their home state",
+      "Only after a proficiency check every year"
+    ],
+    "answer": "Only when holding a valid licence and appropriate medical certificate"
+  },
+  {
+    "question": "According to FCL requirements, where should flight time be recorded?",
+    "choices": [
+      "In a pilot logbook",
+      "In the aircraft journey log only",
+      "On the flight plan",
+      "In the maintenance records"
+    ],
+    "answer": "In a pilot logbook"
+  },
+  {
+    "question": "According to FCL.060, recent experience requirements apply primarily to:",
+    "choices": [
+      "Carrying passengers",
+      "Flying solo",
+      "Conducting navigation exercises",
+      "Operating from grass runways"
+    ],
+    "answer": "Carrying passengers"
+  },
+  {
+    "question": "What is the purpose of a medical certificate under Part-FCL?",
+    "choices": [
+      "To demonstrate fitness to exercise licence privileges",
+      "To certify aircraft airworthiness",
+      "To replace a licence",
+      "To authorize international flights"
+    ],
+    "answer": "To demonstrate fitness to exercise licence privileges"
+  },
+  {
+    "question": "According to Part-FCL, licence privileges are limited by:",
+    "choices": [
+      "Ratings and medical validity",
+      "Aircraft paint scheme",
+      "Aerodrome elevation",
+      "Fuel type"
+    ],
+    "answer": "Ratings and medical validity"
+  },
+  {
+    "question": "According to NCO.GEN.105, who is responsible for passenger safety briefings?",
+    "choices": [
+      "The PIC",
+      "ATC",
+      "The aircraft owner",
+      "The aerodrome operator"
+    ],
+    "answer": "The PIC"
+  },
+  {
+    "question": "According to NCO.OP.125, fuel planning should account for:",
+    "choices": [
+      "The intended operation and reserves",
+      "Only the planned route time",
+      "Only cruise fuel",
+      "Only destination weather"
+    ],
+    "answer": "The intended operation and reserves"
+  },
+  {
+    "question": "A defect is discovered before departure. What should the PIC do first? [NCO Scenario]",
+    "choices": [
+      "Assess legality and airworthiness",
+      "Depart and monitor",
+      "Ask passengers",
+      "Ignore minor defects"
+    ],
+    "answer": "Assess legality and airworthiness"
+  },
+  {
+    "question": "According to NCO principles, who decides whether a flight should depart?",
+    "choices": [
+      "The PIC",
+      "ATC",
+      "The fuel supplier",
+      "The passengers"
+    ],
+    "answer": "The PIC"
+  },
+  {
+    "question": "Why should passengers be briefed before flight?",
+    "choices": [
+      "To improve safety and emergency preparedness",
+      "To reduce fuel burn",
+      "To satisfy customs requirements",
+      "To improve radio communication"
+    ],
+    "answer": "To improve safety and emergency preparedness"
+  },
+  {
+    "question": "According to SERA, what does a flashing green light signal to an aircraft on the ground mean?",
+    "choices": [
+      "Cleared to taxi",
+      "Cleared for take-off",
+      "Stop immediately",
+      "Return to apron"
+    ],
+    "answer": "Cleared to taxi"
+  },
+  {
+    "question": "According to SERA, what does a steady red light to an aircraft in flight mean?",
+    "choices": [
+      "Give way and continue circling",
+      "Cleared to land",
+      "Return to departure airport",
+      "Aerodrome closed"
+    ],
+    "answer": "Give way and continue circling"
+  },
+  {
+    "question": "Under SERA right-of-way rules, an overtaking aircraft shall:",
+    "choices": [
+      "Keep out of the way of the aircraft being overtaken",
+      "Maintain position",
+      "Descend below the other aircraft",
+      "Climb above the other aircraft"
+    ],
+    "answer": "Keep out of the way of the aircraft being overtaken"
+  },
+  {
+    "question": "What is the primary responsibility of a VFR pilot regarding weather? [SERA]",
+    "choices": [
+      "Remain in conditions meeting VMC minima",
+      "Follow IFR minima",
+      "Ignore cloud clearances",
+      "Rely on ATC separation"
+    ],
+    "answer": "Remain in conditions meeting VMC minima"
+  },
+  {
+    "question": "According to SERA, head-on encounters require both aircraft to:",
+    "choices": [
+      "Alter course to the right",
+      "Alter course to the left",
+      "Climb",
+      "Descend"
+    ],
+    "answer": "Alter course to the right"
+  },
+  {
+    "question": "A blocked pitot tube is most likely to affect which instrument?",
+    "choices": [
+      "Airspeed indicator",
+      "Compass",
+      "Turn coordinator",
+      "Magnetic compass only"
+    ],
+    "answer": "Airspeed indicator"
+  },
+  {
+    "question": "What is the most common indication of water contamination during fuel sampling?",
+    "choices": [
+      "Water droplets or a separate layer",
+      "Higher oil pressure",
+      "Blue exhaust smoke",
+      "Increased RPM"
+    ],
+    "answer": "Water droplets or a separate layer"
+  },
+  {
+    "question": "What is the primary purpose of the aircraft electrical system?",
+    "choices": [
+      "Provide power to aircraft equipment",
+      "Cool the engine",
+      "Increase lift",
+      "Control fuel mixture"
+    ],
+    "answer": "Provide power to aircraft equipment"
+  },
+  {
+    "question": "A stall occurs when:",
+    "choices": [
+      "The critical angle of attack is exceeded",
+      "The engine stops",
+      "The aircraft is too slow",
+      "The aircraft exceeds VNE"
+    ],
+    "answer": "The critical angle of attack is exceeded"
+  },
+  {
+    "question": "Why is stall awareness important during approach?",
+    "choices": [
+      "Low altitude leaves little recovery margin",
+      "It reduces radio workload",
+      "It improves fuel economy",
+      "It increases climb performance"
+    ],
+    "answer": "Low altitude leaves little recovery margin"
+  },
+  {
+    "question": "During navigation you become unsure of your position. What should you do? [Skill Test Scenario]",
+    "choices": [
+      "Climb if appropriate, navigate, communicate",
+      "Continue blindly",
+      "Descend immediately",
+      "Turn off navigation aids"
+    ],
+    "answer": "Climb if appropriate, navigate, communicate"
+  },
+  {
+    "question": "A passenger becomes airsick during flight. What is the most appropriate action? [Skill Test Scenario]",
+    "choices": [
+      "Assess the situation and consider diverting if necessary",
+      "Ignore it",
+      "Continue regardless",
+      "Ask ATC to make the decision"
+    ],
+    "answer": "Assess the situation and consider diverting if necessary"
+  },
+  {
+    "question": "Weather at destination is worsening rapidly. What is the safest action? [Skill Test Scenario]",
+    "choices": [
+      "Consider diverting early",
+      "Continue until below minima",
+      "Descend lower",
+      "Ignore forecasts"
+    ],
+    "answer": "Consider diverting early"
+  },
+  {
+    "question": "Following a radio failure in VMC, what should be your priority? [Skill Test Scenario]",
+    "choices": [
+      "Continue safely while complying with applicable procedures",
+      "Squawk standby",
+      "Switch off all avionics",
+      "Land immediately regardless of circumstances"
+    ],
+    "answer": "Continue safely while complying with applicable procedures"
+  },
+  {
+    "question": "You suspect fuel starvation due to incorrect tank selection. What should you do first? [Skill Test Scenario]",
+    "choices": [
+      "Select the appropriate fuel source while maintaining aircraft control",
+      "Transmit PAN immediately",
+      "Climb",
+      "Ignore the indication"
+    ],
+    "answer": "Select the appropriate fuel source while maintaining aircraft control"
+  },
+  {
+    "question": "What effect does high density altitude generally have on aircraft performance? [Performance]",
+    "choices": [
+      "Reduced climb and take-off performance",
+      "Improved climb performance",
+      "No effect",
+      "Improved engine power"
+    ],
+    "answer": "Reduced climb and take-off performance"
+  },
+  {
+    "question": "Why should a pilot consider runway surface conditions during planning? [Performance]",
+    "choices": [
+      "They affect take-off and landing performance",
+      "They affect radio range only",
+      "They determine airspace classification",
+      "They change magnetic variation"
+    ],
+    "answer": "They affect take-off and landing performance"
+  },
+  {
+    "question": "Why is weight and balance important? [Performance]",
+    "choices": [
+      "To ensure the aircraft remains within approved limits",
+      "To reduce radio workload",
+      "To increase cruise speed only",
+      "To satisfy customs requirements"
+    ],
+    "answer": "To ensure the aircraft remains within approved limits"
+  },
+  {
+    "question": "What is the primary purpose of fuel reserves? [NCO.OP.125]",
+    "choices": [
+      "To allow for unforeseen circumstances",
+      "To improve climb performance",
+      "To increase aircraft weight",
+      "To reduce fuel burn"
+    ],
+    "answer": "To allow for unforeseen circumstances"
+  },
+  {
+    "question": "Why should NOTAMs be checked before flight? [NCO.OP.105]",
+    "choices": [
+      "To identify operational hazards and restrictions",
+      "To calculate weight and balance",
+      "To determine fuel density",
+      "To replace weather briefings"
+    ],
+    "answer": "To identify operational hazards and restrictions"
+  },
+  {
+    "question": "What is the safest action when visibility is steadily deteriorating towards your personal minima? [Skill Test Scenario]",
+    "choices": [
+      "Consider diverting or turning back early",
+      "Continue until legal minima are reached",
+      "Descend lower",
+      "Ignore the trend"
+    ],
+    "answer": "Consider diverting or turning back early"
+  },
+  {
+    "question": "Why should a pilot avoid pressing on into worsening weather? [PPL Decision Making]",
+    "choices": [
+      "Conditions can deteriorate faster than expected",
+      "ATC will take control",
+      "Fuel burn decreases",
+      "Visibility becomes irrelevant"
+    ],
+    "answer": "Conditions can deteriorate faster than expected"
+  },
+  {
+    "question": "When planning a VFR flight, why is wind important?",
+    "choices": [
+      "It affects groundspeed and fuel planning",
+      "It changes aircraft registration",
+      "It affects radio frequencies",
+      "It changes airspace classification"
+    ],
+    "answer": "It affects groundspeed and fuel planning"
+  },
+  {
+    "question": "What is a common risk of strong crosswinds?",
+    "choices": [
+      "Loss of directional control during take-off or landing",
+      "Engine overheating",
+      "Incorrect altimeter setting",
+      "Fuel contamination"
+    ],
+    "answer": "Loss of directional control during take-off or landing"
+  },
+  {
+    "question": "Why is cloud clearance important for VFR flight? [SERA.5001]",
+    "choices": [
+      "To maintain visual separation",
+      "To improve fuel economy",
+      "To reduce engine wear",
+      "To improve GPS accuracy"
+    ],
+    "answer": "To maintain visual separation"
+  },
+  {
+    "question": "What is the purpose of magneto checks during run-up?",
+    "choices": [
+      "To verify ignition system operation",
+      "To test fuel quantity",
+      "To check pitot heat",
+      "To verify transponder operation"
+    ],
+    "answer": "To verify ignition system operation"
+  },
+  {
+    "question": "What is carburettor icing most likely to cause?",
+    "choices": [
+      "Loss of engine power",
+      "Increased climb performance",
+      "Higher oil pressure",
+      "Improved fuel efficiency"
+    ],
+    "answer": "Loss of engine power"
+  },
+  {
+    "question": "What should you suspect if the airspeed indicator suddenly reads zero in flight?",
+    "choices": [
+      "Pitot-static system problem",
+      "Engine failure",
+      "Fuel starvation",
+      "Compass failure"
+    ],
+    "answer": "Pitot-static system problem"
+  },
+  {
+    "question": "What is the purpose of draining fuel samples before flight?",
+    "choices": [
+      "To check for contamination such as water",
+      "To increase fuel octane",
+      "To improve fuel flow",
+      "To reduce aircraft weight"
+    ],
+    "answer": "To check for contamination such as water"
+  },
+  {
+    "question": "Why is oil pressure monitored during flight?",
+    "choices": [
+      "It indicates engine lubrication health",
+      "It indicates fuel quantity",
+      "It measures climb rate",
+      "It controls ignition timing"
+    ],
+    "answer": "It indicates engine lubrication health"
+  },
+  {
+    "question": "What does IMSAFE help a pilot evaluate? [Human Performance]",
+    "choices": [
+      "Personal fitness to fly",
+      "Aircraft airworthiness",
+      "Weather conditions",
+      "Fuel planning"
+    ],
+    "answer": "Personal fitness to fly"
+  },
+  {
+    "question": "Fatigue primarily affects:",
+    "choices": [
+      "Judgement and performance",
+      "Aircraft weight",
+      "Radio range",
+      "Fuel consumption"
+    ],
+    "answer": "Judgement and performance"
+  },
+  {
+    "question": "Hypoxia can result in:",
+    "choices": [
+      "Reduced mental performance",
+      "Improved concentration",
+      "Increased alertness",
+      "Improved night vision"
+    ],
+    "answer": "Reduced mental performance"
+  },
+  {
+    "question": "Why is stress a concern for pilots?",
+    "choices": [
+      "It can impair decision making",
+      "It improves reaction time",
+      "It increases fuel reserves",
+      "It improves navigation"
+    ],
+    "answer": "It can impair decision making"
+  },
+  {
+    "question": "What is a common symptom of hyperventilation?",
+    "choices": [
+      "Dizziness and tingling sensations",
+      "Improved vision",
+      "Increased strength",
+      "Improved concentration"
+    ],
+    "answer": "Dizziness and tingling sensations"
+  },
+  {
+    "question": "You are uncertain whether remaining fuel is sufficient. What is the safest action? [Skill Test Scenario]",
+    "choices": [
+      "Consider diverting before the situation becomes critical",
+      "Continue and hope for lower fuel burn",
+      "Ignore the indication",
+      "Descend immediately"
+    ],
+    "answer": "Consider diverting before the situation becomes critical"
+  },
+  {
+    "question": "A passenger is pressuring you to continue despite worsening weather. What should you do? [PIC Authority Scenario]",
+    "choices": [
+      "Make the decision based on safety considerations",
+      "Continue to satisfy the passenger",
+      "Ask the passenger to decide",
+      "Ignore weather reports"
+    ],
+    "answer": "Make the decision based on safety considerations"
+  },
+  {
+    "question": "You realise you may infringe controlled airspace if you continue on your current track. What should you do? [SERA Scenario]",
+    "choices": [
+      "Take immediate corrective action",
+      "Continue and explain later",
+      "Descend below terrain",
+      "Ignore the boundary"
+    ],
+    "answer": "Take immediate corrective action"
+  },
+  {
+    "question": "You become uncertain of terrain clearance in deteriorating visibility. What should you do? [Skill Test Scenario]",
+    "choices": [
+      "Take prompt action to maintain safe terrain clearance",
+      "Continue at the same altitude",
+      "Descend for better visibility",
+      "Ignore the concern"
+    ],
+    "answer": "Take prompt action to maintain safe terrain clearance"
+  },
+  {
+    "question": "During a diversion, what should be your priority? [Skill Test Scenario]",
+    "choices": [
+      "Maintain aircraft control and situational awareness",
+      "Arrive as quickly as possible",
+      "Reduce radio communication",
+      "Ignore navigation updates"
+    ],
+    "answer": "Maintain aircraft control and situational awareness"
+  },
+  {
+    "question": "You are concerned that continuing may result in fuel reserves being reduced below planned levels. What is the safest action? [NCO.OP.125 Scenario]",
+    "choices": [
+      "Consider diverting or landing before the situation becomes critical",
+      "Continue and reassess after fuel exhaustion",
+      "Ignore the fuel calculations",
+      "Increase power to arrive sooner"
+    ],
+    "answer": "Consider diverting or landing before the situation becomes critical"
+  },
+  {
+    "question": "A passenger insists that you continue into deteriorating weather. As PIC, what should guide your decision? [NCO.GEN.105 Scenario]",
+    "choices": [
+      "Safety considerations",
+      "Passenger preference",
+      "Schedule pressure",
+      "Fuel already used"
+    ],
+    "answer": "Safety considerations"
+  },
+  {
+    "question": "You become uncertain of your position near controlled airspace. What should you do first? [SERA Scenario]",
+    "choices": [
+      "Take action to avoid infringement while regaining situational awareness",
+      "Continue on track and hope for the best",
+      "Descend immediately",
+      "Turn off navigation equipment"
+    ],
+    "answer": "Take action to avoid infringement while regaining situational awareness"
+  },
+  {
+    "question": "What is the most important principle immediately after an emergency occurs in flight?",
+    "choices": [
+      "Aviate, Navigate, Communicate",
+      "Communicate, Navigate, Aviate",
+      "Navigate, Communicate, Aviate",
+      "Troubleshoot, Communicate, Navigate"
+    ],
+    "answer": "Aviate, Navigate, Communicate"
+  },
+  {
+    "question": "Destination weather has fallen below your personal minima but remains legal. What is the safest decision? [PPL Decision Making]",
+    "choices": [
+      "Consider diverting or selecting an alternative",
+      "Continue because it remains legal",
+      "Descend lower",
+      "Ignore the trend"
+    ],
+    "answer": "Consider diverting or selecting an alternative"
+  },
+  {
+    "question": "You suspect a fuel leak in flight. What should be your priority? [Skill Test Scenario]",
+    "choices": [
+      "Assess the situation and consider landing as soon as practicable",
+      "Continue to destination regardless",
+      "Ignore the indication",
+      "Increase altitude"
+    ],
+    "answer": "Assess the situation and consider landing as soon as practicable"
+  },
+  {
+    "question": "A destination aerodrome becomes unavailable while en route. What is the most appropriate action?",
+    "choices": [
+      "Select a suitable alternative aerodrome",
+      "Continue anyway",
+      "Hold indefinitely",
+      "Return only if instructed"
+    ],
+    "answer": "Select a suitable alternative aerodrome"
+  },
+  {
+    "question": "What is the purpose of carrying alternate options during flight planning?",
+    "choices": [
+      "To provide options if the original plan cannot be completed safely",
+      "To increase fuel burn",
+      "To reduce navigation workload",
+      "To satisfy customs requirements"
+    ],
+    "answer": "To provide options if the original plan cannot be completed safely"
+  },
+  {
+    "question": "Unexpected strong headwinds are reducing your fuel endurance. What should you consider? [Flight Planning Scenario]",
+    "choices": [
+      "An early diversion if required",
+      "Ignoring fuel calculations",
+      "Increasing altitude indefinitely",
+      "Disabling electrical equipment"
+    ],
+    "answer": "An early diversion if required"
+  },
+  {
+    "question": "Why is 'get-there-itis' dangerous?",
+    "choices": [
+      "It can lead to poor decision making and unnecessary risk taking",
+      "It improves determination",
+      "It reduces workload",
+      "It increases situational awareness"
+    ],
+    "answer": "It can lead to poor decision making and unnecessary risk taking"
+  },
+  {
+    "question": "What is a common indication of alternator failure?",
+    "choices": [
+      "Discharge indication and loss of electrical power",
+      "Increased fuel flow",
+      "Improved radio reception",
+      "Higher oil pressure"
+    ],
+    "answer": "Discharge indication and loss of electrical power"
+  },
+  {
+    "question": "If the alternator fails, what is a likely consequence?",
+    "choices": [
+      "Battery-powered systems will eventually be depleted",
+      "Fuel quantity will increase",
+      "The aircraft will stall immediately",
+      "The pitot tube will unblock itself"
+    ],
+    "answer": "Battery-powered systems will eventually be depleted"
+  },
+  {
+    "question": "What is the purpose of pitot heat?",
+    "choices": [
+      "To prevent blockage caused by icing",
+      "To heat the cockpit",
+      "To improve radio performance",
+      "To increase airspeed"
+    ],
+    "answer": "To prevent blockage caused by icing"
+  },
+  {
+    "question": "A blocked static source may affect which instruments?",
+    "choices": [
+      "Altimeter, VSI and Airspeed Indicator",
+      "Compass only",
+      "Turn coordinator only",
+      "Engine gauges only"
+    ],
+    "answer": "Altimeter, VSI and Airspeed Indicator"
+  },
+  {
+    "question": "Why is it important to monitor engine instruments regularly?",
+    "choices": [
+      "To detect abnormal indications early",
+      "To improve navigation",
+      "To reduce radio workload",
+      "To increase cruise speed"
+    ],
+    "answer": "To detect abnormal indications early"
+  },
+  {
+    "question": "According to SERA, what should an aircraft do when being overtaken?",
+    "choices": [
+      "Maintain course and speed",
+      "Turn right immediately",
+      "Descend",
+      "Climb"
+    ],
+    "answer": "Maintain course and speed"
+  },
+  {
+    "question": "According to SERA, what does a flashing red light to an aircraft in flight indicate?",
+    "choices": [
+      "Aerodrome unsafe, do not land",
+      "Cleared to land",
+      "Return for landing",
+      "Cleared to taxi"
+    ],
+    "answer": "Aerodrome unsafe, do not land"
+  },
+  {
+    "question": "Why must VFR pilots remain clear of cloud by the prescribed minima? [SERA.5001]",
+    "choices": [
+      "To maintain visual separation and situational awareness",
+      "To reduce fuel burn",
+      "To improve engine cooling",
+      "To improve GPS accuracy"
+    ],
+    "answer": "To maintain visual separation and situational awareness"
+  },
+  {
+    "question": "According to SERA, who retains responsibility for collision avoidance?",
+    "choices": [
+      "The pilot",
+      "ATC alone",
+      "The aerodrome operator",
+      "The aircraft manufacturer"
+    ],
+    "answer": "The pilot"
+  },
+  {
+    "question": "Why is maintaining a good lookout important? [SERA]",
+    "choices": [
+      "To assist in see-and-avoid collision prevention",
+      "To reduce fuel consumption",
+      "To improve radio coverage",
+      "To increase groundspeed"
+    ],
+    "answer": "To assist in see-and-avoid collision prevention"
+  },
+  {
+    "question": "You become lost over unfamiliar terrain. What is the most appropriate action? [Skill Test Scenario]",
+    "choices": [
+      "Climb if appropriate, regain situational awareness and seek assistance if required",
+      "Continue in the same direction",
+      "Descend immediately",
+      "Turn off navigation equipment"
+    ],
+    "answer": "Climb if appropriate, regain situational awareness and seek assistance if required"
+  },
+  {
+    "question": "You suspect that terrain clearance may become a concern in deteriorating visibility. What should you do?",
+    "choices": [
+      "Take early action to maintain safe terrain clearance",
+      "Descend for a better view",
+      "Ignore the concern",
+      "Continue at the same altitude"
+    ],
+    "answer": "Take early action to maintain safe terrain clearance"
+  },
+  {
+    "question": "A passenger suffers a medical emergency in flight. What should guide your actions?",
+    "choices": [
+      "The severity of the situation and flight safety",
+      "Passenger preference",
+      "Schedule pressure",
+      "Fuel burn"
+    ],
+    "answer": "The severity of the situation and flight safety"
+  },
+  {
+    "question": "During a radio failure in VMC, what remains your primary responsibility?",
+    "choices": [
+      "Operate the aircraft safely and comply with applicable procedures",
+      "Wait for ATC instructions",
+      "Continue without navigation",
+      "Land immediately regardless of circumstances"
+    ],
+    "answer": "Operate the aircraft safely and comply with applicable procedures"
+  },
+  {
+    "question": "What characteristic do most successful PPL skill-test candidates demonstrate?",
+    "choices": [
+      "Sound judgement and safe decision making",
+      "Perfect memory of regulations only",
+      "Aggressive flying technique",
+      "Minimal planning"
+    ],
+    "answer": "Sound judgement and safe decision making"
+  }
+]
