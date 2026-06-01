@@ -552,7 +552,7 @@ body.light #goStats .search-page-button-icon {
 <div id="menuHeaderBar" class="hstack" style="justify-content:space-between;align-items:center;gap:12px; margin-bottom:8px;">
   <div id="menuTitleBlock" class="vstack">
     <h1 style="margin:0">ATPL Question Bank</h1>
-    <div class="small">Version <strong>v2.5</strong></div>
+    <div class="small">Version <strong id="appVersionLabel">Loading</strong></div>
   </div>
   <div class="hstack" style="justify-content:flex-end;">
     <a id="goSearch" class="button search-page-button" href="search.html"><span class="search-page-button-icon">🔎</span><span>Search questions</span></a>
@@ -732,6 +732,11 @@ body.light #goStats .search-page-button-icon {
 </div>
 
 <script>
+/*** VERSION ***/
+const APP_VERSION = "v2.5.1";
+const APP_BUILD = "2026-06-01-st-plan-refactor";
+document.getElementById('appVersionLabel').textContent = APP_VERSION;
+
 /*** LOGIN ***/
 const PASSWORD_HASH = "508f8d85f900866e90d30e1e4e0126984dd0f2f85c443800e5956aae2887120b"; // sha256("School related password")
 const AUTH_KEY = 'atpl_authenticated_v1';
@@ -782,6 +787,11 @@ const ST_PLANS = {
   ASP: { label: "Airframe Systems, Electrics, Powerplant", count: 80, minutes: 120 },
   "KSA - Mental math": { label: "Mental Math", count: 22, minutes: 60 }
 };
+
+console.info(`[ATPL] ${APP_VERSION} loaded (${APP_BUILD})`);
+console.info(`[ATPL] ST plans loaded: ${Object.keys(ST_PLANS).length}`);
+window.ATPL_APP_VERSION = APP_VERSION;
+window.ATPL_APP_BUILD = APP_BUILD;
 
 /*** SUBJECT ALIASES (codes/variants → canonical ST subject) ***/
 const SUBJECT_ALIASES = {
@@ -1033,7 +1043,7 @@ function saveCurrentSessionStats(correct, answered, total, usedMs, accPct){
 
   saveStatsAttempt({
     id: 'attempt-' + Date.now() + '-' + Math.random().toString(16).slice(2),
-    appVersion: 'v2.5',
+    appVersion: APP_VERSION,
     date: new Date().toISOString(),
     subject: SUBJECT || 'Unknown',
     mode: MODE === 'st' ? 'ST Mode' : 'Test Mode',
@@ -1294,6 +1304,7 @@ async function loadQuestionBank(){
 
     RAW = Object.fromEntries(entries);
     window.ATPL_RAW = RAW;
+    console.info(`[ATPL] Question bank ready: ${Object.keys(RAW).length} subjects, ${Object.values(RAW).reduce((sum, arr) => sum + (Array.isArray(arr) ? arr.length : 0), 0)} questions`);
     window.dispatchEvent(new Event('atpl-raw-loaded'));
 
     try{
