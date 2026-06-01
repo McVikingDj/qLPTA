@@ -765,58 +765,49 @@ let SCORE_CORRECT=0,QUESTIONS_ANSWERED=0,START_TS=null; let FLAGGED=[]; let STAT
 let TIMER_END=null, TIMER_IV=null;
 let TEMP_SEL=[]; // per-question temporary selection for multi (array of arrays)
 
-/*** ST CONFIGURATION (strict) ***/
-const ST_CONFIG = {
-  "Air Law": { count: 44, minutes: 60 }, 
-  "Operational Procedures": { count: 42, minutes: 75 }, 
-  "Human Performance": { count: 48, minutes: 90 }, 
-  "Meteorology": { count: 84, minutes: 120 }, 
-  "Communications": { count: 34, minutes: 60 }, 
-  "Principles of Flight": { count: 46, minutes: 90 }, 
-  "Instrumentation": { count: 60, minutes: 90 }, 
-  "Mass and Balance": { count: 25, minutes: 75 }, 
-  "Performance": { count: 45, minutes: 120 }, 
-  "Flight Planning and Monitoring": { count: 42, minutes: 120 }, 
-  "General Navigation": { count: 55, minutes: 135 }, 
-  "Radio Navigation": { count: 66, minutes: 90 }, 
-  "Aircraft General Knowledge": { count: 80, minutes: 120 }, 
-  "Airframe Systems, Electrics, Powerplant": { count: 80, minutes: 120 },
-  // Direct ASP key as a safety net (same plan as AEP)
-  "ASP": { count: 80, minutes: 120 },
-  "Mental Math": { count: 22, minutes: 60 }
+/*** ST CONFIGURATION ***/
+const ST_PLANS = {
+  ALW: { label: "Air Law", count: 44, minutes: 60 },
+  OPS: { label: "Operational Procedures", count: 42, minutes: 75 },
+  HPL: { label: "Human Performance", count: 48, minutes: 90 },
+  MET: { label: "Meteorology", count: 84, minutes: 120 },
+  COM: { label: "Communications", count: 34, minutes: 60 },
+  POF: { label: "Principles of Flight", count: 46, minutes: 90 },
+  INS: { label: "Instrumentation", count: 60, minutes: 90 },
+  "M&B": { label: "Mass and Balance", count: 25, minutes: 75 },
+  PER: { label: "Performance", count: 45, minutes: 120 },
+  FPM: { label: "Flight Planning and Monitoring", count: 42, minutes: 120 },
+  GNAV: { label: "General Navigation", count: 55, minutes: 135 },
+  RNAV: { label: "Radio Navigation", count: 66, minutes: 90 },
+  ASP: { label: "Airframe Systems, Electrics, Powerplant", count: 80, minutes: 120 },
+  "KSA - Mental math": { label: "Mental Math", count: 22, minutes: 60 }
 };
 
 /*** SUBJECT ALIASES (codes/variants → canonical ST subject) ***/
 const SUBJECT_ALIASES = {
-  // Core
-  "alw":"Air Law","law":"Air Law","airlaw":"Air Law",
-  "opr":"Operational Procedures","operationalprocedures":"Operational Procedures",
-  "hpl":"Human Performance","humanperformance":"Human Performance",
-  "met":"Meteorology","meteorology":"Meteorology",
-  "com":"Communications","communications":"Communications",
-  "pof":"Principles of Flight","principlesofflight":"Principles of Flight",
-  "ins":"Instrumentation","instrumentation":"Instrumentation",
-  "mas":"Mass and Balance","mnb":"Mass and Balance","massandbalance":"Mass and Balance",
-  "per":"Performance","performance":"Performance",
-  "fpm":"Flight Planning and Monitoring","flightplanning":"Flight Planning and Monitoring","planningandmonitoring":"Flight Planning and Monitoring","flightplanningandmonitoring":"Flight Planning and Monitoring",
-  "gnav":"General Navigation","gen":"General Navigation","generalnavigation":"General Navigation",
-  "rnav":"Radio Navigation","rnv":"Radio Navigation","radionavigation":"Radio Navigation",
-  "agk":"Aircraft General Knowledge","aircraftgeneralknowledge":"Aircraft General Knowledge",
-  "aep":"Airframe Systems, Electrics, Powerplant","airframesystemselectricspowerplant":"Airframe Systems, Electrics, Powerplant","airframesystems":"Airframe Systems, Electrics, Powerplant","systems":"Airframe Systems, Electrics, Powerplant",
-  // Your combined subject
-  "asp":"Airframe Systems, Electrics, Powerplant"
+  law: "ALW", airlaw: "ALW",
+  opr: "OPS", operationalprocedures: "OPS",
+  humanperformance: "HPL", humanperformancelimitations: "HPL",
+  meteorology: "MET",
+  communications: "COM",
+  principlesofflight: "POF",
+  instrumentation: "INS",
+  mas: "M&B", mnb: "M&B", massbalance: "M&B", massandbalance: "M&B",
+  performance: "PER",
+  flightplanning: "FPM", flightplanningandmonitoring: "FPM", planningandmonitoring: "FPM",
+  gen: "GNAV", generalnavigation: "GNAV",
+  rnv: "RNAV", radionavigation: "RNAV",
+  agk: "ASP", aep: "ASP", aircraftgeneralknowledge: "ASP",
+  airframesystemselectricspowerplant: "ASP", airframesystems: "ASP", systems: "ASP",
+  mentalmath: "KSA - Mental math", ksamentalmath: "KSA - Mental math"
 };
 
-function normKey(s){ return String(s).toLowerCase().replace(/[^a-z]/g,''); }
-function canonicalSubject(subject){
+function normKey(s){ return String(s).toLowerCase().replace(/[^a-z0-9]/g,''); }
+function getSTPlanKey(subject){
+  if(Object.prototype.hasOwnProperty.call(ST_PLANS, subject)) return subject;
   const k = normKey(subject);
-  // Exact key name in ST_CONFIG (normalized)
-  for (const stKey of Object.keys(ST_CONFIG)){
-    if (normKey(stKey) === k) return stKey;
-  }
-  // Alias map
-  if (SUBJECT_ALIASES[k]) return SUBJECT_ALIASES[k];
-  return subject;
+  const directKey = Object.keys(ST_PLANS).find(key => normKey(key) === k || normKey(ST_PLANS[key].label) === k);
+  return directKey || SUBJECT_ALIASES[k] || null;
 }
 function defaultPlan(subject){
   const total = (RAW && RAW[subject]) ? (RAW[subject].length||0) : 0;
@@ -825,12 +816,11 @@ function defaultPlan(subject){
   return {count, minutes};
 }
 function getPlanForSubject(subject){
-  const can = canonicalSubject(subject);
-  return Object.prototype.hasOwnProperty.call(ST_CONFIG, can) ? ST_CONFIG[can] : defaultPlan(subject);
+  const key = getSTPlanKey(subject);
+  return key ? ST_PLANS[key] : defaultPlan(subject);
 }
 function hasStrictPlan(subject){
-  const can = canonicalSubject(subject);
-  return Object.prototype.hasOwnProperty.call(ST_CONFIG, can);
+  return getSTPlanKey(subject) !== null;
 }
 
 /*** UTILS ***/
