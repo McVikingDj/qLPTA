@@ -788,10 +788,10 @@ const ST_PLANS = {
   "KSA - Mental math": { label: "Mental Math", count: 22, minutes: 60 }
 };
 
-console.info(`[ATPL] ${APP_VERSION} loaded (${APP_BUILD})`);
-console.info(`[ATPL] ST plans loaded: ${Object.keys(ST_PLANS).length}`);
-window.ATPL_APP_VERSION = APP_VERSION;
-window.ATPL_APP_BUILD = APP_BUILD;
+console.info(`[qLPTA] ${APP_VERSION} loaded (${APP_BUILD})`);
+console.info(`[qLPTA] ST plans loaded: ${Object.keys(ST_PLANS).length}`);
+window.QLPTA_APP_VERSION = APP_VERSION;
+window.QLPTA_APP_BUILD = APP_BUILD;
 
 /*** SUBJECT ALIASES (codes/variants → canonical ST subject) ***/
 const SUBJECT_ALIASES = {
@@ -1304,7 +1304,7 @@ async function loadQuestionBank(){
 
     RAW = Object.fromEntries(entries);
     window.ATPL_RAW = RAW;
-    console.info(`[ATPL] Question bank ready: ${Object.keys(RAW).length} subjects, ${Object.values(RAW).reduce((sum, arr) => sum + (Array.isArray(arr) ? arr.length : 0), 0)} questions`);
+    console.info(`[qLPTA] Question bank ready: ${Object.keys(RAW).length} subjects, ${Object.values(RAW).reduce((sum, arr) => sum + (Array.isArray(arr) ? arr.length : 0), 0)} questions`);
     window.dispatchEvent(new Event('atpl-raw-loaded'));
 
     try{
