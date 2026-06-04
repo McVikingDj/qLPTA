@@ -86,7 +86,7 @@
   },
   {
     "name": "OSM VFR Profiles",
-    "file": "OSM-VFR-Profiles",
+    "file": "OSM-VFR-Profiles.json",
     "count": 67
   }
 ]
