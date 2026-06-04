@@ -1,0 +1,672 @@
+[
+  {
+    "question": "During a normal takeoff in the C172R/S JT-A, what should be determined before takeoff?",
+    "choices": [
+      "A go-around point",
+      "An abort point",
+      "A top of climb point",
+      "A flap retraction point"
+    ],
+    "answer": "An abort point"
+  },
+  {
+    "question": "When cleared for takeoff during a normal takeoff, what should be done with the landing lights?",
+    "choices": [
+      "Leave them OFF until airborne",
+      "Turn them ON",
+      "Cycle them twice",
+      "Use taxi light only"
+    ],
+    "answer": "Turn them ON"
+  },
+  {
+    "question": "During a normal takeoff, what should be checked after selecting full power?",
+    "choices": [
+      "Cabin heat",
+      "Engine instruments",
+      "Transponder code",
+      "Altimeter setting"
+    ],
+    "answer": "Engine instruments"
+  },
+  {
+    "question": "During a normal takeoff, what climb speed is used initially after becoming airborne?",
+    "choices": [
+      "60 KIAS",
+      "62 KIAS",
+      "70 KIAS",
+      "80 KIAS"
+    ],
+    "answer": "70 KIAS"
+  },
+  {
+    "question": "At 300 ft AAL during a normal takeoff, what power setting should be selected?",
+    "choices": [
+      "Full power",
+      "95%",
+      "90%",
+      "80%"
+    ],
+    "answer": "90%"
+  },
+  {
+    "question": "At 300 ft AAL during the takeoff profile, what pitch speed should be targeted after setting power?",
+    "choices": [
+      "70 KIAS",
+      "75 KIAS",
+      "80 KIAS",
+      "85 KIAS"
+    ],
+    "answer": "80 KIAS"
+  },
+  {
+    "question": "After the 300 ft AAL climb flow during takeoff, which callout includes flap retraction?",
+    "choices": [
+      "Flaps - TAKEOFF",
+      "Flaps - APPROACH",
+      "Flaps - UP",
+      "Flaps - 10"
+    ],
+    "answer": "Flaps - UP"
+  },
+  {
+    "question": "During the climb flow after takeoff, what should be done with the fuel pump?",
+    "choices": [
+      "ON",
+      "OFF",
+      "AUTO",
+      "LOW"
+    ],
+    "answer": "OFF"
+  },
+  {
+    "question": "At safe altitude after takeoff, which checklist should be completed?",
+    "choices": [
+      "Before landing checklist",
+      "Climb checklist",
+      "Shutdown checklist",
+      "Passenger briefing checklist"
+    ],
+    "answer": "Climb checklist"
+  },
+  {
+    "question": "For the OSM VFR takeoff profiles, safe altitude is at least what height, provided the aircraft is stable and in a safe flight condition?",
+    "choices": [
+      "500 ft AAL",
+      "700 ft AAL",
+      "1000 ft AAL",
+      "1500 ft AAL"
+    ],
+    "answer": "1000 ft AAL"
+  },
+  {
+    "question": "For a short field takeoff without obstacles, what flap setting is used before takeoff?",
+    "choices": [
+      "Flaps UP",
+      "Flaps 10°",
+      "Flaps 20°",
+      "Flaps 30°"
+    ],
+    "answer": "Flaps 10°"
+  },
+  {
+    "question": "For a short field takeoff without obstacles, what is the published rotation speed shown in the profile?",
+    "choices": [
+      "48 KIAS",
+      "51 KIAS",
+      "55 KIAS",
+      "60 KIAS"
+    ],
+    "answer": "51 KIAS"
+  },
+  {
+    "question": "In the short field takeoff profile, how should rotation be performed?",
+    "choices": [
+      "Abrupt rotation",
+      "Smooth rotation",
+      "No rotation until 70 KIAS",
+      "Rotation with brakes held"
+    ],
+    "answer": "Smooth rotation"
+  },
+  {
+    "question": "For a short field takeoff with obstacles in a C172R JT-A, what speed should be used for VX?",
+    "choices": [
+      "55 KIAS",
+      "60 KIAS",
+      "62 KIAS",
+      "70 KIAS"
+    ],
+    "answer": "60 KIAS"
+  },
+  {
+    "question": "For a short field takeoff with obstacles in a C172S JT-A, what speed should be used for VX?",
+    "choices": [
+      "60 KIAS",
+      "62 KIAS",
+      "65 KIAS",
+      "70 KIAS"
+    ],
+    "answer": "62 KIAS"
+  },
+  {
+    "question": "During a short field takeoff with obstacles, when should the aircraft transition from VX to VY?",
+    "choices": [
+      "Immediately after liftoff",
+      "At 100 ft AAL",
+      "When free of obstacles",
+      "Only after the climb checklist"
+    ],
+    "answer": "When free of obstacles"
+  },
+  {
+    "question": "During a short field takeoff with obstacles, what speed is used for VY after obstacle clearance?",
+    "choices": [
+      "60 KIAS",
+      "62 KIAS",
+      "70 KIAS",
+      "80 KIAS"
+    ],
+    "answer": "70 KIAS"
+  },
+  {
+    "question": "For soft field takeoff technique, when should the aircraft be rotated?",
+    "choices": [
+      "At exactly 51 KIAS",
+      "As soon as possible and accelerate in ground effect",
+      "Only after reaching 70 KIAS",
+      "After passing the abort point"
+    ],
+    "answer": "As soon as possible and accelerate in ground effect"
+  },
+  {
+    "question": "During takeoff technique in crosswind, how should ailerons be used?",
+    "choices": [
+      "Away from the wind and increased with speed",
+      "Into the wind and decreased with increasing speed",
+      "Neutral throughout the takeoff roll",
+      "Into the wind and increased with increasing speed"
+    ],
+    "answer": "Into the wind and decreased with increasing speed"
+  },
+  {
+    "question": "During takeoff technique, what should be done with pressure on the nose wheel?",
+    "choices": [
+      "Increase pressure until liftoff",
+      "Release pressure on the nose wheel",
+      "Keep full forward elevator",
+      "Hold the nose wheel down until 80 KIAS"
+    ],
+    "answer": "Release pressure on the nose wheel"
+  },
+  {
+    "question": "For a normal landing, what final approach speed is shown before reaching threshold speed?",
+    "choices": [
+      "62 KIAS",
+      "65 KIAS",
+      "70 KIAS",
+      "75 KIAS"
+    ],
+    "answer": "70 KIAS"
+  },
+  {
+    "question": "For a normal landing, what flap setting is normally used on final?",
+    "choices": [
+      "Flaps 10°",
+      "Flaps 20°",
+      "Flaps 30°",
+      "Flaps UP"
+    ],
+    "answer": "Flaps 30°"
+  },
+  {
+    "question": "For a normal landing, what should be done with the fuel pump on final?",
+    "choices": [
+      "OFF",
+      "ON",
+      "AUTO",
+      "LOW"
+    ],
+    "answer": "ON"
+  },
+  {
+    "question": "For a normal landing, what threshold speed VTH is shown?",
+    "choices": [
+      "60 KIAS",
+      "62 KIAS",
+      "65 KIAS",
+      "70 KIAS"
+    ],
+    "answer": "62 KIAS"
+  },
+  {
+    "question": "For strong or gusty winds during a normal landing, what flap setting is recommended?",
+    "choices": [
+      "Flaps 10°",
+      "Flaps 20°",
+      "Flaps 30°",
+      "Flaps UP only"
+    ],
+    "answer": "Flaps 20°"
+  },
+  {
+    "question": "For a flapless landing in a C172R, what VTH is given?",
+    "choices": [
+      "65 KIAS",
+      "70 KIAS",
+      "72 KIAS",
+      "75 KIAS"
+    ],
+    "answer": "70 KIAS"
+  },
+  {
+    "question": "For a flapless landing in a C172S, what VTH is given?",
+    "choices": [
+      "65 KIAS",
+      "70 KIAS",
+      "75 KIAS",
+      "80 KIAS"
+    ],
+    "answer": "75 KIAS"
+  },
+  {
+    "question": "For strong or gusty winds during flapless landing, how much speed should be added?",
+    "choices": [
+      "2-3 KIAS",
+      "5-10 KIAS",
+      "10-15 KIAS",
+      "15-20 KIAS"
+    ],
+    "answer": "5-10 KIAS"
+  },
+  {
+    "question": "For a short field landing with obstacles, what speed is used on short final?",
+    "choices": [
+      "60 KIAS",
+      "62 KIAS",
+      "70 KIAS",
+      "75 KIAS"
+    ],
+    "answer": "62 KIAS"
+  },
+  {
+    "question": "For a short field landing with obstacles, how should the glide path angle be adjusted?",
+    "choices": [
+      "With elevator only",
+      "With throttle",
+      "With rudder",
+      "By retracting flaps"
+    ],
+    "answer": "With throttle"
+  },
+  {
+    "question": "After touchdown during a short field landing, what should be done with the flaps?",
+    "choices": [
+      "Leave flaps 30° until clear of runway",
+      "Retract flaps UP",
+      "Set flaps 10°",
+      "Set flaps 20°"
+    ],
+    "answer": "Retract flaps UP"
+  },
+  {
+    "question": "After touchdown in the landing profiles, what should be done with the nose wheel?",
+    "choices": [
+      "Apply maximum nose wheel pressure",
+      "Minimize nose wheel pressure",
+      "Keep the nose wheel airborne as long as possible with full power",
+      "Ignore nose wheel pressure"
+    ],
+    "answer": "Minimize nose wheel pressure"
+  },
+  {
+    "question": "After touchdown in the landing profiles, how should braking be applied?",
+    "choices": [
+      "Brake aggressively and lock the wheels",
+      "Apply brakes without locking the wheels",
+      "Do not brake until taxi speed",
+      "Use parking brake only"
+    ],
+    "answer": "Apply brakes without locking the wheels"
+  },
+  {
+    "question": "During a balked landing, what is the first callout/action shown in the profile?",
+    "choices": [
+      "Flaps - UP",
+      "Full Power",
+      "Fuel Pump - OFF",
+      "Power - 90%"
+    ],
+    "answer": "Full Power"
+  },
+  {
+    "question": "During a balked landing, what should be called before initiating the go-around sequence?",
+    "choices": [
+      "Leaving runway",
+      "Going around",
+      "Final clear",
+      "Climb checklist"
+    ],
+    "answer": "Going around"
+  },
+  {
+    "question": "During a balked landing from full landing configuration, what is the initial flap selection after applying full power?",
+    "choices": [
+      "Flaps UP",
+      "Flaps 20",
+      "Flaps 10",
+      "Flaps 30"
+    ],
+    "answer": "Flaps 20"
+  },
+  {
+    "question": "During a balked landing, after selecting flaps 20 and pitching initially to the horizon, what minimum speed should be checked before continuing?",
+    "choices": [
+      "50 KIAS",
+      "55 KIAS",
+      "60 KIAS",
+      "70 KIAS"
+    ],
+    "answer": "60 KIAS"
+  },
+  {
+    "question": "During a balked landing, after speed increase is checked, what is the next flap selection shown?",
+    "choices": [
+      "Flaps 30",
+      "Flaps 20",
+      "Flaps 10",
+      "Flaps UP"
+    ],
+    "answer": "Flaps 10"
+  },
+  {
+    "question": "During a balked landing, when should flaps be selected UP?",
+    "choices": [
+      "Immediately with full power",
+      "When clear of obstacles",
+      "Before checking speed increase",
+      "Only after landing"
+    ],
+    "answer": "When clear of obstacles"
+  },
+  {
+    "question": "What important notice applies to go-around/balked landing flap handling?",
+    "choices": [
+      "Flaps should be extended during go-around",
+      "Flaps should never be extended during a go-around/balked landing",
+      "Flaps must remain at 30° until safe altitude",
+      "Flaps are not used in the procedure"
+    ],
+    "answer": "Flaps should never be extended during a go-around/balked landing"
+  },
+  {
+    "question": "If obstacle clearance is an issue during a balked landing, which speed should be used?",
+    "choices": [
+      "VY 70 KIAS only",
+      "VX: C172R 60 KIAS, C172S 62 KIAS",
+      "80 KIAS",
+      "75 KIAS"
+    ],
+    "answer": "VX: C172R 60 KIAS, C172S 62 KIAS"
+  },
+  {
+    "question": "In the traffic pattern, at what height and condition should the crosswind turn be made?",
+    "choices": [
+      "300 ft AAL and runway clear",
+      "500 ft AAL and passed threshold",
+      "700 ft AAL and wings level",
+      "1000 ft AAL and passed threshold"
+    ],
+    "answer": "500 ft AAL and passed threshold"
+  },
+  {
+    "question": "In the traffic pattern, what altitude is used for level-off in cruise according to the profile?",
+    "choices": [
+      "500 ft AAL",
+      "700 ft AAL",
+      "1000 ft AAL",
+      "1500 ft AAL"
+    ],
+    "answer": "1000 ft AAL"
+  },
+  {
+    "question": "In the traffic pattern cruise segment, what approximate power and speed are shown?",
+    "choices": [
+      "90% for 80 KIAS",
+      "60% for 100 KIAS",
+      "40% for 90 KIAS",
+      "20% for 75 KIAS"
+    ],
+    "answer": "60% for 100 KIAS"
+  },
+  {
+    "question": "On crosswind in the traffic pattern, what should be determined?",
+    "choices": [
+      "Parallel distance",
+      "Fuel endurance",
+      "Top of descent",
+      "Alternate airport"
+    ],
+    "answer": "Parallel distance"
+  },
+  {
+    "question": "In the traffic pattern, what three points should be determined on downwind?",
+    "choices": [
+      "Entry point, climb point, exit point",
+      "Touch-down point, go-around point, abort point",
+      "Taxi point, lineup point, brake point",
+      "VFR point, IFR point, reporting point"
+    ],
+    "answer": "Touch-down point, go-around point, abort point"
+  },
+  {
+    "question": "In the traffic pattern, what is the rule of thumb for touchdown point?",
+    "choices": [
+      "Touchdown within 1/3 of runway, otherwise go-around",
+      "Touchdown before halfway, otherwise continue",
+      "Touchdown anywhere if speed is correct",
+      "Touchdown after 2/3 of runway"
+    ],
+    "answer": "Touchdown within 1/3 of runway, otherwise go-around"
+  },
+  {
+    "question": "In the traffic pattern, where is the abort point according to the rule of thumb?",
+    "choices": [
+      "At 1/4 runway",
+      "At 1/3 runway",
+      "At 1/2 runway",
+      "At 2/3 runway"
+    ],
+    "answer": "At 1/2 runway"
+  },
+  {
+    "question": "Abeam the touchdown point in the normal traffic pattern, what power setting is used for descent?",
+    "choices": [
+      "Idle",
+      "Approximately 20%",
+      "Approximately 60%",
+      "90%"
+    ],
+    "answer": "Approximately 20%"
+  },
+  {
+    "question": "Abeam the touchdown point in the normal traffic pattern, what flap setting is selected below 110 KIAS?",
+    "choices": [
+      "Flaps UP",
+      "Flaps 10°",
+      "Flaps 20°",
+      "Flaps 30°"
+    ],
+    "answer": "Flaps 10°"
+  },
+  {
+    "question": "In the normal traffic pattern, what speed is used when checking VFE and selecting flaps 20°?",
+    "choices": [
+      "70 KIAS",
+      "75 KIAS",
+      "80 KIAS",
+      "100 KIAS"
+    ],
+    "answer": "75 KIAS"
+  },
+  {
+    "question": "In the normal traffic pattern, established on final must be at least what height?",
+    "choices": [
+      "100 ft AAL",
+      "200 ft AAL",
+      "300 ft AAL",
+      "500 ft AAL"
+    ],
+    "answer": "300 ft AAL"
+  },
+  {
+    "question": "In the normal traffic pattern, what final configuration is shown?",
+    "choices": [
+      "Flaps 10° and 80 KIAS",
+      "Flaps 20° and 75 KIAS",
+      "Flaps 30° and 70 KIAS",
+      "Flaps UP and 75 KIAS"
+    ],
+    "answer": "Flaps 30° and 70 KIAS"
+  },
+  {
+    "question": "In the traffic pattern, are checklists read in the pattern according to the profile?",
+    "choices": [
+      "Yes, before every turn",
+      "Yes, on base only",
+      "No checklist reading in traffic pattern",
+      "Only during touch and go"
+    ],
+    "answer": "No checklist reading in traffic pattern"
+  },
+  {
+    "question": "During the traffic pattern approach flow, what should the fuel selector be set to?",
+    "choices": [
+      "LEFT",
+      "RIGHT",
+      "BOTH",
+      "OFF"
+    ],
+    "answer": "BOTH"
+  },
+  {
+    "question": "During the traffic pattern approach flow, what should be done with the autopilot?",
+    "choices": [
+      "Autopilot ON",
+      "Autopilot OFF, optional",
+      "Autopilot NAV mode",
+      "Autopilot ALT hold"
+    ],
+    "answer": "Autopilot OFF, optional"
+  },
+  {
+    "question": "During a touch and go, what is the flap callout/action shown before taking off again?",
+    "choices": [
+      "Flaps - 10",
+      "Flaps - 20",
+      "Flaps - UP",
+      "Flaps - LANDING"
+    ],
+    "answer": "Flaps - UP"
+  },
+  {
+    "question": "In the power-off landing traffic pattern, what action is taken abeam the touchdown point?",
+    "choices": [
+      "Power to IDLE and pitch for VMD",
+      "Power 20% and flaps 10°",
+      "Power 60% and 100 KIAS",
+      "Full power and climb"
+    ],
+    "answer": "Power to IDLE and pitch for VMD"
+  },
+  {
+    "question": "For power-off landing practice, what VMD is listed for the C172R?",
+    "choices": [
+      "60 KIAS",
+      "65 KIAS",
+      "68 KIAS",
+      "70 KIAS"
+    ],
+    "answer": "65 KIAS"
+  },
+  {
+    "question": "For power-off landing practice, what VMD is listed for the C172S?",
+    "choices": [
+      "60 KIAS",
+      "65 KIAS",
+      "68 KIAS",
+      "70 KIAS"
+    ],
+    "answer": "68 KIAS"
+  },
+  {
+    "question": "In the power-off landing profile, if flaps 10 or more are extended, what VMD applies for the C172R?",
+    "choices": [
+      "55 KIAS",
+      "60 KIAS",
+      "65 KIAS",
+      "68 KIAS"
+    ],
+    "answer": "60 KIAS"
+  },
+  {
+    "question": "In the power-off landing profile, if flaps 10 or more are extended, what VMD applies for the C172S?",
+    "choices": [
+      "60 KIAS",
+      "65 KIAS",
+      "68 KIAS",
+      "70 KIAS"
+    ],
+    "answer": "65 KIAS"
+  },
+  {
+    "question": "In the power-off landing profile, when should landing flaps be set as required?",
+    "choices": [
+      "Immediately abeam the touchdown point",
+      "When landing is assured",
+      "Before selecting power to idle",
+      "At 1000 ft AAL regardless of position"
+    ],
+    "answer": "When landing is assured"
+  },
+  {
+    "question": "In the power-off landing profile, what should be done if necessary when securing the engine?",
+    "choices": [
+      "Master switch off and open the doors",
+      "Fuel pump on and taxi light on",
+      "Power 90% and flaps up",
+      "Autopilot on and trim full nose up"
+    ],
+    "answer": "Master switch off and open the doors"
+  },
+  {
+    "question": "What important notice applies to solo students during power-off landing practice if the approach is unestablished or altitude is low?",
+    "choices": [
+      "Convert to a normal landing",
+      "Continue with idle power",
+      "Always go around",
+      "Retract flaps and sideslip"
+    ],
+    "answer": "Always go around"
+  },
+  {
+    "question": "According to the power-off landing notice, when may a power-off landing be converted into a normal landing?",
+    "choices": [
+      "Any time below 500 ft",
+      "Only with an instructor on board",
+      "Only during solo training",
+      "Only if flaps are still up"
+    ],
+    "answer": "Only with an instructor on board"
+  },
+  {
+    "question": "In the power-off landing traffic pattern, what speed relationship is shown at threshold?",
+    "choices": [
+      "VTH = VY",
+      "VTH = VX",
+      "VTH = VMD",
+      "VTH = 100 KIAS"
+    ],
+    "answer": "VTH = VMD"
+  }
+]

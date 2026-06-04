@@ -83,5 +83,10 @@
     "name": "219 Check Practice",
     "file": "219-check.json",
     "count": 100
+  },
+  {
+    "name": "OSM VFR Profiles",
+    "file": "OSM-VFR-Profiles",
+    "count": 67
   }
 ]
