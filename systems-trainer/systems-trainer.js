@@ -314,8 +314,13 @@ function renderMemoryMode() {
   const system = getActiveSystem();
   els.memoryInstructions.textContent = system.memoryMode.instructions;
   els.tileBank.innerHTML = "";
+  const tileComponentIds = system.memoryMode.tileComponentIds
+    || system.components
+      .filter((component) => component.id !== "return-line" && component.id !== "fuel-cooler")
+      .map((component) => component.id);
+
   system.components
-    .filter((component) => component.id !== "return-line" && component.id !== "fuel-cooler")
+    .filter((component) => tileComponentIds.includes(component.id))
     .forEach((component) => {
       const tile = document.createElement("button");
       tile.type = "button";
