@@ -740,14 +740,15 @@ h3 {
 
 .electrical-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 340px;
-  gap: 14px;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 12px;
+  height: calc(100vh - 190px);
+  min-height: 620px;
 }
 
 .electrical-visual-card,
-.electrical-instruments-card,
-.cockpit-card,
-.controls-card {
+.electrical-console {
+  min-height: 0;
   padding: 16px;
 }
 
@@ -758,6 +759,15 @@ h3 {
   border: 1px solid var(--border);
   border-radius: 14px;
   background: #ffffff;
+}
+
+.electrical-diagram-wrap {
+  height: calc(100% - 54px);
+}
+
+.electrical-diagram-wrap img {
+  height: 100%;
+  object-fit: contain;
 }
 
 .electrical-diagram-wrap img,
@@ -802,13 +812,23 @@ h3 {
   background: rgba(239, 68, 68, 0.14);
 }
 
-.instrument-stack {
+.electrical-console {
   display: grid;
+  grid-template-rows: auto auto auto auto minmax(0, 1fr);
   gap: 10px;
-  margin-top: 14px;
+  overflow: hidden;
 }
 
-.instrument-row {
+.console-status,
+.mini-eis {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.console-status > div,
+.mini-eis > div,
+.fadec-source {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -816,18 +836,47 @@ h3 {
   border: 1px solid var(--border);
   border-radius: 12px;
   background: var(--bg-soft);
-  padding: 12px;
+  padding: 10px;
 }
 
-.instrument-row span {
+.console-status span,
+.mini-eis span,
+.fadec-source span {
   color: var(--muted);
   font-size: 12px;
   font-weight: 800;
   text-transform: uppercase;
 }
 
-.instrument-row strong {
+.console-status strong,
+.mini-eis strong,
+.fadec-source strong {
   font-size: 1.08rem;
+}
+
+.mini-eis {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 8px;
+}
+
+.mini-eis > div {
+  display: grid;
+  gap: 3px;
+  text-align: center;
+}
+
+.mini-eis em {
+  color: var(--muted);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.glass-panel {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: color-mix(in oklab, var(--bg-soft) 78%, transparent);
+  padding: 10px;
 }
 
 .annunciator-list,
@@ -858,38 +907,64 @@ h3 {
 .sim-explanation {
   color: var(--muted);
   line-height: 1.5;
-}
-
-.cockpit-card,
-.controls-card {
-  grid-column: 1 / -1;
-}
-
-.cockpit-placard-wrap {
-  max-height: 520px;
+  max-height: 118px;
   overflow: auto;
 }
 
-.control-section + .control-section {
-  margin-top: 18px;
+.console-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.console-tab {
+  min-height: 34px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-soft);
+  color: var(--muted);
+  padding: 7px 8px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.console-tab.active {
+  border-color: rgba(98, 168, 255, 0.62);
+  background: rgba(98, 168, 255, 0.14);
+  color: var(--text);
+}
+
+.console-panel {
+  display: none;
+  min-height: 0;
+  overflow: auto;
+}
+
+.console-panel.active {
+  display: block;
+}
+
+.compact-ref {
+  max-height: 100%;
+  overflow: auto;
 }
 
 .control-grid,
-.breaker-grid {
+.breaker-grid,
+.compact-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
-  margin-top: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
 }
 
 .sim-control,
 .sim-breaker {
-  min-height: 58px;
+  min-height: 48px;
   border: 1px solid var(--border);
   border-radius: 12px;
   background: var(--bg-soft);
   color: var(--text);
-  padding: 10px;
+  padding: 8px;
   text-align: left;
 }
 
@@ -930,6 +1005,16 @@ h3 {
 
   .electrical-layout {
     grid-template-columns: 1fr;
+    height: auto;
+    min-height: 0;
+  }
+
+  .electrical-diagram-wrap {
+    height: auto;
+  }
+
+  .electrical-diagram-wrap img {
+    height: auto;
   }
 
   .detail-card {

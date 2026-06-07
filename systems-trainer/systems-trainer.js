@@ -54,6 +54,7 @@ const els = {
   electricalDiagramImage: document.getElementById("electricalDiagramImage"),
   cockpitPlacardImage: document.getElementById("cockpitPlacardImage"),
   electricalHotspots: document.getElementById("electricalHotspots"),
+  masterGrid: document.getElementById("masterGrid"),
   switchGrid: document.getElementById("switchGrid"),
   breakerGrid: document.getElementById("breakerGrid"),
   simVolts: document.getElementById("simVolts"),
@@ -61,6 +62,7 @@ const els = {
   simBattery: document.getElementById("simBattery"),
   simFadecSource: document.getElementById("simFadecSource"),
   simEngine: document.getElementById("simEngine"),
+  simEpu: document.getElementById("simEpu"),
   simAnnunciators: document.getElementById("simAnnunciators"),
   simExplanation: document.getElementById("simExplanation")
 };
@@ -165,6 +167,14 @@ function bindEvents() {
   els.electricalReset.addEventListener("click", () => {
     resetElectricalState(getActiveSystem());
     renderElectricalMode();
+  });
+
+  document.querySelectorAll("[data-electrical-tab]").forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const name = tab.dataset.electricalTab;
+      document.querySelectorAll("[data-electrical-tab]").forEach((item) => item.classList.toggle("active", item.dataset.electricalTab === name));
+      document.querySelectorAll("[data-electrical-panel]").forEach((panel) => panel.classList.toggle("active", panel.dataset.electricalPanel === name));
+    });
   });
 
   setInterval(() => {
@@ -468,6 +478,7 @@ function renderElectricalMode() {
   els.simBattery.textContent = `${Math.round(state.electrical.batteryPercent)}%`;
   els.simFadecSource.textContent = result.fadecSource;
   els.simEngine.textContent = result.engineRunning ? "Running" : "Stopped";
+  els.simEpu.textContent = state.electrical.switches.externalPower ? "Connected" : "Disconnected";
 
   els.simAnnunciators.innerHTML = result.annunciators.map((item) => {
     return `<div class="annunciator ${item.level}">${escapeHtml(item.text)}</div>`;
@@ -482,6 +493,8 @@ function renderElectricalMode() {
 
 function renderElectricalControls(system) {
   const switches = system.simulation.switches;
+  const masterIds = new Set(["battery", "alternator", "engineMaster", "starter", "externalPower", "forceB"]);
+  els.masterGrid.innerHTML = "";
   els.switchGrid.innerHTML = "";
   switches.forEach((control) => {
     const isMomentary = control.type === "momentary";
@@ -505,7 +518,11 @@ function renderElectricalControls(system) {
       state.electrical.lastUpdated = Date.now();
       renderElectricalMode();
     });
-    els.switchGrid.appendChild(button);
+    if (masterIds.has(control.id)) {
+      els.masterGrid.appendChild(button);
+    } else {
+      els.switchGrid.appendChild(button);
+    }
   });
 }
 

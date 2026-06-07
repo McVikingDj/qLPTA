@@ -195,42 +195,56 @@
             </div>
           </article>
 
-          <aside class="card electrical-instruments-card" aria-live="polite">
-            <span class="small">Simulated G1000 indications</span>
-            <div class="instrument-stack">
-              <div class="instrument-row"><span>Bus volts</span><strong id="simVolts">--.- V</strong></div>
-              <div class="instrument-row"><span>Battery amps</span><strong id="simAmps">-- A</strong></div>
-              <div class="instrument-row"><span>Battery charge</span><strong id="simBattery">--%</strong></div>
-              <div class="instrument-row"><span>FADEC source</span><strong id="simFadecSource">--</strong></div>
-              <div class="instrument-row"><span>Engine</span><strong id="simEngine">--</strong></div>
-            </div>
-            <div class="annunciator-list" id="simAnnunciators"></div>
-            <div class="sim-explanation" id="simExplanation"></div>
-          </aside>
-
-          <article class="card cockpit-card">
-            <div class="panel-top">
+          <aside class="card electrical-console" aria-live="polite">
+            <div class="console-status">
               <div>
-                <span class="small">Cockpit placard layout</span>
-                <h3>Switches and circuit breakers</h3>
+                <span class="small">Engine</span>
+                <strong id="simEngine">--</strong>
               </div>
-              <span class="badge">Study simulation</span>
+              <div>
+                <span class="small">EPU</span>
+                <strong id="simEpu">--</strong>
+              </div>
             </div>
-            <div class="cockpit-placard-wrap">
-              <img id="cockpitPlacardImage" alt="C172 S-JT G1000 diesel cockpit placard">
-            </div>
-          </article>
 
-          <article class="card controls-card">
-            <div class="control-section">
-              <span class="small">Cockpit switches</span>
-              <div class="control-grid" id="switchGrid"></div>
+            <div class="glass-panel">
+              <span class="small">MFD electrical</span>
+              <div class="mini-eis">
+                <div><span>M BUS</span><strong id="simVolts">--.-</strong><em>VOLTS</em></div>
+                <div><span>M BATT</span><strong id="simAmps">--</strong><em>AMPS</em></div>
+                <div><span>BAT</span><strong id="simBattery">--%</strong><em>CHG</em></div>
+              </div>
             </div>
-            <div class="control-section">
-              <span class="small">Circuit breakers</span>
-              <div class="breaker-grid" id="breakerGrid"></div>
+
+            <div class="glass-panel">
+              <span class="small">PFD alerts</span>
+              <div class="annunciator-list" id="simAnnunciators"></div>
             </div>
-          </article>
+
+            <div class="console-tabs" aria-label="Electrical controls">
+              <button class="console-tab active" type="button" data-electrical-tab="master">Master</button>
+              <button class="console-tab" type="button" data-electrical-tab="switches">Switches</button>
+              <button class="console-tab" type="button" data-electrical-tab="breakers">Breakers</button>
+              <button class="console-tab" type="button" data-electrical-tab="ref">Placard</button>
+            </div>
+
+            <div class="console-panel active" data-electrical-panel="master">
+              <div class="compact-grid" id="masterGrid"></div>
+              <div class="sim-explanation" id="simExplanation"></div>
+              <div class="fadec-source"><span>FADEC</span><strong id="simFadecSource">--</strong></div>
+            </div>
+            <div class="console-panel" data-electrical-panel="switches">
+              <div class="control-grid compact" id="switchGrid"></div>
+            </div>
+            <div class="console-panel" data-electrical-panel="breakers">
+              <div class="breaker-grid compact" id="breakerGrid"></div>
+            </div>
+            <div class="console-panel" data-electrical-panel="ref">
+              <div class="cockpit-placard-wrap compact-ref">
+                <img id="cockpitPlacardImage" alt="C172 S-JT G1000 diesel cockpit placard">
+              </div>
+            </div>
+          </aside>
         </div>
       </section>
     </section>
