@@ -9,7 +9,15 @@ const state = {
   flowRunning: false,
   activeFaults: new Set(),
   memorySequence: [],
-  oralIndex: 0
+  oralIndex: 0,
+  electrical: {
+    switches: {},
+    breakers: {},
+    engineRunning: false,
+    batteryPercent: 100,
+    lastUpdated: Date.now(),
+    message: ""
+  }
 };
 
 const els = {
@@ -41,7 +49,20 @@ const els = {
   showModelAnswer: document.getElementById("showModelAnswer"),
   modelAnswer: document.getElementById("modelAnswer"),
   nextOral: document.getElementById("nextOral"),
-  clearOral: document.getElementById("clearOral")
+  clearOral: document.getElementById("clearOral"),
+  electricalReset: document.getElementById("electricalReset"),
+  electricalDiagramImage: document.getElementById("electricalDiagramImage"),
+  cockpitPlacardImage: document.getElementById("cockpitPlacardImage"),
+  electricalHotspots: document.getElementById("electricalHotspots"),
+  switchGrid: document.getElementById("switchGrid"),
+  breakerGrid: document.getElementById("breakerGrid"),
+  simVolts: document.getElementById("simVolts"),
+  simAmps: document.getElementById("simAmps"),
+  simBattery: document.getElementById("simBattery"),
+  simFadecSource: document.getElementById("simFadecSource"),
+  simEngine: document.getElementById("simEngine"),
+  simAnnunciators: document.getElementById("simAnnunciators"),
+  simExplanation: document.getElementById("simExplanation")
 };
 
 const diagramTargets = {
@@ -140,6 +161,17 @@ function bindEvents() {
     els.oralAnswer.value = "";
     els.modelAnswer.hidden = true;
   });
+
+  els.electricalReset.addEventListener("click", () => {
+    resetElectricalState(getActiveSystem());
+    renderElectricalMode();
+  });
+
+  setInterval(() => {
+    if (state.mode !== "electrical" || !getActiveSystem()?.simulation) return;
+    updateElectricalBattery();
+    renderElectricalMode();
+  }, 2000);
 }
 
 function applyTheme() {
@@ -182,17 +214,17 @@ function renderSystemsMenu() {
 
 function selectSystem(systemId) {
   state.activeSystemId = systemId;
-  state.mode = "diagram";
+  const system = getActiveSystem();
+  state.mode = system.simulation ? "electrical" : "diagram";
   state.selectedComponentId = "";
-  state.scenarioId = getActiveSystem().scenarios[0]?.id || "normal";
+  state.scenarioId = system.scenarios[0]?.id || "normal";
   state.flowRunning = false;
   state.activeFaults.clear();
   state.memorySequence = [];
   state.oralIndex = 0;
 
-  const system = getActiveSystem();
   els.activeSystemTitle.textContent = system.name;
-  els.activeSystemStatus.textContent = "Ready - placeholder study data";
+  els.activeSystemStatus.textContent = system.simulation ? "Ready - source-based study simulation" : "Ready - placeholder study data";
   els.workbench.hidden = false;
 
   document.querySelectorAll(".system-card").forEach((card, index) => {
@@ -200,8 +232,19 @@ function selectSystem(systemId) {
   });
 
   renderScenarioSelect();
-  setMode("diagram");
+  updateModeAvailability(system);
+  if (system.simulation) resetElectricalState(system);
+  setMode(state.mode);
   els.workbench.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function updateModeAvailability(system) {
+  document.querySelectorAll(".system-sim-tab").forEach((tab) => {
+    tab.hidden = !system.simulation;
+  });
+  document.querySelectorAll("[data-mode='diagram'], [data-mode='flow'], [data-mode='faults'], [data-mode='memory'], [data-mode='oral']").forEach((tab) => {
+    tab.hidden = Boolean(system.simulation);
+  });
 }
 
 function setMode(mode) {
@@ -218,6 +261,7 @@ function setMode(mode) {
   if (mode === "faults") renderFaultMode();
   if (mode === "memory") renderMemoryMode();
   if (mode === "oral") renderOralMode();
+  if (mode === "electrical") renderElectricalMode();
 }
 
 function renderScenarioSelect() {
@@ -391,6 +435,263 @@ function renderOralMode() {
   els.oralAnswer.value = "";
   els.modelAnswer.hidden = true;
   els.modelAnswer.textContent = "";
+}
+
+function resetElectricalState(system) {
+  if (!system?.simulation) return;
+  state.electrical.switches = { ...(system.simulation.defaultState.switches || {}) };
+  state.electrical.breakers = {};
+  system.simulation.breakers.forEach((breaker) => {
+    state.electrical.breakers[breaker.id] = true;
+  });
+  state.electrical.engineRunning = true;
+  state.electrical.batteryPercent = 100;
+  state.electrical.lastUpdated = Date.now();
+  state.electrical.message = "Normal cruise baseline: engine running, battery and alternator on, avionics on.";
+}
+
+function renderElectricalMode() {
+  const system = getActiveSystem();
+  if (!system?.simulation) return;
+  const sim = system.simulation;
+  const result = calculateElectricalState(system);
+
+  els.electricalDiagramImage.src = sim.diagramImage;
+  els.cockpitPlacardImage.src = sim.cockpitPlacardImage;
+
+  renderElectricalControls(system);
+  renderElectricalBreakers(system);
+  renderElectricalHotspots(system, result);
+
+  els.simVolts.textContent = `${result.volts.toFixed(1)} V`;
+  els.simAmps.textContent = `${result.batteryAmps > 0 ? "+" : ""}${result.batteryAmps.toFixed(0)} A`;
+  els.simBattery.textContent = `${Math.round(state.electrical.batteryPercent)}%`;
+  els.simFadecSource.textContent = result.fadecSource;
+  els.simEngine.textContent = result.engineRunning ? "Running" : "Stopped";
+
+  els.simAnnunciators.innerHTML = result.annunciators.map((item) => {
+    return `<div class="annunciator ${item.level}">${escapeHtml(item.text)}</div>`;
+  }).join("");
+
+  els.simExplanation.innerHTML = `
+    <p>${escapeHtml(state.electrical.message || result.summary)}</p>
+    <p>${escapeHtml(result.summary)}</p>
+    <p><strong>Study note:</strong> Numeric voltage and current values are first-pass simulation estimates and should be tuned against real aircraft/G1000 observations.</p>
+  `;
+}
+
+function renderElectricalControls(system) {
+  const switches = system.simulation.switches;
+  els.switchGrid.innerHTML = "";
+  switches.forEach((control) => {
+    const isMomentary = control.type === "momentary";
+    const isOn = Boolean(state.electrical.switches[control.id]);
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = `sim-control ${isOn ? "on" : "off"} ${control.guarded ? "guarded" : ""}`;
+    button.innerHTML = `<strong>${escapeHtml(control.label)}</strong><span>${escapeHtml(isMomentary ? "Press" : isOn ? "ON" : "OFF")} - ${escapeHtml(control.role)}</span>`;
+    button.addEventListener("click", () => {
+      if (isMomentary) {
+        handleElectricalMomentary(control.id);
+      } else {
+        state.electrical.switches[control.id] = !isOn;
+        if (control.id === "engineMaster" && isOn) {
+          state.electrical.engineRunning = false;
+          state.electrical.message = "Engine Master switched off: FADEC power is interrupted and the engine shuts down in this study model.";
+        } else {
+          state.electrical.message = `${control.label} switched ${isOn ? "OFF" : "ON"}.`;
+        }
+      }
+      state.electrical.lastUpdated = Date.now();
+      renderElectricalMode();
+    });
+    els.switchGrid.appendChild(button);
+  });
+}
+
+function renderElectricalBreakers(system) {
+  els.breakerGrid.innerHTML = "";
+  system.simulation.breakers.forEach((breaker) => {
+    const closed = state.electrical.breakers[breaker.id] !== false;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = `sim-breaker ${closed ? "closed" : "open"} ${breaker.essential ? "essential" : ""}`;
+    button.innerHTML = `<strong>${escapeHtml(breaker.label)} ${escapeHtml(breaker.rating)}A</strong><span>${closed ? "IN / closed" : "OUT / open"}</span>`;
+    button.addEventListener("click", () => {
+      state.electrical.breakers[breaker.id] = !closed;
+      state.electrical.message = `${breaker.label} circuit breaker ${closed ? "opened" : "closed"}.`;
+      if (breaker.id === "fadecA" || breaker.id === "fadecB") {
+        state.electrical.message += " FADEC redundancy is affected in this study model.";
+      }
+      renderElectricalMode();
+    });
+    els.breakerGrid.appendChild(button);
+  });
+}
+
+function renderElectricalHotspots(system, result) {
+  els.electricalHotspots.innerHTML = "";
+  system.simulation.hotspots.forEach((spot) => {
+    const div = document.createElement("div");
+    const status = result.hotspotStatus[spot.id] || "off";
+    div.className = `electrical-hotspot ${status}`;
+    div.style.left = `${spot.x}%`;
+    div.style.top = `${spot.y}%`;
+    div.style.width = `${spot.w}%`;
+    div.style.height = `${spot.h}%`;
+    div.title = `${spot.label}: ${status}`;
+    els.electricalHotspots.appendChild(div);
+  });
+}
+
+function handleElectricalMomentary(id) {
+  if (id !== "starter") return;
+  const result = calculateElectricalState(getActiveSystem());
+  if (!breakerClosed("starter")) {
+    state.electrical.message = "Starter pushed, but the STARTER circuit breaker is open.";
+    return;
+  }
+  if (!state.electrical.switches.battery && !state.electrical.switches.externalPower) {
+    state.electrical.message = "Starter pushed, but no main battery or external power source is available.";
+    return;
+  }
+  if (!state.electrical.switches.engineMaster || !result.fadecPowered) {
+    state.electrical.message = "Starter pushed, but Engine Master/FADEC power is not available.";
+    return;
+  }
+  state.electrical.engineRunning = true;
+  state.electrical.message = "Starter pushed: engine running in this study simulation.";
+}
+
+function updateElectricalBattery() {
+  const system = getActiveSystem();
+  if (!system?.simulation) return;
+  const now = Date.now();
+  const elapsedHours = Math.max(0, now - state.electrical.lastUpdated) / 3600000;
+  state.electrical.lastUpdated = now;
+  const result = calculateElectricalState(system, false);
+  const capacity = system.simulation.nominal.batteryCapacityAh || 12;
+  if (result.batteryAmps < 0) {
+    state.electrical.batteryPercent = Math.max(0, state.electrical.batteryPercent + (result.batteryAmps * elapsedHours / capacity) * 100);
+  } else if (result.batteryAmps > 0) {
+    state.electrical.batteryPercent = Math.min(100, state.electrical.batteryPercent + (result.batteryAmps * elapsedHours / capacity) * 100);
+  }
+}
+
+function calculateElectricalState(system) {
+  const sim = system.simulation;
+  const sw = state.electrical.switches;
+  const nominal = sim.nominal;
+  if (!sw.engineMaster) {
+    state.electrical.engineRunning = false;
+  }
+  const alternatorOnline = Boolean(state.electrical.engineRunning && sw.alternator && breakerClosed("alt"));
+  const batteryAvailable = Boolean(sw.battery && state.electrical.batteryPercent > 1);
+  const externalPower = Boolean(sw.externalPower);
+  const mainPower = alternatorOnline || batteryAvailable || externalPower;
+  const feederBus = mainPower;
+  const crossfeedBus = feederBus && breakerClosed("xfeedBus");
+  const electricalBus1 = feederBus && breakerClosed("elecBus1");
+  const electricalBus2 = feederBus && breakerClosed("elecBus2");
+  const avionicsBus1 = electricalBus1 && sw.avionicsBus1 && breakerClosed("avionics1");
+  const avionicsBus2 = electricalBus2 && sw.avionicsBus2 && breakerClosed("avionics2");
+  const backupOnly = sw.engineMaster && !mainPower && breakerClosed("fadecA");
+  const fadecA = sw.engineMaster && (mainPower || backupOnly) && breakerClosed("fadecA");
+  const fadecB = sw.engineMaster && mainPower && breakerClosed("fadecB");
+  const fadecPowered = fadecA || fadecB || backupOnly;
+
+  if (!sw.engineMaster || !fadecPowered || (backupOnly && sw.forceB)) {
+    state.electrical.engineRunning = false;
+  }
+
+  const loadAmps = calculateLoadAmps(system, { electricalBus1, electricalBus2, avionicsBus1, avionicsBus2, fadecPowered });
+  let volts = 0;
+  let batteryAmps = 0;
+  if (alternatorOnline) {
+    volts = nominal.alternatorVoltage;
+    batteryAmps = state.electrical.batteryPercent < 98 ? nominal.chargeAmps : 1;
+  } else if (externalPower) {
+    volts = nominal.externalPowerVoltage;
+    batteryAmps = batteryAvailable && state.electrical.batteryPercent < 98 ? 4 : 0;
+  } else if (batteryAvailable) {
+    volts = Math.max(20, nominal.batteryVoltage - Math.max(0, loadAmps - 8) * 0.08);
+    batteryAmps = -loadAmps;
+  }
+
+  let fadecSource = "None";
+  if (backupOnly) fadecSource = "Backup A only";
+  else if (fadecA && fadecB) fadecSource = sw.forceB ? "B-FADEC selected" : "A/B powered";
+  else if (fadecA) fadecSource = "A-FADEC only";
+  else if (fadecB) fadecSource = "B-FADEC only";
+
+  const annunciators = [];
+  if (!alternatorOnline) annunciators.push({ level: "caution", text: "ALT WARNING" });
+  if (mainPower && volts < 24) annunciators.push({ level: "caution", text: "LOW VOLTS" });
+  if (backupOnly) annunciators.push({ level: "warning", text: "FADEC BACKUP BATTERY ONLY - A FADEC" });
+  if (backupOnly && sw.forceB) annunciators.push({ level: "warning", text: "FORCE B ON BACKUP - ENGINE SHUTDOWN" });
+  if (!sw.engineMaster) annunciators.push({ level: "warning", text: "ENGINE MASTER OFF - FADEC POWER INTERRUPTED" });
+  if (!breakerClosed("alt")) annunciators.push({ level: "caution", text: "ALTERNATOR CB OPEN" });
+  if (state.electrical.engineRunning && !sw.fuelPump) annunciators.push({ level: "caution", text: "FUEL PUMP OFF - verify phase/procedure" });
+  if (!annunciators.length) annunciators.push({ level: "normal", text: "NO ELECTRICAL WARNINGS IN THIS STUDY MODEL" });
+
+  const hotspotStatus = {
+    battery: batteryAvailable ? "on" : "off",
+    externalPower: externalPower ? "on" : "off",
+    backupBattery: backupOnly ? "caution" : "on",
+    excitationBattery: sw.engineMaster ? "on" : "off",
+    fadec: fadecPowered ? (backupOnly ? "caution" : "on") : "failed",
+    alternator: alternatorOnline ? "on" : "caution",
+    starter: mainPower && breakerClosed("starter") ? "on" : "off",
+    feederBus: feederBus ? "on" : "off",
+    crossfeedBus: crossfeedBus ? "on" : "off",
+    electricalBus1: electricalBus1 ? "on" : "off",
+    electricalBus2: electricalBus2 ? "on" : "off",
+    avionicsBus1: avionicsBus1 ? "on" : "off",
+    avionicsBus2: avionicsBus2 ? "on" : "off",
+    fuelPump: electricalBus1 && sw.fuelPump && breakerClosed("fuelPump") ? "on" : "off",
+    lights1: electricalBus1 ? "on" : "off",
+    lights2: electricalBus2 ? "on" : "off",
+    pitotHeat: electricalBus2 && sw.pitotHeat && breakerClosed("pitotHeat") ? "on" : "off",
+    ammeter: mainPower ? "on" : "off"
+  };
+
+  return {
+    volts,
+    batteryAmps,
+    loadAmps,
+    alternatorOnline,
+    mainPower,
+    fadecPowered,
+    fadecSource,
+    backupOnly,
+    engineRunning: state.electrical.engineRunning,
+    annunciators,
+    hotspotStatus,
+    summary: `Estimated load ${loadAmps.toFixed(1)} A. ${alternatorOnline ? "Alternator online, battery charging or floating." : batteryAvailable ? "Battery is carrying the electrical load." : externalPower ? "External power is supplying the buses." : "No main electrical source is available."}`
+  };
+}
+
+function calculateLoadAmps(system, power) {
+  const sw = state.electrical.switches;
+  let load = power.fadecPowered ? system.simulation.nominal.baseEssentialLoadAmps : 0;
+  system.simulation.switches.forEach((control) => {
+    if (!sw[control.id] || control.type === "momentary") return;
+    if (control.id === "fuelPump" && (!power.electricalBus1 || !breakerClosed("fuelPump"))) return;
+    if (control.id === "landingLight" && (!power.electricalBus1 || !breakerClosed("landLt"))) return;
+    if (control.id === "beaconLight" && (!power.electricalBus1 || !breakerClosed("bcnLt"))) return;
+    if (control.id === "pitotHeat" && (!power.electricalBus2 || !breakerClosed("pitotHeat"))) return;
+    if (control.id === "navLight" && (!power.electricalBus2 || !breakerClosed("navLts"))) return;
+    if (control.id === "strobeLight" && (!power.electricalBus2 || !breakerClosed("strobeLts"))) return;
+    if (control.id === "taxiLight" && (!power.electricalBus2 || !breakerClosed("taxiLt"))) return;
+    if (control.id === "avionicsBus1" && !power.avionicsBus1) return;
+    if (control.id === "avionicsBus2" && !power.avionicsBus2) return;
+    load += Number(control.loadAmps || 0);
+  });
+  return load;
+}
+
+function breakerClosed(id) {
+  return state.electrical.breakers[id] !== false;
 }
 
 function buildDiagramState(system, scenario, faults) {

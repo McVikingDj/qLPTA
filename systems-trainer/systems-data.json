@@ -13,14 +13,530 @@
     {
       "id": "electrical",
       "name": "Electrical System",
-      "status": "coming-soon",
+      "status": "ready",
       "accent": "#62a8ff",
-      "summary": "Buses, battery, alternator/generator logic, essential power paths, and annunciations.",
+      "summary": "Interactive study simulation for the C172 S-JT/G1000 diesel electrical system using the G1000 wiring diagram and the cockpit placard layout.",
       "components": [],
       "connections": [],
       "scenarios": [],
       "faults": [],
-      "oralQuestions": []
+      "oralQuestions": [
+        {
+          "id": "alt-warning",
+          "prompt": "When should the alternator warning illuminate in this installation?",
+          "modelAnswer": "Study answer: the supplement says it illuminates when alternator output is too low or the Alternator circuit breaker is switched off. It normally illuminates with Engine Master on and no engine revolutions, then extinguishes after engine start."
+        },
+        {
+          "id": "engine-master",
+          "prompt": "What does the Engine Master switch control?",
+          "modelAnswer": "Study answer: it controls the two redundant FADEC components and the alternator excitation battery through independent contacts. Switching it off interrupts FADEC power and shuts the engine down."
+        },
+        {
+          "id": "backup-battery",
+          "prompt": "What is the FADEC backup battery for?",
+          "modelAnswer": "Study answer: it powers A-FADEC if both battery and alternator supply are interrupted. The supplement gives a maximum of 30 minutes on FADEC backup battery only, and only A-FADEC is connected to it."
+        }
+      ],
+      "simulation": {
+        "diagramImage": "electrical-diagram-g1000.jpg",
+        "cockpitPlacardImage": "cockpit-placard-c172s-jt-a.jpg",
+        "sourceNote": "Uses Figure 7-5 Basic Wiring of the Electrical System (G1000 with Engine Indication System) and the C172 S-JT NAV III cockpit placard image. Numeric volt/amp values are first-pass study estimates for tuning.",
+        "defaultState": {
+          "switches": {
+            "battery": true,
+            "alternator": true,
+            "engineMaster": true,
+            "fuelPump": false,
+            "avionicsBus1": true,
+            "avionicsBus2": true,
+            "landingLight": false,
+            "beaconLight": true,
+            "navLight": false,
+            "strobeLight": false,
+            "taxiLight": false,
+            "pitotHeat": false,
+            "forceB": false,
+            "externalPower": false
+          },
+          "breakers": {}
+        },
+        "switches": [
+          {
+            "id": "battery",
+            "label": "Master BAT",
+            "role": "Battery switch",
+            "loadAmps": 0
+          },
+          {
+            "id": "alternator",
+            "label": "Master ALT",
+            "role": "Alternator switch",
+            "loadAmps": 0
+          },
+          {
+            "id": "engineMaster",
+            "label": "Engine Master",
+            "role": "FADEC and excitation battery contacts",
+            "loadAmps": 1.2,
+            "guarded": true
+          },
+          {
+            "id": "fuelPump",
+            "label": "Fuel Pump",
+            "role": "Electric fuel pump",
+            "loadAmps": 4.2
+          },
+          {
+            "id": "avionicsBus1",
+            "label": "Avionics Bus 1",
+            "role": "Avionics master bus 1",
+            "loadAmps": 5.5
+          },
+          {
+            "id": "avionicsBus2",
+            "label": "Avionics Bus 2",
+            "role": "Avionics master bus 2",
+            "loadAmps": 4.8
+          },
+          {
+            "id": "landingLight",
+            "label": "Land Light",
+            "role": "Landing light",
+            "loadAmps": 8.0
+          },
+          {
+            "id": "beaconLight",
+            "label": "Beacon",
+            "role": "Beacon light",
+            "loadAmps": 2.0
+          },
+          {
+            "id": "navLight",
+            "label": "Nav Lights",
+            "role": "Navigation lights",
+            "loadAmps": 3.0
+          },
+          {
+            "id": "strobeLight",
+            "label": "Strobe",
+            "role": "Strobe lights",
+            "loadAmps": 3.0
+          },
+          {
+            "id": "taxiLight",
+            "label": "Taxi Light",
+            "role": "Taxi light",
+            "loadAmps": 5.0
+          },
+          {
+            "id": "pitotHeat",
+            "label": "Pitot Heat",
+            "role": "Pitot heat",
+            "loadAmps": 7.5
+          },
+          {
+            "id": "forceB",
+            "label": "Force B",
+            "role": "Manual B-FADEC selection",
+            "loadAmps": 0,
+            "guarded": true
+          },
+          {
+            "id": "externalPower",
+            "label": "External Power",
+            "role": "External power plug connected",
+            "loadAmps": 0
+          },
+          {
+            "id": "starter",
+            "label": "Push to Start",
+            "role": "Starter push button",
+            "type": "momentary",
+            "loadAmps": 60,
+            "guarded": true
+          }
+        ],
+        "breakers": [
+          {
+            "id": "alt",
+            "label": "ALT",
+            "rating": "5",
+            "feeds": [
+              "alternator"
+            ],
+            "essential": true
+          },
+          {
+            "id": "starter",
+            "label": "STARTER",
+            "rating": "5",
+            "feeds": [
+              "starter"
+            ],
+            "essential": true
+          },
+          {
+            "id": "fadecA",
+            "label": "FADEC A",
+            "rating": "10",
+            "feeds": [
+              "fadecA"
+            ],
+            "essential": true
+          },
+          {
+            "id": "fadecB",
+            "label": "FADEC B",
+            "rating": "10",
+            "feeds": [
+              "fadecB"
+            ],
+            "essential": true
+          },
+          {
+            "id": "xfeedBus",
+            "label": "X-FEED BUS",
+            "rating": "5",
+            "feeds": [
+              "crossfeedBus"
+            ],
+            "essential": true
+          },
+          {
+            "id": "elecBus1",
+            "label": "ELEC BUS 1",
+            "rating": "5",
+            "feeds": [
+              "electricalBus1"
+            ],
+            "essential": true
+          },
+          {
+            "id": "elecBus2",
+            "label": "ELEC BUS 2",
+            "rating": "5",
+            "feeds": [
+              "electricalBus2"
+            ],
+            "essential": true
+          },
+          {
+            "id": "fuelPump",
+            "label": "FUEL PUMP",
+            "rating": "5",
+            "feeds": [
+              "fuelPump"
+            ]
+          },
+          {
+            "id": "bcnLt",
+            "label": "BCN LT",
+            "rating": "5",
+            "feeds": [
+              "beaconLight"
+            ]
+          },
+          {
+            "id": "landLt",
+            "label": "LAND LT",
+            "rating": "5",
+            "feeds": [
+              "landingLight"
+            ]
+          },
+          {
+            "id": "pitotHeat",
+            "label": "PITOT HEAT",
+            "rating": "5",
+            "feeds": [
+              "pitotHeat"
+            ]
+          },
+          {
+            "id": "navLts",
+            "label": "NAV LTS",
+            "rating": "5",
+            "feeds": [
+              "navLight"
+            ]
+          },
+          {
+            "id": "taxiLt",
+            "label": "TAXI LT",
+            "rating": "5",
+            "feeds": [
+              "taxiLight"
+            ]
+          },
+          {
+            "id": "strobeLts",
+            "label": "STROBE LTS",
+            "rating": "5",
+            "feeds": [
+              "strobeLight"
+            ]
+          },
+          {
+            "id": "panelLts",
+            "label": "PANEL LTS",
+            "rating": "5",
+            "feeds": [
+              "panelLights"
+            ]
+          },
+          {
+            "id": "flaps",
+            "label": "FLAPS",
+            "rating": "10",
+            "feeds": [
+              "flaps"
+            ]
+          },
+          {
+            "id": "avionics1",
+            "label": "AVN 1",
+            "rating": "15",
+            "feeds": [
+              "avionicsBus1"
+            ]
+          },
+          {
+            "id": "avionics2",
+            "label": "AVN 2",
+            "rating": "15",
+            "feeds": [
+              "avionicsBus2"
+            ]
+          },
+          {
+            "id": "pfdEss",
+            "label": "PFD ESS BUS",
+            "rating": "5",
+            "feeds": [
+              "pfdEss"
+            ]
+          },
+          {
+            "id": "adcAhrs",
+            "label": "ADC AHRS",
+            "rating": "10",
+            "feeds": [
+              "adcAhrs"
+            ]
+          },
+          {
+            "id": "nav1Eng",
+            "label": "NAV 1 ENG",
+            "rating": "15",
+            "feeds": [
+              "nav1"
+            ]
+          },
+          {
+            "id": "comm1",
+            "label": "COMM 1",
+            "rating": "5",
+            "feeds": [
+              "comm1"
+            ]
+          },
+          {
+            "id": "mfd",
+            "label": "MFD",
+            "rating": "5",
+            "feeds": [
+              "mfd"
+            ]
+          },
+          {
+            "id": "xpdr",
+            "label": "XPDR",
+            "rating": "5",
+            "feeds": [
+              "xpdr"
+            ]
+          },
+          {
+            "id": "comm2",
+            "label": "COMM 2",
+            "rating": "5",
+            "feeds": [
+              "comm2"
+            ]
+          },
+          {
+            "id": "audio",
+            "label": "AUDIO",
+            "rating": "5",
+            "feeds": [
+              "audio"
+            ]
+          },
+          {
+            "id": "autopilot",
+            "label": "AUTO PILOT",
+            "rating": "5",
+            "feeds": [
+              "autopilot"
+            ]
+          }
+        ],
+        "hotspots": [
+          {
+            "id": "battery",
+            "label": "Battery",
+            "x": 13,
+            "y": 25,
+            "w": 15,
+            "h": 12
+          },
+          {
+            "id": "externalPower",
+            "label": "External Power",
+            "x": 16,
+            "y": 13,
+            "w": 18,
+            "h": 14
+          },
+          {
+            "id": "backupBattery",
+            "label": "FADEC Backup Battery",
+            "x": 42,
+            "y": 36,
+            "w": 13,
+            "h": 8
+          },
+          {
+            "id": "excitationBattery",
+            "label": "Alternator Excitation Battery",
+            "x": 37,
+            "y": 64,
+            "w": 12,
+            "h": 7
+          },
+          {
+            "id": "fadec",
+            "label": "FADEC",
+            "x": 15,
+            "y": 43,
+            "w": 20,
+            "h": 10
+          },
+          {
+            "id": "alternator",
+            "label": "Alternator",
+            "x": 28,
+            "y": 57,
+            "w": 15,
+            "h": 10
+          },
+          {
+            "id": "starter",
+            "label": "Starter",
+            "x": 14,
+            "y": 75,
+            "w": 15,
+            "h": 9
+          },
+          {
+            "id": "feederBus",
+            "label": "Feeder Bus",
+            "x": 52,
+            "y": 55,
+            "w": 5,
+            "h": 47
+          },
+          {
+            "id": "crossfeedBus",
+            "label": "Crossfeed Bus",
+            "x": 58,
+            "y": 43,
+            "w": 5,
+            "h": 25
+          },
+          {
+            "id": "electricalBus1",
+            "label": "Electrical Bus 1",
+            "x": 68,
+            "y": 17,
+            "w": 5,
+            "h": 34
+          },
+          {
+            "id": "electricalBus2",
+            "label": "Electrical Bus 2",
+            "x": 68,
+            "y": 72,
+            "w": 5,
+            "h": 35
+          },
+          {
+            "id": "avionicsBus1",
+            "label": "Avionics Bus 1",
+            "x": 45,
+            "y": 7,
+            "w": 6,
+            "h": 16
+          },
+          {
+            "id": "avionicsBus2",
+            "label": "Avionics Bus 2",
+            "x": 45,
+            "y": 88,
+            "w": 6,
+            "h": 17
+          },
+          {
+            "id": "fuelPump",
+            "label": "Electric Pump",
+            "x": 88,
+            "y": 17,
+            "w": 13,
+            "h": 10
+          },
+          {
+            "id": "lights1",
+            "label": "Electrical Bus 1 Loads",
+            "x": 85,
+            "y": 10,
+            "w": 24,
+            "h": 18
+          },
+          {
+            "id": "lights2",
+            "label": "Electrical Bus 2 Loads",
+            "x": 84,
+            "y": 73,
+            "w": 24,
+            "h": 30
+          },
+          {
+            "id": "pitotHeat",
+            "label": "Pitot Heat",
+            "x": 86,
+            "y": 60,
+            "w": 22,
+            "h": 10
+          },
+          {
+            "id": "ammeter",
+            "label": "Ammeter",
+            "x": 87,
+            "y": 91,
+            "w": 16,
+            "h": 8
+          }
+        ],
+        "nominal": {
+          "batteryVoltage": 24.4,
+          "alternatorVoltage": 28.1,
+          "externalPowerVoltage": 28.4,
+          "batteryCapacityAh": 12,
+          "backupBatteryMinutes": 30,
+          "baseEssentialLoadAmps": 3.5,
+          "chargeAmps": 8.0
+        }
+      }
     },
     {
       "id": "fuel",

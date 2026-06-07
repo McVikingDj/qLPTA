@@ -47,6 +47,7 @@
           <button class="mode-tab" type="button" data-mode="faults">Faults</button>
           <button class="mode-tab" type="button" data-mode="memory">Memory</button>
           <button class="mode-tab" type="button" data-mode="oral">Oral</button>
+          <button class="mode-tab system-sim-tab" type="button" data-mode="electrical">Electrical Sim</button>
         </div>
       </div>
 
@@ -176,6 +177,61 @@
           </div>
           <div class="model-answer" id="modelAnswer" hidden></div>
         </article>
+      </section>
+
+      <section class="mode-panel" id="electricalPanel" data-panel="electrical">
+        <div class="electrical-layout">
+          <article class="card electrical-visual-card">
+            <div class="panel-top">
+              <div>
+                <span class="small">G1000 wiring diagram</span>
+                <h3>Interactive electrical state</h3>
+              </div>
+              <button class="button" id="electricalReset" type="button">Reset normal</button>
+            </div>
+            <div class="electrical-diagram-wrap">
+              <img id="electricalDiagramImage" alt="G1000 electrical-system diagram">
+              <div class="electrical-hotspots" id="electricalHotspots"></div>
+            </div>
+          </article>
+
+          <aside class="card electrical-instruments-card" aria-live="polite">
+            <span class="small">Simulated G1000 indications</span>
+            <div class="instrument-stack">
+              <div class="instrument-row"><span>Bus volts</span><strong id="simVolts">--.- V</strong></div>
+              <div class="instrument-row"><span>Battery amps</span><strong id="simAmps">-- A</strong></div>
+              <div class="instrument-row"><span>Battery charge</span><strong id="simBattery">--%</strong></div>
+              <div class="instrument-row"><span>FADEC source</span><strong id="simFadecSource">--</strong></div>
+              <div class="instrument-row"><span>Engine</span><strong id="simEngine">--</strong></div>
+            </div>
+            <div class="annunciator-list" id="simAnnunciators"></div>
+            <div class="sim-explanation" id="simExplanation"></div>
+          </aside>
+
+          <article class="card cockpit-card">
+            <div class="panel-top">
+              <div>
+                <span class="small">Cockpit placard layout</span>
+                <h3>Switches and circuit breakers</h3>
+              </div>
+              <span class="badge">Study simulation</span>
+            </div>
+            <div class="cockpit-placard-wrap">
+              <img id="cockpitPlacardImage" alt="C172 S-JT G1000 diesel cockpit placard">
+            </div>
+          </article>
+
+          <article class="card controls-card">
+            <div class="control-section">
+              <span class="small">Cockpit switches</span>
+              <div class="control-grid" id="switchGrid"></div>
+            </div>
+            <div class="control-section">
+              <span class="small">Circuit breakers</span>
+              <div class="breaker-grid" id="breakerGrid"></div>
+            </div>
+          </article>
+        </div>
       </section>
     </section>
   </main>
