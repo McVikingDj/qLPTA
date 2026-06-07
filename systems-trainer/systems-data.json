@@ -1,0 +1,132 @@
+{
+  "metadata": {
+    "title": "C172 JT-A Systems Trainer",
+    "version": "0.1 concept",
+    "studyNotice": "Placeholder/simplified data is used where exact aircraft-specific details are not yet entered. Do not use as POH/AFM, checklist, maintenance, or operating guidance."
+  },
+  "systems": [
+    {
+      "id": "electrical",
+      "name": "Electrical System",
+      "status": "coming-soon",
+      "accent": "#62a8ff",
+      "summary": "Buses, battery, alternator/generator logic, essential power paths, and annunciations.",
+      "components": [],
+      "connections": [],
+      "scenarios": [],
+      "faults": [],
+      "oralQuestions": []
+    },
+    {
+      "id": "fuel",
+      "name": "Fuel System",
+      "status": "ready",
+      "accent": "#22c55e",
+      "summary": "Simplified Jet-A feed and return concept for learning source selection, pumps, filtering, rail/injector flow, and fault consequences.",
+      "components": [
+        { "id": "left-tank", "name": "Left Tank", "role": "Fuel source", "x": 11, "y": 16, "what": "Stores Jet-A fuel and supplies the selector when the left source path is selected or available.", "failure": "A leak, contamination, or unusable fuel condition reduces available source fuel and may force use of another source if available.", "normal": "Fuel available, venting assumed normal, and the path available when selected.", "abnormal": "Fuel imbalance, low usable fuel, contamination signs, or loss of feed from the selected side." },
+        { "id": "right-tank", "name": "Right Tank", "role": "Fuel source", "x": 11, "y": 56, "what": "Stores Jet-A fuel and supplies the selector when the right source path is selected or available.", "failure": "A leak, contamination, or unusable fuel condition reduces available source fuel and may force use of another source if available.", "normal": "Fuel available, venting assumed normal, and the path available when selected.", "abnormal": "Fuel imbalance, low usable fuel, contamination signs, or loss of feed from the selected side." },
+        { "id": "fuel-selector", "name": "Fuel Selector", "role": "Source selection", "x": 28, "y": 36, "what": "Routes fuel from the selected tank path toward the pump and filter side of the system.", "failure": "Incorrect selection or blockage can remove the intended fuel source from the feed path.", "normal": "Selected source has a clear route downstream.", "abnormal": "Unexpected low fuel pressure, imbalance, or feed from the wrong side." },
+        { "id": "electric-pump", "name": "Electric Fuel Pump", "role": "Auxiliary pressure", "x": 44, "y": 36, "what": "Provides auxiliary pressure support in this simplified concept model.", "failure": "Loss of auxiliary pressure support may increase reliance on downstream engine-driven pumping.", "normal": "Available and able to support steady fuel flow when commanded.", "abnormal": "Fuel pressure messages, abnormal pump behavior, or reduced margin if another pump is degraded." },
+        { "id": "fuel-filter", "name": "Fuel Filter", "role": "Filtration", "x": 58, "y": 36, "what": "Removes contaminants before fuel reaches higher-pressure/engine fuel metering areas in this concept layout.", "failure": "Restriction reduces available flow and can create downstream pressure drop.", "normal": "Clean enough to pass required flow.", "abnormal": "Reduced fuel pressure/flow margin, engine roughness risk, or caution indications in a final aircraft-specific model." },
+        { "id": "engine-pump", "name": "Engine Driven Pump", "role": "Main feed pump", "x": 72, "y": 36, "what": "Provides engine-driven fuel feed pressure to the high-pressure stage in this simplified trainer.", "failure": "Loss may remove the primary mechanical feed path and can cause fuel pressure decay depending on backup availability.", "normal": "Supplies stable downstream pressure while the engine is operating.", "abnormal": "Low pressure, engine power loss, rough running, or FADEC-related messages in a more exact model." },
+        { "id": "high-pressure-pump", "name": "High Pressure Pump", "role": "Rail pressure", "x": 72, "y": 62, "what": "Raises pressure for the common rail and injector side in this simplified diesel engine concept.", "failure": "Insufficient rail pressure can prevent correct injection and may lead to power loss or engine shutdown.", "normal": "Builds and maintains rail pressure within commanded range.", "abnormal": "Rail pressure low/high indications, rough running, reduced power, or FADEC fault messages." },
+        { "id": "common-rail", "name": "Common Rail", "role": "Pressure manifold", "x": 58, "y": 76, "what": "Distributes high-pressure fuel to injectors and supports the FADEC-commanded injection mental model.", "failure": "Pressure loss or sensor fault can affect all injectors and engine output.", "normal": "Stable pressure available to injectors.", "abnormal": "Rail pressure warnings, unstable power, or engine roughness." },
+        { "id": "injectors", "name": "Injectors", "role": "Fuel delivery", "x": 44, "y": 76, "what": "Meter fuel into the cylinders according to engine-control commands in this simplified model.", "failure": "Blocked, leaking, or incorrectly commanded injection can cause roughness, power loss, or abnormal engine parameters.", "normal": "Deliver commanded fuel quantity and timing.", "abnormal": "Rough running, EGT/engine-parameter abnormalities, smoke, or FADEC-related messages." },
+        { "id": "engine", "name": "Engine", "role": "Combustion/load", "x": 28, "y": 76, "what": "Consumes metered fuel and provides power to the propeller through the engine/propeller system.", "failure": "Fuel starvation, metering faults, or pressure loss can produce power loss or stoppage.", "normal": "Stable power for the selected single-lever/FADEC command.", "abnormal": "Power loss, roughness, abnormal temperatures/pressures, or engine alerts." },
+        { "id": "return-line", "name": "Return Line", "role": "Excess fuel return", "x": 84, "y": 76, "what": "Returns excess fuel from the rail/engine side toward the return/cooling path in this concept layout.", "failure": "A blocked return path can increase pressure or temperature stress depending on actual system design.", "normal": "Excess fuel has a managed route back through the return side.", "abnormal": "Fuel temperature or pressure cautions in a final aircraft-specific model." },
+        { "id": "fuel-cooler", "name": "Fuel Cooler / Thermostat", "role": "Return temperature control", "x": 84, "y": 16, "what": "Placeholder for return-fuel temperature management. Replace with exact component name and routing when confirmed.", "failure": "Cooling or bypass malfunction could affect fuel temperature control.", "normal": "Return fuel temperature is managed before returning to tank/feed path as applicable.", "abnormal": "Fuel temperature caution, reduced thermal margin, or return-system fault indication." }
+      ],
+      "connections": [
+        { "id": "left-selector", "from": "left-tank", "to": "fuel-selector", "label": "Left feed" },
+        { "id": "right-selector", "from": "right-tank", "to": "fuel-selector", "label": "Right feed" },
+        { "id": "selector-electric", "from": "fuel-selector", "to": "electric-pump", "label": "Selected feed" },
+        { "id": "electric-filter", "from": "electric-pump", "to": "fuel-filter", "label": "Low-pressure feed" },
+        { "id": "filter-enginepump", "from": "fuel-filter", "to": "engine-pump", "label": "Filtered feed" },
+        { "id": "enginepump-hppump", "from": "engine-pump", "to": "high-pressure-pump", "label": "Pump outlet" },
+        { "id": "hppump-rail", "from": "high-pressure-pump", "to": "common-rail", "label": "High pressure" },
+        { "id": "rail-injectors", "from": "common-rail", "to": "injectors", "label": "Metered rail supply" },
+        { "id": "injectors-engine", "from": "injectors", "to": "engine", "label": "Injection" },
+        { "id": "rail-return", "from": "common-rail", "to": "return-line", "label": "Excess return" },
+        { "id": "return-cooler", "from": "return-line", "to": "fuel-cooler", "label": "Return cooling" },
+        { "id": "cooler-left", "from": "fuel-cooler", "to": "left-tank", "label": "Return placeholder" },
+        { "id": "cooler-right", "from": "fuel-cooler", "to": "right-tank", "label": "Return placeholder" }
+      ],
+      "scenarios": [
+        { "id": "normal", "name": "Normal Operation", "description": "Both tank paths are available in this concept view. Fuel moves from source to selector, pumps, filter, rail, injectors, engine, and return path.", "statuses": { "active": ["left-tank", "right-tank", "fuel-selector", "electric-pump", "fuel-filter", "engine-pump", "high-pressure-pump", "common-rail", "injectors", "engine", "return-line", "fuel-cooler"], "caution": [], "failed": [], "inactive": [], "restricted": [] }, "connections": { "active": ["left-selector", "right-selector", "selector-electric", "electric-filter", "filter-enginepump", "enginepump-hppump", "hppump-rail", "rail-injectors", "injectors-engine", "rail-return", "return-cooler", "cooler-left", "cooler-right"], "caution": [], "failed": [], "inactive": [] }, "consequence": "Normal feed and return paths are active. Exact pump command logic should be updated from approved aircraft data later." },
+        { "id": "electric-pump-off", "name": "Electric Fuel Pump OFF", "description": "The auxiliary pump is not running. The concept shows continued reliance on downstream engine-driven pumping.", "statuses": { "active": ["left-tank", "right-tank", "fuel-selector", "fuel-filter", "engine-pump", "high-pressure-pump", "common-rail", "injectors", "engine", "return-line", "fuel-cooler"], "caution": ["electric-pump"], "failed": [], "inactive": [], "restricted": [] }, "connections": { "active": ["left-selector", "right-selector", "selector-electric", "electric-filter", "filter-enginepump", "enginepump-hppump", "hppump-rail", "rail-injectors", "injectors-engine", "rail-return", "return-cooler", "cooler-left", "cooler-right"], "caution": ["selector-electric", "electric-filter"], "failed": [], "inactive": [] }, "consequence": "Study note: loss of auxiliary pressure support may reduce system margin. Use approved procedures in real operations." },
+        { "id": "filter-restricted", "name": "Fuel Filter Restricted", "description": "The filter creates a downstream restriction and reduces available flow/pressure margin.", "statuses": { "active": ["left-tank", "right-tank", "fuel-selector", "electric-pump", "engine-pump", "high-pressure-pump", "common-rail", "injectors", "engine", "return-line", "fuel-cooler"], "caution": ["engine-pump", "high-pressure-pump", "common-rail"], "failed": [], "inactive": [], "restricted": ["fuel-filter"] }, "connections": { "active": ["left-selector", "right-selector", "selector-electric", "electric-filter", "rail-injectors", "injectors-engine", "rail-return", "return-cooler", "cooler-left", "cooler-right"], "caution": ["filter-enginepump", "enginepump-hppump", "hppump-rail"], "failed": [], "inactive": [] }, "consequence": "Study note: a restriction can show as pressure/flow loss and may affect engine power. This is not a checklist." },
+        { "id": "left-only", "name": "Tank Selected LEFT", "description": "Only the left source path is selected in this simplified model.", "statuses": { "active": ["left-tank", "fuel-selector", "electric-pump", "fuel-filter", "engine-pump", "high-pressure-pump", "common-rail", "injectors", "engine", "return-line", "fuel-cooler"], "caution": [], "failed": [], "inactive": ["right-tank"], "restricted": [] }, "connections": { "active": ["left-selector", "selector-electric", "electric-filter", "filter-enginepump", "enginepump-hppump", "hppump-rail", "rail-injectors", "injectors-engine", "rail-return", "return-cooler", "cooler-left"], "caution": [], "failed": [], "inactive": ["right-selector", "cooler-right"] }, "consequence": "Study note: the right feed path is greyed out. Watch source management and imbalance concepts." },
+        { "id": "right-only", "name": "Tank Selected RIGHT", "description": "Only the right source path is selected in this simplified model.", "statuses": { "active": ["right-tank", "fuel-selector", "electric-pump", "fuel-filter", "engine-pump", "high-pressure-pump", "common-rail", "injectors", "engine", "return-line", "fuel-cooler"], "caution": [], "failed": [], "inactive": ["left-tank"], "restricted": [] }, "connections": { "active": ["right-selector", "selector-electric", "electric-filter", "filter-enginepump", "enginepump-hppump", "hppump-rail", "rail-injectors", "injectors-engine", "rail-return", "return-cooler", "cooler-right"], "caution": [], "failed": [], "inactive": ["left-selector", "cooler-left"] }, "consequence": "Study note: the left feed path is greyed out. Watch source management and imbalance concepts." },
+        { "id": "engine-pump-failure", "name": "Engine Driven Pump Failure", "description": "The main mechanical feed pump is failed in this concept view.", "statuses": { "active": ["left-tank", "right-tank", "fuel-selector", "electric-pump", "fuel-filter"], "caution": ["high-pressure-pump", "common-rail", "injectors", "engine"], "failed": ["engine-pump"], "inactive": [], "restricted": [] }, "connections": { "active": ["left-selector", "right-selector", "selector-electric", "electric-filter"], "caution": ["filter-enginepump", "hppump-rail", "rail-injectors", "injectors-engine"], "failed": ["enginepump-hppump"], "inactive": ["rail-return", "return-cooler", "cooler-left", "cooler-right"] }, "consequence": "Study note: downstream pressure/rail supply may be lost or degraded. Treat responses as placeholders until aircraft-specific procedures are entered." }
+      ],
+      "faults": [
+        { "id": "fail-electric-pump", "name": "Fail Electric Fuel Pump", "componentStatus": { "electric-pump": "failed" }, "connectionStatus": { "selector-electric": "caution", "electric-filter": "caution" }, "affectedComponents": ["electric-pump", "fuel-filter", "engine-pump"], "pilotIndication": "Possible fuel pressure caution or reduced backup/auxiliary pressure margin.", "risk": "Less pressure support if another part of the feed system is degraded.", "response": "Study note: identify the failure, monitor engine/fuel indications, and use approved aircraft procedures." },
+        { "id": "restrict-filter", "name": "Restrict Fuel Filter", "componentStatus": { "fuel-filter": "restricted", "engine-pump": "caution", "high-pressure-pump": "caution", "common-rail": "caution" }, "connectionStatus": { "filter-enginepump": "caution", "enginepump-hppump": "caution", "hppump-rail": "caution" }, "affectedComponents": ["fuel-filter", "engine-pump", "high-pressure-pump", "common-rail"], "pilotIndication": "Possible low fuel pressure/flow cues, rough running, or reduced power in a final aircraft-specific model.", "risk": "Downstream starvation or inability to maintain commanded rail pressure.", "response": "Study note: recognize restriction signs and follow the approved abnormal procedure." },
+        { "id": "fail-engine-pump", "name": "Fail Engine Driven Pump", "componentStatus": { "engine-pump": "failed", "high-pressure-pump": "caution", "common-rail": "caution", "injectors": "caution", "engine": "caution" }, "connectionStatus": { "filter-enginepump": "caution", "enginepump-hppump": "failed", "hppump-rail": "caution" }, "affectedComponents": ["engine-pump", "high-pressure-pump", "common-rail", "injectors", "engine"], "pilotIndication": "Likely fuel pressure/engine power abnormality in this concept model.", "risk": "Loss of downstream feed pressure and possible power loss.", "response": "Study note: maintain aircraft control, diagnose with indications, and use approved emergency/abnormal guidance." },
+        { "id": "block-return-line", "name": "Block Return Line", "componentStatus": { "return-line": "failed", "fuel-cooler": "caution", "common-rail": "caution" }, "connectionStatus": { "rail-return": "failed", "return-cooler": "failed", "cooler-left": "inactive", "cooler-right": "inactive" }, "affectedComponents": ["common-rail", "return-line", "fuel-cooler"], "pilotIndication": "Possible fuel temperature/pressure abnormality if modeled by exact aircraft data.", "risk": "Return-side pressure or temperature control may be compromised.", "response": "Study note: monitor relevant indications and apply approved aircraft guidance." },
+        { "id": "left-only-fault", "name": "Select Left Tank Only", "exclusiveGroup": "tank-select", "componentStatus": { "left-tank": "active", "right-tank": "inactive" }, "connectionStatus": { "left-selector": "active", "right-selector": "inactive", "cooler-right": "inactive" }, "affectedComponents": ["left-tank", "right-tank", "fuel-selector"], "pilotIndication": "Fuel use is focused on the selected side in this simplified model.", "risk": "Fuel imbalance or depletion of the selected source if not managed.", "response": "Study note: verify selection and manage fuel according to approved procedures." },
+        { "id": "right-only-fault", "name": "Select Right Tank Only", "exclusiveGroup": "tank-select", "componentStatus": { "right-tank": "active", "left-tank": "inactive" }, "connectionStatus": { "right-selector": "active", "left-selector": "inactive", "cooler-left": "inactive" }, "affectedComponents": ["left-tank", "right-tank", "fuel-selector"], "pilotIndication": "Fuel use is focused on the selected side in this simplified model.", "risk": "Fuel imbalance or depletion of the selected source if not managed.", "response": "Study note: verify selection and manage fuel according to approved procedures." }
+      ],
+      "memoryMode": {
+        "instructions": "Click the tiles in the order you remember fuel flowing from selected tank to engine. Either tank can count as the selected tank for the first position.",
+        "correctSequence": ["selected-tank", "fuel-selector", "electric-pump", "fuel-filter", "engine-pump", "high-pressure-pump", "common-rail", "injectors", "engine"],
+        "aliases": { "left-tank": "selected-tank", "right-tank": "selected-tank" }
+      },
+      "oralQuestions": [
+        { "id": "electric-pump-fails", "prompt": "Explain what happens if the electric fuel pump fails.", "modelAnswer": "Study answer: the auxiliary pump is unavailable, so the system has less pressure support and relies more on the remaining feed path. The pilot would monitor fuel/engine indications and use approved procedures rather than improvising from this trainer." },
+        { "id": "fuel-path", "prompt": "Explain the fuel path from tank to injector.", "modelAnswer": "Study answer: in this simplified model, fuel flows from the selected tank through the selector, electric fuel pump, filter, engine-driven pump, high-pressure pump, common rail, and then to the injectors." },
+        { "id": "restricted-filter", "prompt": "What components are affected by a restricted fuel filter?", "modelAnswer": "Study answer: the filter restriction primarily affects downstream flow to the engine-driven pump, high-pressure pump, common rail, injectors, and ultimately engine power availability." },
+        { "id": "left-only", "prompt": "What changes when only LEFT tank is selected?", "modelAnswer": "Study answer: the left feed path remains active and the right feed path is inactive in this concept model. The pilot should think about selected source, fuel balance, and remaining usable fuel." }
+      ]
+    },
+    {
+      "id": "fadec",
+      "name": "FADEC / Engine Control",
+      "status": "coming-soon",
+      "accent": "#8b7cf6",
+      "summary": "Single-lever command logic, sensors, redundancy, engine protection concepts, and failure annunciations.",
+      "components": [],
+      "connections": [],
+      "scenarios": [],
+      "faults": [],
+      "oralQuestions": []
+    },
+    {
+      "id": "cooling",
+      "name": "Cooling System",
+      "status": "coming-soon",
+      "accent": "#14b8a6",
+      "summary": "Coolant flow, heat exchangers, thermostatic behavior, temperature indications, and overheat logic.",
+      "components": [],
+      "connections": [],
+      "scenarios": [],
+      "faults": [],
+      "oralQuestions": []
+    },
+    {
+      "id": "oil",
+      "name": "Oil System",
+      "status": "coming-soon",
+      "accent": "#f59e0b",
+      "summary": "Oil supply, pressure/temperature sensing, lubrication paths, and low-pressure failure logic.",
+      "components": [],
+      "connections": [],
+      "scenarios": [],
+      "faults": [],
+      "oralQuestions": []
+    },
+    {
+      "id": "propeller",
+      "name": "Propeller System",
+      "status": "coming-soon",
+      "accent": "#ef4444",
+      "summary": "Governor/control relationship, single-lever behavior, pitch change concepts, and abnormal indications.",
+      "components": [],
+      "connections": [],
+      "scenarios": [],
+      "faults": [],
+      "oralQuestions": []
+    }
+  ]
+}
