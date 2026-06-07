@@ -428,14 +428,20 @@ function applyGroupedStatuses(target, groups = {}) {
 }
 
 function renderDiagram(system, diagramState, target, options = {}) {
+  const usesSourceDiagram = Boolean(system.diagramAsset);
   target.board.classList.toggle("flowing", Boolean(options.flowing));
-  target.layer.innerHTML = system.connections.map((connection) => {
-    const from = system.components.find((component) => component.id === connection.from);
-    const to = system.components.find((component) => component.id === connection.to);
-    const status = diagramState.connectionStatus[connection.id] || "inactive";
-    const path = `M ${from.x} ${from.y} L ${to.x} ${to.y}`;
-    return `<path class="connection-line ${status}" d="${path}" aria-label="${escapeHtml(connection.label)}"></path>`;
-  }).join("");
+  target.board.classList.toggle("source-board", usesSourceDiagram);
+  target.board.style.setProperty("--source-diagram", usesSourceDiagram ? `url("${system.diagramAsset}")` : "none");
+  const showConnectionOverlay = !usesSourceDiagram || options.flowing;
+  target.layer.innerHTML = showConnectionOverlay
+    ? system.connections.map((connection) => {
+      const from = system.components.find((component) => component.id === connection.from);
+      const to = system.components.find((component) => component.id === connection.to);
+      const status = diagramState.connectionStatus[connection.id] || "inactive";
+      const path = `M ${from.x} ${from.y} L ${to.x} ${to.y}`;
+      return `<path class="connection-line ${status}" d="${path}" aria-label="${escapeHtml(connection.label)}"></path>`;
+    }).join("")
+    : "";
 
   target.nodes.innerHTML = "";
   system.components.forEach((component) => {
@@ -445,6 +451,8 @@ function renderDiagram(system, diagramState, target, options = {}) {
     node.className = `component-node ${status} ${state.selectedComponentId === component.id ? "selected" : ""}`;
     node.style.left = `${component.x}%`;
     node.style.top = `${component.y}%`;
+    if (component.w) node.style.width = `${component.w}%`;
+    if (component.h) node.style.minHeight = `${component.h}%`;
     node.innerHTML = `<strong>${escapeHtml(component.name)}</strong><span>${escapeHtml(component.role)}</span>`;
     node.addEventListener("click", () => {
       if (options.onComponentClick) {
