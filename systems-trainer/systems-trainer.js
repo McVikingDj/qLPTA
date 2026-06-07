@@ -438,7 +438,7 @@ function renderDiagram(system, diagramState, target, options = {}) {
       const from = system.components.find((component) => component.id === connection.from);
       const to = system.components.find((component) => component.id === connection.to);
       const status = diagramState.connectionStatus[connection.id] || "inactive";
-      const path = `M ${from.x} ${from.y} L ${to.x} ${to.y}`;
+      const path = connection.flowPath || `M ${from.x} ${from.y} L ${to.x} ${to.y}`;
       return `<path class="connection-line ${status}" d="${path}" aria-label="${escapeHtml(connection.label)}"></path>`;
     }).join("")
     : "";
