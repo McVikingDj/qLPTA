@@ -1,2132 +1,302 @@
 [
   {
-    "question": "What engine model is installed in the C172 R&S covered by this supplement?",
+    "question": "What system controls the TAE 125-02-114 engine?",
     "choices": [
-      "TAE 125-02-114",
-      "CD-155",
-      "IO-360-L2A",
-      "AE300"
+      "Dual magnetos",
+      "FADEC",
+      "Mechanical fuel injection",
+      "Electronic ignition"
     ],
-    "answer": "TAE 125-02-114"
+    "answer": "FADEC",
+    "explanation": "The TAE 125-02-114 uses a Full Authority Digital Engine Control (FADEC) system to control engine operation. Traditional systems such as magnetos, carburetor heat and mixture control are not installed.",
+    "reference": "POH Supplement Section 1, Page 1-2"
   },
   {
-    "question": "Which organization approved the technical content of this supplement under DOA authority?",
+    "question": "The TAE 125-02-114 engine is:",
     "choices": [
-      "FAA",
-      "EASA",
-      "ICAO",
-      "Cessna Aircraft Company"
+      "Air-cooled and naturally aspirated",
+      "Air-cooled and turbocharged",
+      "Liquid-cooled and turbocharged",
+      "Liquid-cooled and normally aspirated"
     ],
-    "answer": "EASA"
+    "answer": "Liquid-cooled and turbocharged",
+    "explanation": "The engine is a liquid-cooled, turbocharged diesel engine with direct fuel injection and common-rail technology.",
+    "reference": "POH Supplement Section 1, Page 1-2"
   },
   {
-    "question": "What does FADEC stand for in this supplement?",
+    "question": "How many cylinders does the TAE 125-02-114 have?",
     "choices": [
-      "Full Authority Digital Engine Control",
-      "Fuel and Digital Engine Computer",
-      "Full Automatic Diesel Engine Controller",
-      "Flight Authority Digital Engine Control"
+      "3",
+      "4",
+      "5",
+      "6"
     ],
-    "answer": "Full Authority Digital Engine Control"
+    "answer": "4",
+    "explanation": "The TAE 125-02-114 is a four-cylinder inline diesel engine.",
+    "reference": "POH Supplement Section 1, Page 1-2"
   },
   {
-    "question": "Which engine characteristics from the original avgas installation are no longer valid for the JT-A conversion?",
+    "question": "What type of fuel injection system is installed on the TAE 125-02-114?",
     "choices": [
-      "Carburetor heat, magnetos/spark plugs, and mixture/priming system",
-      "Flaps, trim, and pitot heat",
-      "Alternator, battery, and starter",
-      "Fuel selector, brakes, and rudder trim"
+      "Carburetor",
+      "Continuous flow injection",
+      "Common rail injection",
+      "Mechanical injection pump"
     ],
-    "answer": "Carburetor heat, magnetos/spark plugs, and mixture/priming system"
+    "answer": "Common rail injection",
+    "explanation": "The engine uses common-rail technology to provide high-pressure fuel injection controlled by the FADEC.",
+    "reference": "POH Supplement Section 1, Page 1-2"
   },
   {
-    "question": "How long has the engine been demonstrated to operate on FADEC backup battery power only after loss of main battery and alternator?",
+    "question": "Which of the following systems is NOT installed on the JT-A powered C172?",
     "choices": [
-      "15 minutes",
-      "30 minutes",
-      "60 minutes",
-      "120 minutes"
+      "Alternator",
+      "Starter motor",
+      "Carburetor heat",
+      "Fuel selector"
     ],
-    "answer": "30 minutes"
+    "answer": "Carburetor heat",
+    "explanation": "The diesel engine has no carburetor, therefore carburetor heat is not required.",
+    "reference": "POH Supplement Section 1, Page 1-2"
   },
   {
-    "question": "What type of engine is the TAE 125-02-114?",
+    "question": "What is the gearbox reduction ratio of the TAE 125-02-114?",
     "choices": [
-      "Liquid cooled inline four-stroke turbocharged diesel with common rail",
-      "Air-cooled horizontally opposed carbureted engine",
-      "Two-stroke radial engine",
-      "Normally aspirated rotary engine"
+      "1.25:1",
+      "1.50:1",
+      "1.69:1",
+      "2.00:1"
     ],
-    "answer": "Liquid cooled inline four-stroke turbocharged diesel with common rail"
+    "answer": "1.69:1",
+    "explanation": "The engine drives the propeller through a reduction gearbox with a ratio of 1.69:1.",
+    "reference": "POH Supplement Section 1, Page 1-2"
   },
   {
-    "question": "What is the engine displacement of the TAE 125-02-114?",
-    "choices": [
-      "1991 ccm (121.5 in³)",
-      "3600 ccm (219.7 in³)",
-      "1550 ccm (94.6 in³)",
-      "2200 ccm (134.2 in³)"
-    ],
-    "answer": "1991 ccm (121.5 in³)"
-  },
-  {
-    "question": "What is the gearbox ratio stated in the supplement?",
-    "choices": [
-      "1.69",
-      "1.42",
-      "2.10",
-      "0.85"
-    ],
-    "answer": "1.69"
-  },
-  {
-    "question": "What type of propeller is installed?",
-    "choices": [
-      "Constant speed",
-      "Fixed pitch",
-      "Ground adjustable",
-      "Variable diameter"
-    ],
-    "answer": "Constant speed"
-  },
-  {
-    "question": "How many blades does the approved propeller have?",
+    "question": "How many blades does the MT propeller installed on the JT-A aircraft have?",
     "choices": [
       "2",
       "3",
       "4",
       "5"
     ],
-    "answer": "3"
+    "answer": "3",
+    "explanation": "The approved MT propeller for the JT-A installation is a three-bladed constant-speed propeller.",
+    "reference": "POH Supplement Section 1, Page 1-3"
   },
   {
-    "question": "Which propeller manufacturer is listed?",
+    "question": "What type of propeller is installed on the JT-A aircraft?",
     "choices": [
-      "MT Propeller Entwicklung GmbH",
-      "Hartzell",
-      "McCauley",
-      "Sensenich"
+      "Fixed pitch",
+      "Ground adjustable",
+      "Constant speed",
+      "Feathering"
     ],
-    "answer": "MT Propeller Entwicklung GmbH"
+    "answer": "Constant speed",
+    "explanation": "The aircraft uses a constant-speed propeller to optimize efficiency across the operating range.",
+    "reference": "POH Supplement Section 1, Page 1-3"
   },
   {
-    "question": "What is the main operational warning regarding an out-of-date POH supplement?",
+    "question": "What is the maximum approved engine power?",
     "choices": [
-      "Safe operation is only assured with an up-to-date POH supplement",
-      "Only performance data become invalid",
-      "Only the weight and balance section becomes invalid",
-      "The supplement may still be used if the checklist is current"
+      "135 HP",
+      "145 HP",
+      "155 HP",
+      "165 HP"
     ],
-    "answer": "Safe operation is only assured with an up-to-date POH supplement"
+    "answer": "155 HP",
+    "explanation": "The TAE 125-02-114 develops a maximum take-off and continuous power output of 155 HP.",
+    "reference": "POH Supplement Section 2, Page 2-1"
   },
   {
-    "question": "Which of the following is an approved fuel according to the supplement?",
+    "question": "What is the maximum approved propeller RPM?",
     "choices": [
-      "Jet A-1",
-      "100LL only",
-      "Mogas only",
-      "UL91 only"
-    ],
-    "answer": "Jet A-1"
-  },
-  {
-    "question": "Which alternative fuel is approved in addition to kerosene-based fuels?",
-    "choices": [
-      "Diesel (DIN EN 590)",
-      "AVGAS 100/130",
-      "Auto gasoline with ethanol",
-      "Jet B only"
-    ],
-    "answer": "Diesel (DIN EN 590)"
-  },
-  {
-    "question": "Which fuel additive may be used to prevent microbial contamination?",
-    "choices": [
-      "Biobor JF",
-      "Prist only",
-      "TCP",
-      "No additive is approved"
-    ],
-    "answer": "Biobor JF"
-  },
-  {
-    "question": "What is the recommended coolant mixing ratio when using concentrate and distilled water?",
-    "choices": [
-      "50:50",
-      "60:40",
-      "70:30",
-      "80:20"
-    ],
-    "answer": "50:50"
-  },
-  {
-    "question": "What happens if G05 and G48 coolants are mixed?",
-    "choices": [
-      "It is prohibited",
-      "It improves cooling performance",
-      "It is recommended in winter only",
-      "It is required after maintenance"
-    ],
-    "answer": "It is prohibited"
-  },
-  {
-    "question": "Which statement about gearbox oil topping-up between scheduled maintenance is correct?",
-    "choices": [
-      "It should normally not be necessary",
-      "It is required before every flight",
-      "It is required every 25 hours",
-      "It is required after every long flight"
-    ],
-    "answer": "It should normally not be necessary"
-  },
-  {
-    "question": "What is the freezing point of the coolant noted in Section 8?",
-    "choices": [
-      "-20°C",
-      "-28°C",
-      "-36°C",
-      "-42°C"
-    ],
-    "answer": "-36°C"
-  },
-  {
-    "question": "What is the warning regarding low fluid levels before engine start?",
-    "choices": [
-      "The engine must not be started if any fluid level is too low",
-      "The engine may be started at idle only",
-      "Only oil level matters",
-      "Coolant may be low for taxi"
-    ],
-    "answer": "The engine must not be started if any fluid level is too low"
-  },
-  {
-    "question": "What is the total non-useable fuel capacity in normal category?",
-    "choices": [
-      "180.2 litres (47.6 US gal)",
-      "168.8 litres (44.6 US gal)",
-      "117.4 litres (31 US gal)",
-      "106 litres (28 US gal)"
-    ],
-    "answer": "180.2 litres (47.6 US gal)"
-  },
-  {
-    "question": "What is the total useable fuel capacity in normal category?",
-    "choices": [
-      "180.2 litres (47.6 US gal)",
-      "168.8 litres (44.6 US gal)",
-      "117.4 litres (31 US gal)",
-      "106 litres (28 US gal)"
-    ],
-    "answer": "168.8 litres (44.6 US gal)"
-  },
-  {
-    "question": "What is the usable fuel in normal category?",
-    "choices": [
-      "168.8 litres (44.6 US gal)",
-      "180.2 litres (47.6 US gal)",
-      "117.4 litres (31 US gal)",
-      "90.1 litres (23.8 US gal)"
-    ],
-    "answer": "168.8 litres (44.6 US gal)"
-  },
-  {
-    "question": "What is the usable fuel per tank in normal category?",
-    "choices": [
-      "84.4 litres (22.3 US gal)",
-      "90.1 litres (23.8 US gal)",
-      "53 litres (14 US gal)",
-      "58.7 litres (15.5 US gal)"
-    ],
-    "answer": "84.4 litres (22.3 US gal)"
-  },
-  {
-    "question": "What is the total usable fuel in utility category?",
-    "choices": [
-      "106 litres (28 US gal)",
-      "117.4 litres (31 US gal)",
-      "84.4 litres (22.3 US gal)",
-      "53 litres (14 US gal)"
-    ],
-    "answer": "106 litres (28 US gal)"
-  },
-  {
-    "question": "Why was the maximum permissible tank capacity reduced compared with AVGAS versions?",
-    "choices": [
-      "Because Jet A-1 and Diesel have a higher specific density",
-      "Because the tanks are physically smaller",
-      "Because the engine burns more fuel at idle",
-      "Because the venting system was removed"
-    ],
-    "answer": "Because Jet A-1 and Diesel have a higher specific density"
-  },
-  {
-    "question": "What is the maximum takeoff weight for a C172S normal category airplane in the POH supplement?",
-    "choices": [
-      "1157 kg (2550 lbs)",
-      "1111 kg (2450 lbs)",
-      "1134 kg (2500 lbs)",
-      "999 kg (2200 lbs)"
-    ],
-    "answer": "1157 kg (2550 lbs)"
-  },
-  {
-    "question": "What is the maximum takeoff weight for a C172R normal category airplane?",
-    "choices": [
-      "1111 kg (2450 lbs)",
-      "1157 kg (2550 lbs)",
-      "1134 kg (2500 lbs)",
-      "953 kg (2100 lbs)"
-    ],
-    "answer": "1111 kg (2450 lbs)"
-  },
-  {
-    "question": "What is the maximum takeoff weight for a C172R with STC SA2196CE installed?",
-    "choices": [
-      "1134 kg (2500 lbs)",
-      "1157 kg (2550 lbs)",
-      "1111 kg (2450 lbs)",
-      "999 kg (2200 lbs)"
-    ],
-    "answer": "1134 kg (2500 lbs)"
-  },
-  {
-    "question": "What is the maximum takeoff weight for a C172S utility category airplane?",
-    "choices": [
-      "999 kg (2200 lbs)",
-      "1000 kg (2202 lbs)",
-      "953 kg (2100 lbs)",
-      "1157 kg (2550 lbs)"
-    ],
-    "answer": "999 kg (2200 lbs)"
-  },
-  {
-    "question": "What is prohibited in utility category according to the maneuver limits?",
-    "choices": [
-      "Intentionally initiating spins",
-      "Steep turns",
-      "Short field takeoffs",
-      "Use of flaps"
-    ],
-    "answer": "Intentionally initiating spins"
-  },
-  {
-    "question": "What is prohibited regarding G-loading?",
-    "choices": [
-      "Intentionally initiating negative G maneuvers",
-      "Positive G above 2G",
-      "All slipping maneuvers",
-      "All sideslips with flaps up"
-    ],
-    "answer": "Intentionally initiating negative G maneuvers"
-  },
-  {
-    "question": "What is the engine's takeoff and maximum continuous power output?",
-    "choices": [
-      "114 kW (155 HP)",
-      "120 kW (161 HP)",
-      "100 kW (134 HP)",
-      "132 kW (177 HP)"
-    ],
-    "answer": "114 kW (155 HP)"
-  },
-  {
-    "question": "What is maximum propeller RPM for takeoff and continuous operation?",
-    "choices": [
+      "2200 RPM",
+      "2250 RPM",
       "2300 RPM",
-      "2400 RPM",
-      "2500 RPM",
-      "2700 RPM"
+      "2400 RPM"
     ],
-    "answer": "2300 RPM"
+    "answer": "2300 RPM",
+    "explanation": "Maximum approved RPM for take-off and continuous operation is 2300 RPM.",
+    "reference": "POH Supplement Section 2, Page 2-1"
   },
   {
-    "question": "What is the maximum recommended cruise power?",
+    "question": "What is the maximum recommended cruise power setting?",
     "choices": [
       "75%",
       "80%",
       "85%",
       "90%"
     ],
-    "answer": "85%"
+    "answer": "85%",
+    "explanation": "The POH recommends limiting cruise operation to 85% power.",
+    "reference": "POH Supplement Section 2, Page 2-1"
   },
   {
-    "question": "Up to what altitude is the aircraft certified with this change?",
+    "question": "The JT-A installation is certified up to what altitude?",
     "choices": [
       "14,000 ft",
       "16,000 ft",
       "18,000 ft",
-      "24,000 ft"
+      "20,000 ft"
     ],
-    "answer": "18,000 ft"
+    "answer": "18,000 ft",
+    "explanation": "The aircraft modification is approved for operation up to 18,000 ft.",
+    "reference": "POH Supplement Section 2, Page 2-1"
   },
   {
-    "question": "What is the minimum engine starting temperature for oil and coolant?",
+    "question": "Which fuel is approved for normal operation?",
     "choices": [
-      "-10°C",
-      "-20°C",
-      "-30°C",
-      "-32°C"
+      "100LL only",
+      "Jet A-1 only",
+      "Jet A-1 and approved diesel fuels",
+      "AVGAS and MOGAS"
     ],
-    "answer": "-32°C"
+    "answer": "Jet A-1 and approved diesel fuels",
+    "explanation": "The engine is approved for Jet A-1, Jet A and certain approved diesel fuels.",
+    "reference": "POH Supplement Section 1, Page 1-3"
   },
   {
-    "question": "What is the minimum operating oil temperature?",
+    "question": "Which statement regarding electrical power is correct?",
     "choices": [
-      "40°C",
-      "50°C",
-      "60°C",
-      "70°C"
+      "The engine can operate indefinitely without electrical power",
+      "The engine requires electrical power for operation",
+      "Electrical power is only needed for engine start",
+      "The alternator is optional during flight"
     ],
-    "answer": "50°C"
+    "answer": "The engine requires electrical power for operation",
+    "explanation": "The FADEC-controlled diesel engine requires electrical power to continue operating.",
+    "reference": "POH Supplement Section 1, Page 1-2"
   },
   {
-    "question": "What is the maximum operating oil temperature?",
+    "question": "Following loss of both the alternator and main battery, the engine can operate on FADEC backup battery power for approximately:",
     "choices": [
-      "120°C",
-      "129°C",
-      "140°C",
-      "150°C"
+      "15 minutes",
+      "30 minutes",
+      "45 minutes",
+      "60 minutes"
     ],
-    "answer": "140°C"
+    "answer": "30 minutes",
+    "explanation": "The FADEC backup battery provides approximately 30 minutes of engine operation following complete electrical failure.",
+    "reference": "POH Supplement Section 1, Page 1-2"
   },
   {
-    "question": "What is the minimum operating coolant temperature?",
+    "question": "During cruise, the oil pressure indicates 2.0 bar. How should this be interpreted?",
     "choices": [
-      "50°C",
-      "55°C",
-      "60°C",
-      "65°C"
+      "Normal operation",
+      "Amber range",
+      "Red range",
+      "Engine failure"
     ],
-    "answer": "60°C"
+    "answer": "Amber range",
+    "explanation": "In flight, oil pressure below 2.3 bar is below the normal operating range and enters the amber caution range.",
+    "reference": "POH Supplement Section 2, Page 2-4"
   },
   {
-    "question": "What is the maximum operating coolant temperature?",
+    "question": "During climb, coolant temperature increases to 103°C. What indication range should be expected?",
     "choices": [
-      "100°C",
-      "105°C",
-      "110°C",
-      "115°C"
+      "Green",
+      "Amber",
+      "Red",
+      "White"
     ],
-    "answer": "105°C"
+    "answer": "Amber",
+    "explanation": "Coolant temperatures between 101°C and 105°C are displayed in the amber caution range.",
+    "reference": "POH Supplement Section 2, Page 2-4"
   },
   {
-    "question": "What is the minimum operating gearbox temperature?",
+    "question": "An oil temperature of 145°C would be displayed in which range?",
     "choices": [
-      "-20°C",
-      "-25°C",
-      "-30°C",
-      "0°C"
+      "Green",
+      "Amber",
+      "Red",
+      "Normal"
     ],
-    "answer": "-30°C"
+    "answer": "Red",
+    "explanation": "Oil temperatures above 140°C exceed the maximum operating limit and enter the red range.",
+    "reference": "POH Supplement Section 2, Page 2-4"
   },
   {
-    "question": "What is the maximum operating gearbox temperature?",
+    "question": "A pilot attempts to start the engine using an external power cart. According to the POH this is:",
     "choices": [
-      "105°C",
-      "115°C",
-      "120°C",
-      "129°C"
+      "Permitted",
+      "Permitted below freezing",
+      "Permitted with maintenance approval",
+      "Prohibited"
     ],
-    "answer": "120°C"
+    "answer": "Prohibited",
+    "explanation": "The POH specifically prohibits engine starts using external power.",
+    "reference": "POH Supplement Section 2, Page 2-1"
   },
   {
-    "question": "What is the minimum oil pressure?",
+    "question": "During flight the selected fuel tank runs dry. What should be done immediately?",
     "choices": [
-      "1.2 bar",
-      "2.3 bar",
-      "5.1 bar",
-      "6.0 bar"
+      "Engine Master OFF",
+      "Switch Fuel Selector to BOTH and turn Fuel Pump ON",
+      "Close Fuel Shut-Off Valve",
+      "Attempt a restart using the starter"
     ],
-    "answer": "1.2 bar"
+    "answer": "Switch Fuel Selector to BOTH and turn Fuel Pump ON",
+    "explanation": "The emergency procedure calls for selecting BOTH and activating the electric fuel pump immediately.",
+    "reference": "POH Supplement Section 3, Page 3-4"
   },
   {
-    "question": "What is the minimum oil pressure at takeoff power?",
+    "question": "A student asks why mixture control is not used on the JT-A aircraft. What is the best answer?",
     "choices": [
-      "1.2 bar",
-      "2.3 bar",
-      "5.2 bar",
-      "6.5 bar"
+      "The engine is naturally aspirated",
+      "The FADEC automatically controls fuel delivery",
+      "Diesel engines do not require fuel",
+      "The propeller controls the mixture"
     ],
-    "answer": "2.3 bar"
+    "answer": "The FADEC automatically controls fuel delivery",
+    "explanation": "Fuel scheduling is managed automatically by the FADEC, eliminating the need for a manual mixture control.",
+    "reference": "POH Supplement Section 1, Page 1-2"
   },
   {
-    "question": "What is the minimum oil pressure in flight?",
-    "choices": [
-      "1.2 bar",
-      "2.3 bar",
-      "5.1 bar",
-      "6.0 bar"
-    ],
-    "answer": "2.3 bar"
-  },
-  {
-    "question": "What is the maximum oil pressure?",
-    "choices": [
-      "5.1 bar",
-      "6.0 bar",
-      "6.5 bar",
-      "7.0 bar"
-    ],
-    "answer": "6.0 bar"
-  },
-  {
-    "question": "What is the maximum oil pressure during cold start for less than 20 seconds?",
-    "choices": [
-      "5.2 bar",
-      "6.0 bar",
-      "6.5 bar",
-      "7.0 bar"
-    ],
-    "answer": "6.5 bar"
-  },
-  {
-    "question": "What is the maximum oil consumption?",
-    "choices": [
-      "0.1 l/h",
-      "0.5 l/h",
-      "1.0 l/h",
-      "0.1 l/min"
-    ],
-    "answer": "0.1 l/h"
-  },
-  {
-    "question": "What is the minimum fuel temperature in the tank before takeoff when using Jet A-1/Jet A/JP-8/TS-1 type fuels?",
-    "choices": [
-      "0°C",
-      "-5°C",
-      "-30°C",
-      "-35°C"
-    ],
-    "answer": "-30°C"
-  },
-  {
-    "question": "What is the minimum fuel temperature in flight when using Jet A-1/Jet A/JP-8/TS-1 type fuels?",
-    "choices": [
-      "-30°C",
-      "-35°C",
-      "0°C",
-      "-5°C"
-    ],
-    "answer": "-35°C"
-  },
-  {
-    "question": "What is the minimum fuel temperature in the tank before takeoff when using Diesel or Sasol GTL Diesel?",
-    "choices": [
-      "0°C",
-      "-5°C",
-      "-30°C",
-      "10°C"
-    ],
-    "answer": "0°C"
-  },
-  {
-    "question": "What is the minimum fuel temperature in flight when using Diesel or Sasol GTL Diesel?",
-    "choices": [
-      "0°C",
-      "-5°C",
-      "-30°C",
-      "5°C"
-    ],
-    "answer": "-5°C"
-  },
-  {
-    "question": "When must Diesel fuel temperature limits be applied to a tank mixture?",
-    "choices": [
-      "When the proportion of Diesel is more than 10%",
-      "Whenever any Jet A is present",
-      "Only in utility category",
-      "Only below 5°C OAT"
-    ],
-    "answer": "When the proportion of Diesel is more than 10%"
-  },
-  {
-    "question": "If there is uncertainty about the type of fuel in the tank, what assumption must be made?",
-    "choices": [
-      "Assume it is Jet A-1",
-      "Assume it is AVGAS",
-      "Assume it is Diesel",
-      "Assume it is unusable"
-    ],
-    "answer": "Assume it is Diesel"
-  },
-  {
-    "question": "What color and audio alert correspond to a G1000 warning annunciation?",
-    "choices": [
-      "Red with continuous aural tone",
-      "Yellow with single tone",
-      "White with no tone",
-      "Amber with intermittent tone"
-    ],
-    "answer": "Red with continuous aural tone"
-  },
-  {
-    "question": "What color and audio alert correspond to a G1000 caution annunciation?",
-    "choices": [
-      "Yellow with single aural tone",
-      "Red with continuous tone",
-      "White with no tone",
-      "Green with no tone"
-    ],
-    "answer": "Yellow with single aural tone"
-  },
-  {
-    "question": "On the G1000, how is an advisory annunciation displayed?",
-    "choices": [
-      "White text on black background",
-      "Yellow text on black background",
-      "Red text on black background",
-      "Green text on white background"
-    ],
-    "answer": "White text on black background"
-  },
-  {
-    "question": "What should be done with the AED/CED caution lamp after a parameter returns to normal?",
-    "choices": [
-      "It must be confirmed by pressing the Confirm/Test knob",
-      "Nothing; it extinguishes automatically",
-      "Pull the circuit breaker",
-      "Switch the battery off"
-    ],
-    "answer": "It must be confirmed by pressing the Confirm/Test knob"
-  },
-  {
-    "question": "What happens if the Confirm/Test knob is pressed longer than one second on AED/CED?",
-    "choices": [
-      "It starts the power-up test sequence",
-      "It resets the fuel quantity indication",
-      "It shuts the engine down",
-      "It switches to Force B"
-    ],
-    "answer": "It starts the power-up test sequence"
-  },
-  {
-    "question": "What does STARTER ENGD mean as a G1000 warning?",
-    "choices": [
-      "The starter has been engaged for more than 20 seconds or would engage while the engine is running",
-      "The starter backup battery is depleted",
-      "The starter is disconnected from the engine",
-      "The alternator has failed"
-    ],
-    "answer": "The starter has been engaged for more than 20 seconds or would engage while the engine is running"
-  },
-  {
-    "question": "What does LOW VOLTS warning do below 30 knots according to the supplement?",
-    "choices": [
-      "It gives no tone below 30 knots",
-      "It gives a continuous tone regardless of speed",
-      "It gives a single tone only",
-      "It disables the FADEC test"
-    ],
-    "answer": "It gives no tone below 30 knots"
-  },
-  {
-    "question": "Which warning light indicates alternator failure on conventional avionics?",
-    "choices": [
-      "Alt red light",
-      "Glow amber light",
-      "CED amber light",
-      "Fuel L amber light"
-    ],
-    "answer": "Alt red light"
-  },
-  {
-    "question": "What indicates FORCE B active on conventional avionics?",
-    "choices": [
-      "Switch position",
-      "A green light",
-      "A yellow MASTER CAUTION",
-      "A flashing FADEC A light"
-    ],
-    "answer": "Switch position"
-  },
-  {
-    "question": "During an engine malfunction on takeoff with sufficient runway ahead, what is the first action?",
-    "choices": [
-      "Thrust lever IDLE",
-      "Fuel pump ON",
-      "Flaps FULL DOWN",
-      "Engine Master ON"
-    ],
-    "answer": "Thrust lever IDLE"
-  },
-  {
-    "question": "C172S: Immediately after takeoff with engine malfunction and flaps retracted, what airspeed should be maintained?",
+    "question": "Immediately after take-off, an engine failure occurs. With flaps retracted, which airspeed should be established?",
     "choices": [
       "55 KIAS",
       "60 KIAS",
       "65 KIAS",
-      "70 KIAS"
+      "75 KIAS"
     ],
-    "answer": "70 KIAS"
+    "answer": "65 KIAS",
+    "explanation": "The emergency procedure specifies 65 KIAS with flaps retracted following engine failure after take-off.",
+    "reference": "POH Supplement Section 3, Page 3-3"
   },
   {
-    "question": "C172S: Immediately after takeoff with engine malfunction and flaps extended, what airspeed should be maintained?",
+    "question": "Following an engine failure after take-off, what is the recommended strategy in most cases?",
     "choices": [
-      "55 KIAS",
-      "60 KIAS",
-      "65 KIAS",
-      "70 KIAS"
+      "Immediate return to the runway",
+      "Continue climbing",
+      "Land generally ahead with minor corrections",
+      "Perform a steep 180° turn"
     ],
-    "answer": "65 KIAS"
+    "answer": "Land generally ahead with minor corrections",
+    "explanation": "The POH warns that altitude and airspeed are usually insufficient for a turn-back manoeuvre.",
+    "reference": "POH Supplement Section 3, Page 3-3"
   },
   {
-    "question": "C172R: Immediately after takeoff with engine malfunction and flaps retracted, what airspeed should be maintained?",
+    "question": "Running a fuel tank completely dry will typically cause:",
     "choices": [
-      "55 KIAS",
-      "60 KIAS",
-      "65 KIAS",
-      "70 KIAS"
+      "Alternator warning",
+      "Both FADEC warning lights to flash",
+      "Coolant warning",
+      "Gearbox warning"
     ],
-    "answer": "65 KIAS"
+    "answer": "Both FADEC warning lights to flash",
+    "explanation": "The POH specifically notes that running a tank dry activates both FADEC warning lights flashing.",
+    "reference": "POH Supplement Section 3, Page 3-4"
   },
   {
-    "question": "C172R: Immediately after takeoff with engine malfunction and flaps extended, what airspeed should be maintained?",
-    "choices": [
-      "55 KIAS",
-      "60 KIAS",
-      "65 KIAS",
-      "70 KIAS"
-    ],
-    "answer": "60 KIAS"
-  },
-  {
-    "question": "After an engine malfunction immediately after takeoff, what flap setting is recommended as required?",
-    "choices": [
-      "10°",
-      "20°",
-      "30°",
-      "Full up"
-    ],
-    "answer": "30°"
-  },
-  {
-    "question": "What is the warning about attempting a 180° turn back to the runway after takeoff?",
-    "choices": [
-      "Altitude and airspeed are seldom sufficient for a return to the airfield",
-      "It is always recommended above 300 ft",
-      "It is only prohibited in utility category",
-      "It is mandatory if fuel pump is on"
-    ],
-    "answer": "Altitude and airspeed are seldom sufficient for a return to the airfield"
-  },
-  {
-    "question": "If one tank was flown empty in flight, what should the fuel selector be moved to immediately?",
-    "choices": [
-      "LEFT",
-      "RIGHT",
-      "BOTH",
-      "OFF"
-    ],
-    "answer": "BOTH"
-  },
-  {
-    "question": "If one tank runs dry in flight, what should be done with the electric fuel pump?",
-    "choices": [
-      "Leave it OFF",
-      "Turn it ON",
-      "Cycle it three times",
-      "Use it only below 3000 ft"
-    ],
-    "answer": "Turn it ON"
-  },
-  {
-    "question": "For restart after engine failure, what is the maximum restart airspeed stated?",
+    "question": "During an engine restart attempt in flight, what is the maximum recommended airspeed?",
     "choices": [
       "85 KIAS",
       "90 KIAS",
       "100 KIAS",
-      "110 KIAS"
-    ],
-    "answer": "100 KIAS"
-  },
-  {
-    "question": "For restart after engine failure, below what altitude should the glide be conducted?",
-    "choices": [
-      "10,000 ft",
-      "12,000 ft",
-      "13,000 ft",
-      "18,000 ft"
-    ],
-    "answer": "13,000 ft"
-  },
-  {
-    "question": "What warning is given if a fuel tank was run dry?",
-    "choices": [
-      "Both FADEC warning lights flashing",
-      "Alternator warning only",
-      "LOW VACUUM only",
-      "No warning is given"
-    ],
-    "answer": "Both FADEC warning lights flashing"
-  },
-  {
-    "question": "After running a tank dry, what component must be checked by an authorized service center before next flight?",
-    "choices": [
-      "High-pressure pump",
-      "Alternator",
-      "Starter relay",
-      "Fuel selector handle"
-    ],
-    "answer": "High-pressure pump"
-  },
-  {
-    "question": "If one FADEC warning is flashing, how long should the FADEC test knob/switch be pressed?",
-    "choices": [
-      "At least 1 second",
-      "At least 2 seconds",
-      "At least 5 seconds",
-      "10 seconds"
-    ],
-    "answer": "At least 2 seconds"
-  },
-  {
-    "question": "If one FADEC warning becomes steady after reset, what category is it?",
-    "choices": [
-      "LOW category warning",
-      "HIGH category warning",
-      "Advisory only",
-      "Maintenance mode"
-    ],
-    "answer": "HIGH category warning"
-  },
-  {
-    "question": "What should the pilot do after a steady FADEC warning indicating a HIGH category fault?",
-    "choices": [
-      "Land as soon as possible",
-      "Continue normally to destination",
-      "Cycle the battery and continue",
-      "Switch external power ON"
-    ],
-    "answer": "Land as soon as possible"
-  },
-  {
-    "question": "What is the correct action if the engine acts abnormal and no automatic switch to B-FADEC occurs?",
-    "choices": [
-      "Use the Force B switch to select B-FADEC",
-      "Turn the battery off",
-      "Shut the fuel valve immediately",
-      "Press STARTER ENGD reset"
-    ],
-    "answer": "Use the Force B switch to select B-FADEC"
-  },
-  {
-    "question": "When operating on FADEC backup battery only, what must not be activated?",
-    "choices": [
-      "Force B switch",
-      "Electric fuel pump",
-      "Pitot heat",
-      "Beacon light"
-    ],
-    "answer": "Force B switch"
-  },
-  {
-    "question": "What is the result of activating Force B while operating on FADEC backup battery only?",
-    "choices": [
-      "The engine will shut down",
-      "The alternator comes back online",
-      "The propeller feathers",
-      "The starter engages"
-    ],
-    "answer": "The engine will shut down"
-  },
-  {
-    "question": "In an engine fire in flight, what should be done with cabin heat and ventilation?",
-    "choices": [
-      "OFF/CLOSE except fresh air nozzles on the ceiling",
-      "FULL HOT",
-      "OPEN all vents fully",
-      "No change is required"
-    ],
-    "answer": "OFF/CLOSE except fresh air nozzles on the ceiling"
-  },
-  {
-    "question": "After using a fire extinguisher for an electrical fire, what must be ensured before using exterior air to remove smoke?",
-    "choices": [
-      "That the fire is extinguished",
-      "That the alternator is off",
-      "That flaps are extended",
-      "That the transponder is on standby"
-    ],
-    "answer": "That the fire is extinguished"
-  },
-  {
-    "question": "If it is necessary to stop the propeller in flight due to excessive vibrations, below what airspeed should it be reduced?",
-    "choices": [
-      "Below 45 KIAS",
-      "Below 55 KIAS",
-      "Below 65 KIAS",
-      "Below 75 KIAS"
-    ],
-    "answer": "Below 55 KIAS"
-  },
-  {
-    "question": "For emergency landing with engine out, what is the recommended glide speed with flaps retracted?",
-    "choices": [
-      "60 KIAS",
-      "65 KIAS",
-      "70 KIAS",
-      "75 KIAS"
-    ],
-    "answer": "65 KIAS"
-  },
-  {
-    "question": "C172R: For emergency landing with engine out, what is the recommended glide speed with flaps extended?",
-    "choices": [
-      "55 KIAS",
-      "60 KIAS",
-      "65 KIAS",
-      "70 KIAS"
-    ],
-    "answer": "60 KIAS"
-  },
-  {
-    "question": "C172R: For emergency landing with engine out, what is the recommended glide speed with flaps retracted?",
-    "choices": [
-      "55 KIAS",
-      "60 KIAS",
-      "65 KIAS",
-      "70 KIAS"
-    ],
-    "answer": "65 KIAS"
-  },
-  {
-    "question": "C172S: For emergency landing with engine out, what is the recommended glide speed with flaps extended?",
-    "choices": [
-      "55 KIAS",
-      "60 KIAS",
-      "65 KIAS",
-      "70 KIAS"
-    ],
-    "answer": "65 KIAS"
-  },
-  {
-    "question": "C172S: For emergency landing with engine out, what is the recommended glide speed with flaps retracted?",
-    "choices": [
-      "55 KIAS",
-      "60 KIAS",
-      "65 KIAS",
-      "70 KIAS"
-    ],
-    "answer": "70 KIAS"
-  },
-  {
-    "question": "What should be done with cabin doors before touchdown in an emergency landing with engine out?",
-    "choices": [
-      "Lock them",
-      "Open them fully",
-      "Unlock them",
-      "No action required"
-    ],
-    "answer": "Unlock them"
-  },
-  {
-    "question": "In inadvertent icing conditions, what should be done with pitot heat if installed?",
-    "choices": [
-      "OFF",
-      "ON",
-      "Cycle it every minute",
-      "Use only after landing"
-    ],
-    "answer": "ON"
-  },
-  {
-    "question": "At what wing leading-edge ice accumulation does the supplement say a significantly higher stall speed should be expected?",
-    "choices": [
-      "0.2 cm",
-      "0.5 cm",
-      "1.0 cm",
-      "2.0 cm"
-    ],
-    "answer": "0.5 cm"
-  },
-  {
-    "question": "In icing conditions, what flap position is recommended?",
-    "choices": [
-      "Leave wing flaps retracted",
-      "Use full flaps for better control",
-      "Use 10° flaps only",
-      "Use 20° flaps only"
-    ],
-    "answer": "Leave wing flaps retracted"
-  },
-  {
-    "question": "In icing conditions, what approach speed range is recommended depending on ice accumulation?",
-    "choices": [
-      "55 to 65 KIAS",
-      "60 to 70 KIAS",
-      "65 to 75 KIAS",
-      "70 to 80 KIAS"
-    ],
-    "answer": "65 to 75 KIAS"
-  },
-  {
-    "question": "How long can the engine continue on FADEC backup battery only in a total electrical failure?",
-    "choices": [
-      "15 minutes maximum",
-      "30 minutes maximum",
-      "60 minutes maximum",
-      "Approximately 120 minutes"
-    ],
-    "answer": "30 minutes maximum"
-  },
-  {
-    "question": "In a total electrical failure, what should not be activated according to the warning?",
-    "choices": [
-      "Force B switch",
-      "Pitot heat",
-      "Fuel selector BOTH",
-      "Electric fuel pump"
-    ],
-    "answer": "Force B switch"
-  },
-  {
-    "question": "If alternator warning occurs during normal operation, what should the pilot expect?",
-    "choices": [
-      "An immediate propeller feathering",
-      "Possible engine failure",
-      "Automatic landing gear extension",
-      "Immediate engine shutdown"
-    ],
-    "answer": "Possible engine failure"
-  },
-  {
-    "question": "What should be reduced immediately during alternator warning or prolonged battery discharge?",
-    "choices": [
-      "Electrical load",
-      "Cabin heat",
-      "Airspeed",
-      "Fuel quantity"
-    ],
-    "answer": "Electrical load"
-  },
-  {
-    "question": "If oil pressure is too low in cruise, what is the first action?",
-    "choices": [
-      "Increase power",
-      "Reduce power as quickly as possible",
-      "Turn off the battery",
-      "Open alternate air"
-    ],
-    "answer": "Reduce power as quickly as possible"
-  },
-  {
-    "question": "If gearbox temperature is too high in the red range, to what power range should power be reduced?",
-    "choices": [
-      "25% to 50%",
-      "40% to 60%",
-      "55% to 75%",
-      "85% to 100%"
-    ],
-    "answer": "55% to 75%"
-  },
-  {
-    "question": "If fuel temperature is too high, what is the first recommended action?",
-    "choices": [
-      "Switch to the tank with lower fuel temperature",
-      "Turn on pitot heat",
-      "Turn cabin heat full hot",
-      "Use Force B"
-    ],
-    "answer": "Switch to the tank with lower fuel temperature"
-  },
-  {
-    "question": "If fuel temperature is too low, what altitude change is recommended?",
-    "choices": [
-      "Descend to colder air",
-      "Change to altitude with higher outside air temperature",
-      "Climb immediately regardless of fuel quantity",
-      "Maintain altitude and cycle the battery"
-    ],
-    "answer": "Change to altitude with higher outside air temperature"
-  },
-  {
-    "question": "If propeller RPM is too high, what airspeed limitation is given?",
-    "choices": [
-      "Reduce below 80 KIAS",
-      "Reduce below 90 KIAS",
-      "Reduce below 100 KIAS",
-      "Reduce below 110 KIAS"
-    ],
-    "answer": "Reduce below 100 KIAS"
-  },
-  {
-    "question": "If propeller RPM fluctuates by more than ±100 RPM and the problem continues, what should the pilot do?",
-    "choices": [
-      "Fly below 100 KIAS and land as soon as possible",
-      "Continue normally at any speed",
-      "Switch the battery off",
-      "Use only LEFT tank"
-    ],
-    "answer": "Fly below 100 KIAS and land as soon as possible"
-  },
-  {
-    "question": "Before preflight in cold weather, what contamination must be removed from wing, tail and control surfaces?",
-    "choices": [
-      "Only snow",
-      "Only frost",
-      "Even small accumulations of frost, ice or snow",
-      "Only slush on the wings"
-    ],
-    "answer": "Even small accumulations of frost, ice or snow"
-  },
-  {
-    "question": "How quickly should the pitot heater be warm to the touch during preflight if installed?",
-    "choices": [
-      "Within 10 seconds",
-      "Within 20 seconds",
-      "Within 30 seconds",
-      "Within 60 seconds"
-    ],
-    "answer": "Within 30 seconds"
-  },
-  {
-    "question": "In the CED/AED preflight, what should the fuel selector valve be set to in the cabin check?",
-    "choices": [
-      "LEFT",
-      "RIGHT",
-      "BOTH",
-      "OFF"
-    ],
-    "answer": "BOTH"
-  },
-  {
-    "question": "Where is the reservoir tank drain located according to the supplement?",
-    "choices": [
-      "On the left wing root",
-      "In the fuselage on the co-pilot side",
-      "At the tail tie-down",
-      "Inside the baggage compartment"
-    ],
-    "answer": "In the fuselage on the co-pilot side"
-  },
-  {
-    "question": "Where is the fuel strainer drain located?",
-    "choices": [
-      "On the right side of the firewall",
-      "On the left-hand side of the firewall",
-      "Under the baggage floor",
-      "In the left wing leading edge"
-    ],
-    "answer": "On the left-hand side of the firewall"
-  },
-  {
-    "question": "How much fuel should be drained from each sump location before flight and after refueling?",
-    "choices": [
-      "A few drops",
-      "At least a cupful",
-      "Exactly 1 litre",
-      "None if fuel was checked yesterday"
-    ],
-    "answer": "At least a cupful"
-  },
-  {
-    "question": "If repeated fuel sampling still shows contamination, what should be done?",
-    "choices": [
-      "Fly only in day VMC",
-      "Do not fly the airplane",
-      "Switch to BOTH and continue",
-      "Add Biobor JF and depart"
-    ],
-    "answer": "Do not fly the airplane"
-  },
-  {
-    "question": "What is the required gearbox oil level in the inspection glass during preflight?",
-    "choices": [
-      "Just visible at the bottom",
-      "At least half the inspection glass covered",
-      "Completely full to the top",
-      "Any visible amount is acceptable"
-    ],
-    "answer": "At least half the inspection glass covered"
-  },
-  {
-    "question": "At what ground OAT should the fuel cooler baffle be removed?",
-    "choices": [
-      "Above 10°C",
-      "Above 15°C",
-      "Above 20°C",
-      "Above 25°C"
-    ],
-    "answer": "Above 20°C"
-  },
-  {
-    "question": "At what ground OAT should the fuel cooler baffle be installed?",
-    "choices": [
-      "Below 0°C",
-      "Below 10°C",
-      "Below 20°C",
-      "Below 30°C"
-    ],
-    "answer": "Below 20°C"
-  },
-  {
-    "question": "Before starting, what position should the alternate air door be in?",
-    "choices": [
-      "OPEN",
-      "CLOSED",
-      "HALF OPEN",
-      "AS REQUIRED"
-    ],
-    "answer": "CLOSED"
-  },
-  {
-    "question": "Why must the avionics power switch be OFF during engine start?",
-    "choices": [
-      "To prevent possible damage to avionics",
-      "To improve oil pressure",
-      "To heat the glow plugs faster",
-      "To reduce propeller RPM"
-    ],
-    "answer": "To prevent possible damage to avionics"
-  },
-  {
-    "question": "For normal operation, which switches must be ON to supply the electronic engine control?",
-    "choices": [
-      "Battery, Alternator and Main Bus",
-      "Battery only",
-      "Alternator only",
-      "Standby battery only"
-    ],
-    "answer": "Battery, Alternator and Main Bus"
-  },
-  {
-    "question": "What should the engine be allowed to warm up at before increasing RPM?",
-    "choices": [
-      "About 2 minutes at IDLE (890 RPM)",
-      "30 seconds at 1400 RPM",
-      "5 minutes at 2300 RPM",
-      "No warm-up is required"
-    ],
-    "answer": "About 2 minutes at IDLE (890 RPM)"
-  },
-  {
-    "question": "To what maximum RPM should the engine be increased during warm-up until oil and coolant temperatures reach the green range?",
-    "choices": [
-      "1000 RPM",
-      "1200 RPM",
-      "1400 RPM",
-      "1800 RPM"
-    ],
-    "answer": "1400 RPM"
-  },
-  {
-    "question": "What oil and coolant temperatures must be reached before normal operation according to warm-up procedure?",
-    "choices": [
-      "Oil 40°C and coolant 50°C",
-      "Oil 50°C and coolant 60°C",
-      "Oil 60°C and coolant 70°C",
-      "Oil 70°C and coolant 80°C"
-    ],
-    "answer": "Oil 50°C and coolant 60°C"
-  },
-  {
-    "question": "What is the starter operating limitation?",
-    "choices": [
-      "No more than 10 seconds per attempt",
-      "No more than 20 seconds per attempt",
-      "No more than 30 seconds per attempt",
-      "Continuous operation is allowed for 1 minute"
-    ],
-    "answer": "No more than 10 seconds per attempt"
-  },
-  {
-    "question": "After 6 failed start attempts, how long must the starter cool?",
-    "choices": [
-      "5 minutes",
-      "10 minutes",
-      "15 minutes",
-      "Half an hour"
-    ],
-    "answer": "Half an hour"
-  },
-  {
-    "question": "If minimum oil pressure is not indicated within 3 seconds after start, what must be done?",
-    "choices": [
-      "Increase RPM",
-      "Shut down the engine immediately",
-      "Turn on the electric fuel pump",
-      "Select BOTH tank"
-    ],
-    "answer": "Shut down the engine immediately"
-  },
-  {
-    "question": "How long should the FADEC backup battery test be conducted with the battery OFF?",
-    "choices": [
-      "At least 5 seconds",
-      "At least 10 seconds",
-      "At least 20 seconds",
-      "Until oil temperature reaches 50°C"
-    ],
-    "answer": "At least 10 seconds"
-  },
-  {
-    "question": "Before takeoff, what must be ensured regarding battery and alternator?",
-    "choices": [
-      "Both must be ON",
-      "Only one must be ON",
-      "Alternator OFF and battery ON",
-      "Battery OFF and alternator ON"
-    ],
-    "answer": "Both must be ON"
-  },
-  {
-    "question": "What is the first step of the FADEC and propeller adjustment function check?",
-    "choices": [
-      "Thrust lever IDLE",
-      "Battery OFF",
-      "Fuel pump OFF",
-      "Flaps 10°"
-    ],
-    "answer": "Thrust lever IDLE"
-  },
-  {
-    "question": "What should happen first when the FADEC test button is pressed and held?",
-    "choices": [
-      "Both FADEC lights/warnings come ON and RPM increases",
-      "The engine shuts down",
-      "Only FADEC B warning appears steady",
-      "The propeller immediately feathers"
-    ],
-    "answer": "Both FADEC lights/warnings come ON and RPM increases"
-  },
-  {
-    "question": "During the FADEC test, which channel becomes active after the initial phase?",
-    "choices": [
-      "FADEC B",
-      "FADEC A",
-      "Both permanently",
-      "Neither"
-    ],
-    "answer": "FADEC B"
-  },
-  {
-    "question": "What should be checked using the Force B switch before takeoff?",
-    "choices": [
-      "That the engine runs without a change on FADEC B",
-      "That the alternator warning illuminates",
-      "That the starter engages",
-      "That flaps retract automatically"
-    ],
-    "answer": "That the engine runs without a change on FADEC B"
-  },
-  {
-    "question": "If the FADEC test procedure fails, what is the takeoff decision?",
-    "choices": [
-      "Takeoff may be attempted once more after 30 seconds",
-      "Takeoff should not be attempted",
-      "Takeoff is allowed only with Force B selected",
-      "Takeoff is allowed below 2000 ft only"
-    ],
-    "answer": "Takeoff should not be attempted"
-  },
-  {
-    "question": "Before takeoff, what minimum load and RPM should be seen at full forward thrust lever?",
-    "choices": [
-      "Load min. 90% and RPM 2100-2200",
-      "Load min. 94% and RPM 2240-2300",
-      "Load min. 85% and RPM 2300-2400",
-      "Load min. 100% and RPM exactly 2500"
-    ],
-    "answer": "Load min. 94% and RPM 2240-2300"
-  },
-  {
-    "question": "Which flap settings are approved for normal and short field takeoffs?",
-    "choices": [
-      "0° or 10°",
-      "10° or 20°",
-      "20° only",
-      "Any flap setting up to full"
-    ],
-    "answer": "0° or 10°"
-  },
-  {
-    "question": "What is the liftoff speed for normal takeoff?",
-    "choices": [
-      "51 KIAS",
-      "55 KIAS",
-      "60 KIAS",
-      "65 KIAS"
-    ],
-    "answer": "55 KIAS"
-  },
-  {
-    "question": "What is the climb speed for a normal takeoff according to the G1000 procedure?",
-    "choices": [
-      "60 to 70 KIAS",
-      "65 to 80 KIAS",
-      "70 to 80 KIAS",
-      "80 to 90 KIAS"
-    ],
-    "answer": "70 to 80 KIAS"
-  },
-  {
-    "question": "What is the liftoff speed for short field takeoff?",
-    "choices": [
-      "45 KIAS",
-      "51 KIAS",
-      "55 KIAS",
-      "57 KIAS"
-    ],
-    "answer": "51 KIAS"
-  },
-  {
-    "question": "What climb speed should be maintained until all obstacles are cleared in a short field takeoff (G1000 section)?",
-    "choices": [
-      "56 KIAS",
-      "57 KIAS",
-      "58 KIAS",
-      "62 KIAS"
-    ],
-    "answer": "56 KIAS"
-  },
-  {
-    "question": "After takeoff, when should flaps be retracted?",
-    "choices": [
-      "At about 300 ft and airspeed more than 65 KIAS",
-      "Immediately after liftoff",
-      "Only after reaching 1000 ft AGL",
-      "At 55 KIAS"
-    ],
-    "answer": "At about 300 ft and airspeed more than 65 KIAS"
-  },
-  {
-    "question": "What is the recommended climb speed range in normal climb?",
-    "choices": [
-      "60 to 70 KIAS",
-      "65 to 75 KIAS",
-      "70 to 85 KIAS",
-      "80 to 95 KIAS"
-    ],
-    "answer": "70 to 85 KIAS"
-  },
-  {
-    "question": "What is recommended fuel selector position in climb whenever possible?",
-    "choices": [
-      "LEFT",
-      "RIGHT",
-      "BOTH",
-      "OFF"
-    ],
-    "answer": "BOTH"
-  },
-  {
-    "question": "What cruise load is recommended or less for economy cruise?",
-    "choices": [
-      "100%",
-      "85%",
-      "75%",
-      "70%"
-    ],
-    "answer": "70%"
-  },
-  {
-    "question": "In cruise, what should be monitored closely besides fuel quantity?",
-    "choices": [
-      "Oil pressure, oil temperature, coolant temperature and gearbox temperature",
-      "Only tachometer and vacuum",
-      "Only flaps and trim",
-      "Only cabin heat and alternate air"
-    ],
-    "answer": "Oil pressure, oil temperature, coolant temperature and gearbox temperature"
-  },
-  {
-    "question": "With one quarter tank or less, what type of flight is prohibited when operating on LEFT or RIGHT?",
-    "choices": [
-      "Prolonged or uncoordinated flight",
-      "Straight and level flight",
-      "Descents only",
-      "Taxiing"
-    ],
-    "answer": "Prolonged or uncoordinated flight"
-  },
-  {
-    "question": "What fuel selector position is recommended in turbulent air?",
-    "choices": [
-      "LEFT",
-      "RIGHT",
-      "BOTH",
-      "OFF"
-    ],
-    "answer": "BOTH"
-  },
-  {
-    "question": "Before landing, what should be done with the electric fuel pump?",
-    "choices": [
-      "OFF",
-      "ON",
-      "Cycle it only on final",
-      "Use only in utility category"
-    ],
-    "answer": "ON"
-  },
-  {
-    "question": "What is the normal landing final approach speed with flaps down in the G1000 section?",
-    "choices": [
-      "55 to 65 KIAS",
-      "60 to 70 KIAS",
-      "65 to 75 KIAS",
-      "69 to 80 KIAS"
-    ],
-    "answer": "60 to 70 KIAS"
-  },
-  {
-    "question": "What is the short field landing final approach speed until flare in the G1000 section?",
-    "choices": [
-      "58 KIAS",
-      "60 KIAS",
-      "61 KIAS",
-      "65 KIAS"
-    ],
-    "answer": "61 KIAS"
-  },
-  {
-    "question": "In a balked landing, to what flap setting should flaps be retracted immediately after full power is applied?",
-    "choices": [
-      "30°",
-      "20°",
-      "10°",
-      "0°"
-    ],
-    "answer": "20°"
-  },
-  {
-    "question": "In a balked landing, what initial climb speed is specified in the OSM C172 VFR profile?",
-    "choices": [
-      "80 KIAS",
-      "70 KIAS",
-      "62 KIAS",
-      "65 KIAS"
-    ],
-    "answer": "70 KIAS"
-  },
-  {
-    "question": "After landing, what should be done with the electric fuel pump?",
-    "choices": [
-      "Leave it ON",
-      "Turn it OFF",
-      "Use it only during taxi",
-      "Cycle it twice"
-    ],
-    "answer": "Turn it OFF"
-  },
-  {
-    "question": "When securing the airplane after shutdown, where should the fuel selector be placed to prevent crossfeeding?",
-    "choices": [
-      "BOTH",
-      "OFF",
-      "LEFT or RIGHT",
-      "Any position"
-    ],
-    "answer": "LEFT or RIGHT"
-  },
-  {
-    "question": "What does the POH supplement say about magneto check for the JT-A installation?",
-    "choices": [
-      "Normal magneto check required",
-      "Magneto check only above 5500 ft",
-      "N/A",
-      "Required only on C172R"
-    ],
-    "answer": "N/A"
-  },
-  {
-    "question": "How can alternator operation be positively verified before essential flights?",
-    "choices": [
-      "Momentarily load the electrical system with landing light or wing flaps during runup",
-      "By selecting Force B",
-      "By turning off the battery",
-      "By monitoring fuel temperature only"
-    ],
-    "answer": "Momentarily load the electrical system with landing light or wing flaps during runup"
-  },
-  {
-    "question": "How is battery condition checked after warm-up if there is doubt about its functionality?",
-    "choices": [
-      "Switch off alternator and run engine 10 seconds with battery ON; voltmeter must remain green",
-      "Turn battery OFF for 30 seconds on the ground",
-      "Use external power for engine start",
-      "Select BOTH and switch pump ON"
-    ],
-    "answer": "Switch off alternator and run engine 10 seconds with battery ON; voltmeter must remain green"
-  },
-  {
-    "question": "What is said about flap deflections greater than 10° for takeoff?",
-    "choices": [
-      "They are approved only in utility category",
-      "They are not approved for normal and short field takeoffs",
-      "They are required for short fields",
-      "They are recommended above 5500 ft"
-    ],
-    "answer": "They are not approved for normal and short field takeoffs"
-  },
-  {
-    "question": "Using 10° flap for takeoff reduces the ground roll and total distance over a 15 m obstacle by approximately:",
-    "choices": [
-      "5%",
-      "10%",
-      "15%",
-      "20%"
-    ],
-    "answer": "10%"
-  },
-  {
-    "question": "What speed is best climb according to the amplified climb procedures? (Vy)",
-    "choices": [
-      "62 KIAS",
-      "65 KIAS",
-      "70 KIAS",
-      "75 KIAS"
-    ],
-    "answer": "70 KIAS"
-  },
-  {
-    "question": "What speed is best climb angle according to the amplified climb procedures? (Vx)",
-    "choices": [
-      "62 KIAS",
-      "65 KIAS",
-      "70 KIAS",
-      "75 KIAS"
-    ],
-    "answer": "62 KIAS"
-  },
-  {
-    "question": "If an obstruction dictates a steep climb angle, what speed is given in amplified procedures?",
-    "choices": [
-      "56 KIAS",
-      "58 KIAS",
-      "62 KIAS",
-      "65 KIAS"
-    ],
-    "answer": "62 KIAS"
-  },
-  {
-    "question": "Why should climbs at low speed be of short duration?",
-    "choices": [
-      "To improve engine cooling",
-      "To improve fuel balance only",
-      "To keep vacuum higher",
-      "To test the standby battery"
-    ],
-    "answer": "To improve engine cooling"
-  },
-  {
-    "question": "In the G1000 preflight, what document in addition to the POH must be accessible to the pilot?",
-    "choices": [
-      "Garmin G1000 Cockpit Reference Guide",
-      "AMM-20-02",
-      "Engine overhaul manual",
-      "Noise abatement guide"
-    ],
-    "answer": "Garmin G1000 Cockpit Reference Guide"
-  },
-  {
-    "question": "What should the STBY BATT switch be set to first in the G1000 starting procedure?",
-    "choices": [
-      "ARM",
-      "OFF",
-      "TEST",
-      "ON"
-    ],
-    "answer": "TEST"
-  },
-  {
-    "question": "What should be verified during the STBY BATT TEST?",
-    "choices": [
-      "Green TEST lamp does not go off for 10 seconds",
-      "Oil pressure rises above 2.3 bar",
-      "Both FADEC warnings flash",
-      "Alternator current goes to zero"
-    ],
-    "answer": "Green TEST lamp does not go off for 10 seconds"
-  },
-  {
-    "question": "After STBY BATT TEST, what is the next switch position?",
-    "choices": [
-      "OFF",
-      "ARM",
-      "START",
-      "AUTO"
-    ],
-    "answer": "ARM"
-  },
-  {
-    "question": "Before engine start in the G1000 procedure, what minimum E-Bus voltage must be shown?",
-    "choices": [
-      "12 volts",
-      "20 volts",
-      "24 volts",
-      "28 volts"
-    ],
-    "answer": "24 volts"
-  },
-  {
-    "question": "After engine start and avionics ON in the G1000 procedure, what minimum bus voltage should be shown?",
-    "choices": [
-      "24 volts",
-      "25 volts",
-      "26 volts",
-      "28 volts"
-    ],
-    "answer": "28 volts"
-  },
-  {
-    "question": "What should be checked on the PFD engine indication system before start?",
-    "choices": [
-      "No red Xs through engine page indicators",
-      "Only fuel quantity in yellow",
-      "Autopilot in ALT mode",
-      "CDI set to VOR1"
-    ],
-    "answer": "No red Xs through engine page indicators"
-  },
-  {
-    "question": "What should be checked on the PFD before takeoff regarding fuel temperature?",
-    "choices": [
-      "Fuel temperature limitations must be observed",
-      "Fuel temperature must be above 75°C",
-      "Fuel temperature is not displayed",
-      "Fuel temperature only matters on the ground"
-    ],
-    "answer": "Fuel temperature limitations must be observed"
-  },
-  {
-    "question": "How is autopilot tested before takeoff if installed?",
-    "choices": [
-      "Engage it and verify it can be overpowered in pitch and roll, then disconnect with A/P TRIM DISC",
-      "Use only HDG mode and leave it engaged",
-      "Select APR mode on the ground",
-      "Switch BUS 2 off"
-    ],
-    "answer": "Engage it and verify it can be overpowered in pitch and roll, then disconnect with A/P TRIM DISC"
-  },
-  {
-    "question": "What is the supplement warning if the HSI navigation source is changed while the autopilot is engaged in NAV/APR/BC?",
-    "choices": [
-      "The autopilot reverts to ROL mode with no aural alert",
-      "The autopilot disconnects with a loud tone every time",
-      "The engine goes to idle",
-      "The CDI source cannot be changed"
-    ],
-    "answer": "The autopilot reverts to ROL mode with no aural alert"
-  },
-  {
-    "question": "What does the POH supplement say is the warning flag on the G1000 HSI when no valid navigation signal is supplied?",
-    "choices": [
-      "A red X on the compass only",
-      "The missing D-bar",
-      "A flashing low volts message",
-      "A green advisory box"
-    ],
-    "answer": "The missing D-bar"
-  },
-  {
-    "question": "What positions does the fuel selector valve have in the JT-A installation?",
-    "choices": [
-      "LEFT, RIGHT and BOTH",
-      "LEFT and RIGHT only",
-      "OFF, LEFT and RIGHT only",
-      "BOTH and OFF only"
-    ],
-    "answer": "LEFT, RIGHT and BOTH"
-  },
-  {
-    "question": "What component does fuel pass through after the fuel selector and reservoir tank?",
-    "choices": [
-      "Fuel shut-off valve",
-      "Propeller governor",
-      "Coolant thermostat",
-      "Vacuum pump"
-    ],
-    "answer": "Fuel shut-off valve"
-  },
-  {
-    "question": "What supports the fuel flow to the filter module if required?",
-    "choices": [
-      "Electrically driven fuel pump",
-      "Standby battery",
-      "Cabin heat exchanger",
-      "Vacuum pump"
-    ],
-    "answer": "Electrically driven fuel pump"
-  },
-  {
-    "question": "Which pumps then supply the rail for injection?",
-    "choices": [
-      "Engine-driven feed pump and high-pressure pump",
-      "Two electric boost pumps only",
-      "Vacuum pump and alternator",
-      "Starter motor and fuel cooler"
-    ],
-    "answer": "Engine-driven feed pump and high-pressure pump"
-  },
-  {
-    "question": "What happens to surplus fuel in the JT-A system?",
-    "choices": [
-      "It flows to the fuel cooler and then returns through the selector to the selected tank(s)",
-      "It is dumped overboard",
-      "It goes directly to the coolant system",
-      "It is stored in the gearbox"
-    ],
-    "answer": "It flows to the fuel cooler and then returns through the selector to the selected tank(s)"
-  },
-  {
-    "question": "If BOTH is selected, where does surplus return fuel go?",
-    "choices": [
-      "Only to the left tank",
-      "Only to the right tank",
-      "To both tanks",
-      "To the reservoir tank only"
-    ],
-    "answer": "To both tanks"
-  },
-  {
-    "question": "What controls the heat exchange between fuel feed and return?",
-    "choices": [
-      "A temperature sensor in the filter module",
-      "The standby battery",
-      "The vacuum system",
-      "The flap selector"
-    ],
-    "answer": "A temperature sensor in the filter module"
-  },
-  {
-    "question": "Why must fuel temperature be monitored especially with Diesel fuel?",
-    "choices": [
-      "Diesel tends to form paraffin at low temperatures",
-      "Diesel boils at low temperatures",
-      "Diesel reduces oil pressure",
-      "Diesel disables FADEC A"
-    ],
-    "answer": "Diesel tends to form paraffin at low temperatures"
-  },
-  {
-    "question": "What ensures quicker warm-up of the fuel in the tank in use?",
-    "choices": [
-      "Fuel return system",
-      "Pitot heat",
-      "Cabin heat valve",
-      "Alternator load"
-    ],
-    "answer": "Fuel return system"
-  },
-  {
-    "question": "What warning is given regarding starting with low gearbox oil level?",
-    "choices": [
-      "It is not allowed to start the engine",
-      "It is allowed only for taxi",
-      "It is allowed if coolant is high",
-      "Only G1000 airplanes are affected"
-    ],
-    "answer": "It is not allowed to start the engine"
-  },
-  {
-    "question": "What ratio of water to approved radiator protection is used in the cooling system?",
-    "choices": [
-      "1:1",
-      "2:1",
-      "3:1",
-      "4:1"
-    ],
-    "answer": "1:1"
-  },
-  {
-    "question": "After how many hours of operation should the cooling system be visually checked for sealing?",
-    "choices": [
-      "1 hour",
-      "5 hours",
-      "10 hours",
-      "25 hours"
-    ],
-    "answer": "5 hours"
-  },
-  {
-    "question": "At what coolant temperature does the thermostat start routing coolant through both the small and large circuit?",
-    "choices": [
-      "60°C",
-      "75°C",
-      "84°C",
-      "94°C"
-    ],
-    "answer": "84°C"
-  },
-  {
-    "question": "Above what coolant temperature does the complete coolant volume flow through the large circuit and radiator?",
-    "choices": [
-      "84°C",
-      "90°C",
-      "94°C",
-      "100°C"
-    ],
-    "answer": "94°C"
-  },
-  {
-    "question": "What maximum cooling water temperature does the cooling system arrangement allow?",
-    "choices": [
-      "100°C",
-      "105°C",
-      "110°C",
-      "115°C"
-    ],
-    "answer": "105°C"
-  },
-  {
-    "question": "What does the sensor in the expansion reservoir do?",
-    "choices": [
-      "Sends a signal if coolant level is low",
-      "Measures propeller RPM",
-      "Opens the alternate air door",
-      "Resets the FADEC warning"
-    ],
-    "answer": "Sends a signal if coolant level is low"
-  },
-  {
-    "question": "In normal operation, what position should the cabin heat control knob be in according to the system description?",
-    "choices": [
-      "OPEN",
-      "CLOSED",
-      "IDLE",
-      "BOTH"
-    ],
-    "answer": "OPEN"
-  },
-  {
-    "question": "What is Vy used in the climb performance charts?",
-    "choices": [
-      "65 KIAS",
-      "68 KIAS",
-      "70 KIAS",
-      "75 KIAS"
-    ],
-    "answer": "70 KIAS"
-  },
-  {
-    "question": "How much fuel should be added for engine start, taxi and takeoff allowance in the climb charts?",
-    "choices": [
-      "2 l",
-      "4 l",
-      "6 l",
-      "8 l"
-    ],
-    "answer": "4 l"
-  },
-  {
-    "question": "By how much should climb time and distance be increased for each 10°C above standard temperature?",
-    "choices": [
-      "5%",
-      "10%",
-      "15%",
-      "20%"
-    ],
-    "answer": "10%"
-  },
-  {
-    "question": "At 1111 kg, sea level and ISA, what rate of climb is shown in the time/fuel/distance to climb chart?",
-    "choices": [
-      "712 fpm",
-      "739 fpm",
-      "766 fpm",
-      "800 fpm"
-    ],
-    "answer": "766 fpm"
-  },
-  {
-    "question": "At 1157 kg, sea level and ISA, what rate of climb is shown in the time/fuel/distance to climb chart?",
-    "choices": [
-      "712 fpm",
-      "739 fpm",
-      "766 fpm",
-      "700 fpm"
-    ],
-    "answer": "712 fpm"
-  },
-  {
-    "question": "For the 1157 kg short field takeoff chart, what lift-off speed is used?",
-    "choices": [
-      "51 KIAS",
-      "55 KIAS",
-      "56 KIAS",
-      "57 KIAS"
-    ],
-    "answer": "51 KIAS"
-  },
-  {
-    "question": "For the 1157 kg short field takeoff chart, what speed at 15 m / 50 ft is used?",
-    "choices": [
-      "51 KIAS",
-      "55 KIAS",
-      "56 KIAS",
-      "62 KIAS"
-    ],
-    "answer": "56 KIAS"
-  },
-  {
-    "question": "For operation on a dry grass runway, by how much should takeoff ground roll be increased?",
-    "choices": [
-      "10%",
-      "15%",
-      "20%",
-      "25%"
-    ],
-    "answer": "15%"
-  },
-  {
-    "question": "For wet grass runway, softened ground or snow, what additional distance should be considered at minimum?",
-    "choices": [
-      "10%",
-      "15%",
-      "20%",
-      "30%"
-    ],
-    "answer": "20%"
-  },
-  {
-    "question": "Scenario: You are on FADEC backup battery only after a major electrical failure. Which action could shut the engine down?",
-    "choices": [
-      "Switching Force B ON",
-      "Selecting BOTH on the fuel selector",
-      "Turning the electric fuel pump ON",
-      "Reducing airspeed below 100 KIAS"
-    ],
-    "answer": "Switching Force B ON"
-  },
-  {
-    "question": "Scenario: Low fuel caution illuminates on one side in cruise. What is the safest fuel selector choice in turbulence if adequate fuel remains?",
-    "choices": [
-      "LEFT",
-      "RIGHT",
-      "BOTH",
-      "OFF"
-    ],
-    "answer": "BOTH"
-  },
-  {
-    "question": "Scenario: You see fuel temperature rising into the red range in the selected tank. What is the first action?",
-    "choices": [
-      "Switch to the tank with the lower fuel temperature",
-      "Turn cabin heat full hot",
-      "Pull alternate air",
-      "Reduce flaps to 10°"
-    ],
-    "answer": "Switch to the tank with the lower fuel temperature"
-  },
-  {
-    "question": "Scenario: During hot weather climb, oil and coolant temperature trend toward the upper limit. What is the preferred corrective action?",
-    "choices": [
-      "Decrease rate of climb and increase airspeed",
-      "Continue the same climb because full power is required",
-      "Use Force B",
-      "Turn the battery OFF for 10 seconds"
-    ],
-    "answer": "Decrease rate of climb and increase airspeed"
-  },
-  {
-    "question": "Scenario: During preflight, repeated sump samples still show water contamination. What should you do?",
-    "choices": [
-      "Depart but remain in the pattern",
-      "Do not fly until the system is drained and purged by qualified maintenance",
-      "Switch to the other tank and depart",
-      "Add Biobor JF and continue"
-    ],
-    "answer": "Do not fly until the system is drained and purged by qualified maintenance"
-  },
-  {
-    "question": "Scenario: A steady FADEC warning remains after pressing the FADEC test/reset for two seconds. What does this imply?",
-    "choices": [
-      "It is a HIGH category warning and you should land as soon as possible",
-      "It is only an advisory and can be ignored",
-      "The standby battery is charging normally",
-      "The starter is still engaged"
-    ],
-    "answer": "It is a HIGH category warning and you should land as soon as possible"
-  },
-  {
-    "question": "Scenario: You are above 5500 ft airfield elevation and moved the thrust lever away from idle before starting the FADEC test. What does the POH supplement say?",
-    "choices": [
-      "The FADEC test is no longer possible unless the engine is stopped and restarted",
-      "The test will continue normally",
-      "Only Force B test is prohibited",
-      "You must switch external power on first"
-    ],
-    "answer": "The FADEC test is no longer possible unless the engine is stopped and restarted"
-  },
-  {
-    "question": "Scenario: Alternator warning appears in flight. Which single action is specifically recommended immediately?",
-    "choices": [
-      "Reduce electrical load immediately",
-      "Turn the alternator OFF",
-      "Select LEFT tank",
-      "Retract flaps"
-    ],
-    "answer": "Reduce electrical load immediately"
-  },
-  {
-    "question": "Scenario: Propeller RPM exceeds limits. Which airspeed strategy helps prevent overspeed according to the supplement?",
-    "choices": [
-      "Reduce below 100 KIAS",
-      "Accelerate above 110 KIAS",
-      "Maintain exactly 105 KIAS",
-      "Use flaps 20°"
-    ],
-    "answer": "Reduce below 100 KIAS"
-  },
-  {
-    "question": "Scenario: You need to shut the engine down in flight and also stop the propeller due to severe vibration. At what airspeed should you try to stop the propeller?",
-    "choices": [
-      "Below 45 KIAS",
-      "Below 55 KIAS",
-      "Below 65 KIAS",
-      "Below 75 KIAS"
-    ],
-    "answer": "Below 55 KIAS"
-  },
-  {
-    "question": "What is the note regarding refueling before flight?",
-    "choices": [
-      "It is advisable to refuel before each flight and enter the type of fuel/additives in the log-book",
-      "Refueling should be avoided before every flight",
-      "Only Jet A-1 refueling must be logged",
-      "Fuel type does not need to be recorded"
-    ],
-    "answer": "It is advisable to refuel before each flight and enter the type of fuel/additives in the log-book"
-  },
-  {
-    "question": "What does the supplement say about using external power for engine start?",
-    "choices": [
-      "It is not allowed",
-      "It is recommended in cold weather",
-      "It is required above 5500 ft",
-      "It is allowed if the battery is weak"
-    ],
-    "answer": "It is not allowed"
-  },
-  {
-    "question": "What should be done with the alternate air door for ground operation?",
-    "choices": [
-      "It should always be open",
-      "It should always be closed",
-      "It should be cycled every minute",
-      "It should be used only with LEFT tank selected"
-    ],
-    "answer": "It should always be closed"
-  },
-  {
-    "question": "What is the stated maximum continuous cruise load allowed, even though lower values are recommended?",
-    "choices": [
-      "70%",
-      "75%",
-      "85%",
-      "100%"
-    ],
-    "answer": "100%"
-  },
-  {
-    "question": "In normal operation, what should the alternator switch position be?",
-    "choices": [
-      "OFF until takeoff",
-      "ON",
-      "ON only at night",
-      "As required below 3000 ft only"
-    ],
-    "answer": "ON"
+      "120 KIAS"
+    ],
+    "answer": "100 KIAS",
+    "explanation": "The restart procedure specifies maintaining between 65 and 85 KIAS, with a maximum of 100 KIAS.",
+    "reference": "POH Supplement Section 3, Page 3-4"
   }
 ]
