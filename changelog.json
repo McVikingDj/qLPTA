@@ -1,6 +1,17 @@
 {
   "entries": [
     {
+      "version": "v2.5.2",
+      "date": "2026-06-10",
+      "title": "Question Explanations",
+      "changes": [
+        "Added optional explanations and source references to question data.",
+        "Added an Explanation control in Test mode for questions that include supporting text.",
+        "Disabled in-session explanations during ST mode while keeping explanations available in final review.",
+        "Updated Question Search previews to show explanations and references."
+      ]
+    },
+    {
       "version": "v2.5",
       "date": "2026-05-30",
       "title": "Local Statistics",

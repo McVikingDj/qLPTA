@@ -745,9 +745,24 @@ body.light #goStats .search-page-button-icon {
 
 <script>
 /*** VERSION ***/
-const APP_VERSION = "v2.5.1";
-const APP_BUILD = "2026-06-01-st-plan-refactor";
+let APP_VERSION = "v2.5.2";
+const APP_BUILD = "2026-06-10-explanations-references";
 document.getElementById('appVersionLabel').textContent = APP_VERSION;
+async function loadAppVersion(){
+  try{
+    const res = await fetch('./changelog.json', {cache:'no-store'});
+    if(!res.ok) throw new Error(res.status + ' ' + res.statusText);
+    const changelog = await res.json();
+    const latest = Array.isArray(changelog.entries) ? changelog.entries[0] : null;
+    if(latest?.version){
+      APP_VERSION = latest.version;
+      document.getElementById('appVersionLabel').textContent = APP_VERSION;
+    }
+  }catch(err){
+    console.warn('Could not load app version:', err);
+  }
+}
+loadAppVersion();
 
 /*** LOGIN ***/
 const PASSWORD_HASH = "508f8d85f900866e90d30e1e4e0126984dd0f2f85c443800e5956aae2887120b"; // sha256("School related password")

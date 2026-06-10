@@ -524,7 +524,7 @@ body.light #goStats .search-page-button-icon {
     <div class="vstack stats-wrap">
       <header class="card stats-hero">
         <div>
-          <div class="small stats-kicker">ATPL Question Bank · Version <strong>v2.5</strong></div>
+          <div class="small stats-kicker">ATPL Question Bank · Version <strong id="appVersionLabel">v2.5.2</strong></div>
           <h1>Statistics</h1>
           <p>Local performance tracking for completed test sessions. Data is saved only in this browser using localStorage.</p>
         </div>
@@ -578,6 +578,7 @@ body.light #goStats .search-page-button-icon {
 <script>
 (function(){
   const KEY = 'atpl_stats_attempts_v1';
+  let APP_VERSION = 'v2.5.2';
   const $ = id => document.getElementById(id);
 
   function applyTheme(){
@@ -595,6 +596,21 @@ body.light #goStats .search-page-button-icon {
 
   function save(data){
     localStorage.setItem(KEY, JSON.stringify(data.slice(0,1000)));
+  }
+
+  async function loadAppVersion(){
+    try{
+      const res = await fetch('changelog.json', {cache:'no-store'});
+      if(!res.ok) throw new Error(res.status + ' ' + res.statusText);
+      const changelog = await res.json();
+      const latest = Array.isArray(changelog.entries) ? changelog.entries[0] : null;
+      if(latest?.version){
+        APP_VERSION = latest.version;
+        $('appVersionLabel').textContent = APP_VERSION;
+      }
+    }catch(err){
+      console.warn('Could not load app version:', err);
+    }
   }
 
   function fmtDate(iso){
@@ -706,7 +722,7 @@ body.light #goStats .search-page-button-icon {
     const data = {
       exportedAt: new Date().toISOString(),
       app: 'ATPL Question Bank',
-      version: 'v2.5',
+      version: APP_VERSION,
       key: KEY,
       attempts: load()
     };
@@ -749,6 +765,7 @@ body.light #goStats .search-page-button-icon {
 
   function init(){
     applyTheme();
+    loadAppVersion();
     render();
     $('exportStats')?.addEventListener('click', exportStats);
     $('importStats')?.addEventListener('click', () => $('statsFileInput').click());

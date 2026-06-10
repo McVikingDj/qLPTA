@@ -561,7 +561,7 @@ body.light .search-detail-box {
     <div class="vstack search-page-wrap">
       <header class="search-hero card">
         <div class="search-hero-copy">
-          <div class="small search-kicker">ATPL Question Bank · Version <strong>v2.5</strong></div>
+          <div class="small search-kicker">ATPL Question Bank · Version <strong id="appVersionLabel">v2.5.2</strong></div>
           <h1>Question Search</h1>
           <p>Search across every loaded subject, preview answer options, and quickly identify the correct answer without starting a test session.</p>
         </div>
@@ -670,6 +670,16 @@ body.light .search-detail-box {
       }
     }
     throw lastErr || new Error('Failed to fetch JSON');
+  }
+
+  async function loadAppVersion(){
+    try{
+      const changelog = await fetchJsonWithFallback(['changelog.json','./changelog.json']);
+      const latest = Array.isArray(changelog.entries) ? changelog.entries[0] : null;
+      if(latest?.version) $('appVersionLabel').textContent = latest.version;
+    }catch(err){
+      console.warn('Could not load app version:', err);
+    }
   }
 
   function normalizeQuestion(q){
@@ -842,6 +852,7 @@ body.light .search-detail-box {
 
   function init(){
     installThemeControl();
+    loadAppVersion();
     $('mSearchInput')?.addEventListener('input', renderSearch);
     $('mSearchSubject')?.addEventListener('change', renderSearch);
     $('mSearchResults')?.addEventListener('click', e => {
