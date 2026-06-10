@@ -553,6 +553,87 @@ body.light .search-detail-box {
     grid-template-columns: 1fr !important;
   }
 }
+
+@media (max-width: 560px) {
+  body { overflow-x: hidden; }
+  .container { padding: 10px; }
+  .card { border-radius: 12px; padding: 12px; }
+  .button, .input, .select { min-height: 42px; }
+
+  .search-page-wrap {
+    margin: 12px auto !important;
+    gap: 12px;
+  }
+
+  .search-hero {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 14px;
+    padding: 16px;
+  }
+
+  .search-hero h1 {
+    font-size: 34px;
+    line-height: 1;
+  }
+
+  .search-hero p {
+    font-size: 14px;
+  }
+
+  .search-hero-actions,
+  .search-hero-actions .theme-wrap,
+  #backToMenu.search-page-button {
+    width: 100%;
+  }
+
+  .search-hero-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  #backToMenu.search-page-button {
+    min-height: 44px;
+  }
+
+  .theme-wrap {
+    justify-content: space-between;
+    margin-left: 0;
+  }
+
+  .search-control-top,
+  .search-input-row {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  .search-status-badge {
+    justify-content: center;
+    width: 100%;
+  }
+
+  #mSearchInput,
+  #mSearchSubject {
+    width: 100%;
+  }
+
+  .search-count-box {
+    width: 100%;
+  }
+
+  .search-results-card,
+  .search-detail-card {
+    min-height: 0 !important;
+  }
+
+  .search-results-list {
+    max-height: 340px;
+  }
+
+  #mSearchDetail {
+    overflow-wrap: anywhere;
+  }
+}
 </style>
 
 </head>
@@ -561,7 +642,7 @@ body.light .search-detail-box {
     <div class="vstack search-page-wrap">
       <header class="search-hero card">
         <div class="search-hero-copy">
-          <div class="small search-kicker">ATPL Question Bank · Version <strong id="appVersionLabel">v2.5.2</strong></div>
+          <div class="small search-kicker">ATPL Question Bank · Version <strong id="appVersionLabel">v2.5.3</strong></div>
           <h1>Question Search</h1>
           <p>Search across every loaded subject, preview answer options, and quickly identify the correct answer without starting a test session.</p>
         </div>

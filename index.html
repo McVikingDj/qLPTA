@@ -538,6 +538,314 @@ body.light #goStats .search-page-button-icon {
   }
 </style>
 
+<style id="responsive-layout-v253">
+  @media (max-width: 900px) {
+    body { overflow-x: hidden; }
+    .container { padding: 12px 14px; }
+    .card { border-radius: 12px; padding: 14px; }
+    .button, .input, .select { min-height: 42px; }
+
+    #menu > .vstack {
+      margin: 18px auto !important;
+      max-width: 720px !important;
+    }
+
+    #menuHeaderBar {
+      align-items: flex-start !important;
+      flex-direction: column;
+    }
+
+    #menuTitleBlock h1 {
+      font-size: 34px;
+      line-height: 1;
+    }
+
+    #menuHeaderBar > .hstack:last-child {
+      width: 100%;
+      justify-content: flex-start !important;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    #goSearch.search-page-button,
+    #goStats.search-page-button {
+      flex: 1 1 210px;
+      min-width: 0;
+    }
+
+    #menu .grid.grid-2 {
+      grid-template-columns: 1fr;
+      grid-auto-rows: auto !important;
+    }
+
+    #menu .grid.grid-2 > section.card {
+      height: auto !important;
+    }
+
+    #changelogCard {
+      max-height: 560px !important;
+    }
+
+    #quiz .topbar {
+      position: sticky;
+    }
+
+    #quiz .header {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    #quiz .header > .hstack {
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    #quiz .header h2 {
+      flex: 1 1 220px;
+      min-width: 0;
+      line-height: 1.2;
+    }
+
+    #quiz .header > .hstack:last-child {
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    #quiz .header .badge {
+      min-height: 36px;
+      justify-content: center;
+    }
+
+    #logoutBtn {
+      margin-left: auto;
+    }
+
+    #quiz .grid-3 {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 8px !important;
+    }
+
+    #quiz main {
+      gap: 10px;
+    }
+
+    .question-box {
+      padding: 18px;
+      border-radius: 10px;
+    }
+
+    #qText {
+      margin-top: 0;
+      line-height: 1.42;
+    }
+
+    .option-list li {
+      align-items: flex-start;
+      gap: 12px;
+      margin: 10px 0;
+      line-height: 1.35;
+    }
+
+    .option-list input[type="radio"],
+    .option-list input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 1px;
+      flex: 0 0 auto;
+    }
+
+    #quiz main > .hstack {
+      align-items: stretch;
+      gap: 10px;
+    }
+
+    #quiz main > .hstack > .hstack {
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    #qPrev,
+    #qFlagBtn,
+    #qExplanationToggle,
+    #qNext,
+    #qFinish {
+      min-height: 42px;
+    }
+
+    #qPager {
+      grid-template-columns: repeat(auto-fill, minmax(42px, 1fr));
+      gap: 8px;
+    }
+
+    .pager-btn {
+      min-height: 40px;
+      padding: 8px 6px;
+    }
+
+    .explanation-wrap {
+      margin-top: 0;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .container { padding: 10px; }
+    .card { padding: 12px; }
+    .grid { gap: 12px; }
+    .grid-2 { grid-template-columns: 1fr; }
+
+    #loginOverlay > div {
+      width: min(360px, calc(100vw - 24px)) !important;
+      padding: 16px !important;
+    }
+
+    #menu > .vstack {
+      margin: 12px auto !important;
+    }
+
+    #menuTitleBlock h1 {
+      font-size: 30px;
+    }
+
+    #menuHeaderBar > .hstack:last-child {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    #goSearch.search-page-button,
+    #goStats.search-page-button {
+      width: 100%;
+      flex-basis: auto;
+    }
+
+    .mode-buttons {
+      grid-template-columns: 1fr;
+    }
+
+    .mode-btn {
+      padding: 14px;
+    }
+
+    #changelogCard {
+      max-height: 460px !important;
+    }
+
+    #quiz .header > .hstack:first-child {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+    }
+
+    #quiz .header h2 {
+      font-size: 15px !important;
+    }
+
+    #qModeLabel {
+      display: block;
+      margin-left: 0 !important;
+      margin-top: 2px;
+    }
+
+    #quiz .header > .hstack:last-child {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    #qTimer,
+    #qProgress,
+    #qPlan {
+      width: 100%;
+    }
+
+    #logoutBtn {
+      grid-column: 3;
+      width: 100%;
+      margin-left: 0;
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+
+    #quiz .grid-3 > aside:first-child .card {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    #quiz .grid-3 > aside:first-child h3 {
+      font-size: 16px;
+    }
+
+    .question-box {
+      padding: 14px;
+    }
+
+    #qText {
+      font-size: 15px;
+    }
+
+    #quiz main > .hstack {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    #qPrev {
+      width: 100%;
+    }
+
+    #quiz main > .hstack > .hstack {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      width: 100%;
+    }
+
+    #qFlagBtn,
+    #qExplanationToggle,
+    #qNext,
+    #qFinish {
+      width: 100%;
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+
+    #qFinish {
+      grid-column: span 2;
+    }
+
+    #qPager {
+      grid-template-columns: repeat(auto-fill, minmax(38px, 1fr));
+      gap: 7px;
+    }
+
+    .pager-btn {
+      min-height: 38px;
+      font-size: 12px;
+    }
+
+    .results-hero {
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .results-grid {
+      grid-template-columns: 1fr !important;
+    }
+
+    .result-map {
+      grid-template-columns: repeat(auto-fill, minmax(38px, 1fr));
+    }
+
+    .result-review-head,
+    .review-item-top {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+</style>
+
 </head>
 <body>
 <!-- LOGIN -->
@@ -745,8 +1053,8 @@ body.light #goStats .search-page-button-icon {
 
 <script>
 /*** VERSION ***/
-let APP_VERSION = "v2.5.2";
-const APP_BUILD = "2026-06-10-explanations-references";
+let APP_VERSION = "v2.5.3";
+const APP_BUILD = "2026-06-10-responsive-layout";
 document.getElementById('appVersionLabel').textContent = APP_VERSION;
 async function loadAppVersion(){
   try{

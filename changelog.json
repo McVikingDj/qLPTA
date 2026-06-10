@@ -1,6 +1,17 @@
 {
   "entries": [
     {
+      "version": "v2.5.3",
+      "date": "2026-06-10",
+      "title": "Responsive Layout",
+      "changes": [
+        "Improved the main app layout for iPad and smartphone screen sizes.",
+        "Added phone-friendly quiz controls, larger tap targets, and compact navigation.",
+        "Improved Search and Statistics page layouts on narrow screens.",
+        "Tightened results and review layouts for mobile use."
+      ]
+    },
+    {
       "version": "v2.5.2",
       "date": "2026-06-10",
       "title": "Question Explanations",
