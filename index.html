@@ -45,11 +45,11 @@
   .explanation-wrap{margin:10px 0 14px}
   .explanation-toggle{border:1px solid rgba(11,11,11,.16);background:rgba(255,255,255,.62);color:var(--qbox-text);border-radius:8px;padding:7px 10px;font-size:12px;font-weight:700;cursor:pointer}
   .explanation-toggle:hover{background:rgba(255,255,255,.86)}
-  .explanation-box{margin-top:8px;padding:12px 14px;border-radius:8px;background:rgba(255,255,255,.7);border:1px solid rgba(11,11,11,.12);color:var(--qbox-text);font-size:14px;line-height:1.45;white-space:pre-wrap}
-  .explanation-reference{margin-top:12px;padding-top:10px;border-top:1px solid rgba(11,11,11,.14);font-size:12px;font-weight:700;color:rgba(11,11,11,.72);white-space:normal}
+  .explanation-box{margin-top:8px;padding:12px 14px;border-radius:8px;background:var(--card);border:1px solid var(--border);color:var(--text);font-size:14px;line-height:1.45;white-space:pre-wrap}
+  .explanation-reference{margin-top:12px;padding-top:10px;border-top:1px solid var(--border);font-size:12px;font-weight:700;color:var(--muted);white-space:normal}
   body.light .explanation-toggle{border-color:rgba(15,23,42,.18)}
-  body.light .explanation-box{border-color:rgba(15,23,42,.14)}
-  body.light .explanation-reference{border-color:rgba(15,23,42,.16);color:rgba(15,23,42,.68)}
+  body.light .explanation-box{border-color:var(--border)}
+  body.light .explanation-reference{border-color:var(--border);color:var(--muted)}
 </style>
 
 <style id="search-card-styles">
@@ -672,10 +672,6 @@ body.light #goStats .search-page-button-icon {
       <section class="card">
         <div class="question-box" id="qBox">
           <p id="qText">Select a subject to begin.</p>
-          <div class="explanation-wrap hidden" id="qExplanationWrap">
-            <button class="explanation-toggle" id="qExplanationToggle" type="button" aria-expanded="false">Show explanation</button>
-            <div class="explanation-box hidden" id="qExplanationBox"></div>
-          </div>
           <ul class="option-list" id="qOptions"></ul>
           <div class="hstack hidden" id="qMultiControls" style="margin-top:8px;justify-content:flex-end">
             <button class="button primary" id="qConfirm" disabled>Confirm Answer</button>
@@ -686,9 +682,13 @@ body.light #goStats .search-page-button-icon {
         <button class="button" id="qPrev" disabled>Previous</button>
         <div class="hstack">
           <button class="button" id="qFlagBtn" aria-pressed="false">🚩 Flag</button>
+          <button class="button hidden" id="qExplanationToggle" type="button" aria-expanded="false">Explanation</button>
           <button class="button" id="qNext" disabled>Next</button>
           <button class="button primary" id="qFinish" disabled title="Answer all questions to finish">Finish</button>
         </div>
+      </div>
+      <div class="explanation-wrap hidden" id="qExplanationWrap">
+        <div class="explanation-box hidden" id="qExplanationBox"></div>
       </div>
       <section class="card results-screen hidden" id="qResults">
         <div class="results-hero">
@@ -937,7 +937,8 @@ function rebuildPager(){
 function renderExplanation(q){
   const explanation = q && q.explanation ? String(q.explanation).trim() : '';
   const reference = q && q.reference ? String(q.reference).trim() : '';
-  if(!explanation && !reference){
+  if(MODE === 'st' || (!explanation && !reference)){
+    qExplanationToggle.classList.add('hidden');
     qExplanationWrap.classList.add('hidden');
     qExplanationBox.classList.add('hidden');
     qExplanationToggle.setAttribute('aria-expanded', 'false');
@@ -946,7 +947,8 @@ function renderExplanation(q){
   }
 
   const open = EXPLANATION_OPEN[INDEX] === true;
-  qExplanationWrap.classList.remove('hidden');
+  qExplanationToggle.classList.remove('hidden');
+  qExplanationWrap.classList.toggle('hidden', !open);
   qExplanationBox.innerHTML = '';
   if(explanation){
     const text=document.createElement('div');
@@ -960,7 +962,7 @@ function renderExplanation(q){
     qExplanationBox.appendChild(ref);
   }
   qExplanationBox.classList.toggle('hidden', !open);
-  qExplanationToggle.textContent = open ? 'Hide explanation' : 'Show explanation';
+  qExplanationToggle.textContent = open ? 'Hide explanation' : 'Explanation';
   qExplanationToggle.setAttribute('aria-expanded', String(open));
 }
 
@@ -1359,7 +1361,12 @@ btnST.onclick=()=>{ btnST.classList.add('active');btnTest.classList.remove('acti
 mSubject.addEventListener('change', ()=>{ SUBJECT=mSubject.value; updateSubjectInfo(); });
 qPrev.onclick=()=>{ if(INDEX>0){ INDEX--; render(); } };
 qNext.onclick=()=>{ if(INDEX<QUESTIONS.length-1){ INDEX++; render(); } };
-qExplanationToggle.onclick=()=>{ if(!QUESTIONS[INDEX] || !QUESTIONS[INDEX].explanation) return; EXPLANATION_OPEN[INDEX]=!EXPLANATION_OPEN[INDEX]; renderExplanation(QUESTIONS[INDEX]); };
+qExplanationToggle.onclick=()=>{
+  const q=QUESTIONS[INDEX];
+  if(MODE === 'st' || !q || (!q.explanation && !q.reference)) return;
+  EXPLANATION_OPEN[INDEX]=!EXPLANATION_OPEN[INDEX];
+  renderExplanation(q);
+};
 qBack.onclick=()=>{ ensureTimerStopped(); quiz.classList.add('hidden'); menu.classList.remove('hidden'); refreshSubjectLabels(); updateSubjectInfo(); };
 logoutBtn.onclick=()=>{ sessionStorage.removeItem(AUTH_KEY); location.reload(); };
 
