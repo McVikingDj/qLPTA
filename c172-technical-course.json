@@ -298,5 +298,305 @@
     "answer": "100 KIAS",
     "explanation": "The restart procedure specifies maintaining between 65 and 85 KIAS, with a maximum of 100 KIAS.",
     "reference": "POH Supplement Section 3, Page 3-4"
+  },
+{
+    "question": "Why does the TAE 125-02-114 require a FADEC system?",
+    "choices": [
+      "To control landing gear",
+      "To automatically manage engine operation and fuel delivery",
+      "To operate cabin instruments",
+      "To control flaps"
+    ],
+    "answer": "To automatically manage engine operation and fuel delivery",
+    "explanation": "The FADEC continuously manages fuel injection and engine parameters, eliminating the need for mixture control.",
+    "reference": "POH Supplement Section 1, Page 1-2"
+  },
+  {
+    "question": "Why is carburetor heat not installed on the JT-A powered C172?",
+    "choices": [
+      "The aircraft is too heavy",
+      "The engine uses direct fuel injection and has no carburetor",
+      "The FADEC replaces carburetor heat",
+      "Jet fuel cannot freeze"
+    ],
+    "answer": "The engine uses direct fuel injection and has no carburetor",
+    "explanation": "Carburetor heat is unnecessary because the engine does not use a carburetor.",
+    "reference": "POH Supplement Section 1, Page 1-2"
+  },
+  {
+    "question": "What is the primary purpose of the reduction gearbox?",
+    "choices": [
+      "Increase propeller RPM",
+      "Reduce fuel consumption only",
+      "Allow the engine and propeller to operate at suitable RPMs",
+      "Drive the alternator"
+    ],
+    "answer": "Allow the engine and propeller to operate at suitable RPMs",
+    "explanation": "The gearbox allows the engine to operate efficiently while keeping propeller RPM within limits.",
+    "reference": "POH Supplement Section 1, Page 1-2"
+  },
+  {
+    "question": "Which component continues to be essential after engine start?",
+    "choices": [
+      "Starter motor",
+      "External power unit",
+      "Electrical power supply",
+      "Glow plugs only"
+    ],
+    "answer": "Electrical power supply",
+    "explanation": "The FADEC-controlled engine requires electrical power throughout operation.",
+    "reference": "POH Supplement Section 1, Page 1-2"
+  },
+  {
+    "question": "A complete loss of alternator and main battery would eventually result in:",
+    "choices": [
+      "Immediate engine seizure",
+      "Loss of FADEC power after backup battery depletion",
+      "Automatic engine restart",
+      "Propeller feathering"
+    ],
+    "answer": "Loss of FADEC power after backup battery depletion",
+    "explanation": "Once backup battery power is exhausted, the FADEC can no longer operate the engine.",
+    "reference": "POH Supplement Section 1, Page 1-2"
+  },
+  {
+    "question": "Why should pilots pay close attention to alternator failure indications?",
+    "choices": [
+      "Cabin lights may dim",
+      "The engine depends on electrical power",
+      "Fuel quantity becomes inaccurate",
+      "Flaps stop working immediately"
+    ],
+    "answer": "The engine depends on electrical power",
+    "explanation": "Electrical power is required to keep the FADEC operating.",
+    "reference": "POH Supplement Section 1, Page 1-2"
+  },
+  {
+    "question": "What is the advantage of a constant-speed propeller?",
+    "choices": [
+      "Lower aircraft weight",
+      "Automatic optimization of propeller performance",
+      "No moving parts",
+      "No RPM limits"
+    ],
+    "answer": "Automatic optimization of propeller performance",
+    "explanation": "A constant-speed propeller adjusts blade angle to maintain efficient operation.",
+    "reference": "POH Supplement Section 1, Page 1-3"
+  },
+  {
+    "question": "Why was usable fuel capacity reduced compared with AVGAS models?",
+    "choices": [
+      "Smaller tanks were installed",
+      "Jet fuel has a higher density",
+      "The engine consumes more fuel",
+      "To improve CG limits"
+    ],
+    "answer": "Jet fuel has a higher density",
+    "explanation": "The higher density of Jet A-1 and diesel reduces permissible fuel quantity.",
+    "reference": "POH Supplement Section 1, Page 1-5"
+  },
+  {
+    "question": "Which fuel type should be assumed if fuel origin is uncertain?",
+    "choices": [
+      "Jet A-1",
+      "Jet A",
+      "Diesel",
+      "AVGAS"
+    ],
+    "answer": "Diesel",
+    "explanation": "The POH requires applying diesel temperature limitations whenever uncertainty exists.",
+    "reference": "POH Supplement Section 2, Page 2-3"
+  },
+  {
+    "question": "Why are diesel fuel temperature limitations more restrictive than Jet A-1 limitations?",
+    "choices": [
+      "Diesel freezes at higher temperatures",
+      "Diesel burns hotter",
+      "Diesel damages injectors",
+      "Jet A-1 is lighter"
+    ],
+    "answer": "Diesel freezes at higher temperatures",
+    "explanation": "Diesel becomes problematic at significantly higher temperatures than Jet A-1.",
+    "reference": "POH Supplement Section 2, Page 2-3"
+  },
+  {
+    "question": "An oil pressure indication of 5.5 bar in flight is in which range?",
+    "choices": [
+      "Green",
+      "Amber",
+      "Red",
+      "Below limits"
+    ],
+    "answer": "Amber",
+    "explanation": "Oil pressure above the normal green range but below the red range is amber.",
+    "reference": "POH Supplement Section 2, Page 2-4"
+  },
+  {
+    "question": "What does the engine load indication represent?",
+    "choices": [
+      "Fuel remaining",
+      "Percentage of available engine power",
+      "Propeller efficiency",
+      "Battery condition"
+    ],
+    "answer": "Percentage of available engine power",
+    "explanation": "Load is displayed as a percentage of maximum engine power.",
+    "reference": "POH Supplement Section 2, Page 2-4"
+  },
+  {
+    "question": "What happens when an AED/CED parameter enters the amber range?",
+    "choices": [
+      "Nothing",
+      "The caution light illuminates",
+      "The engine shuts down",
+      "The propeller feathers"
+    ],
+    "answer": "The caution light illuminates",
+    "explanation": "Amber and red indications activate the AED/CED caution light.",
+    "reference": "POH Supplement Section 2, Page 2-5"
+  },
+  {
+    "question": "After a parameter returns to normal, why might the AED/CED caution light remain illuminated?",
+    "choices": [
+      "Bulb failure",
+      "It requires confirmation by the pilot",
+      "The engine must be restarted",
+      "The alternator must be reset"
+    ],
+    "answer": "It requires confirmation by the pilot",
+    "explanation": "The light remains on until acknowledged using the Confirm/Test knob.",
+    "reference": "POH Supplement Section 2, Page 2-5"
+  },
+  {
+    "question": "What does pressing the Confirm/Test knob for more than one second initiate?",
+    "choices": [
+      "Engine shutdown",
+      "Fuel transfer",
+      "Power-up test sequence",
+      "FADEC reset"
+    ],
+    "answer": "Power-up test sequence",
+    "explanation": "Holding the button initiates the system test sequence.",
+    "reference": "POH Supplement Section 2, Page 2-5"
+  },
+  {
+    "question": "A fuel tank contains less than 19 litres usable fuel. What should be expected?",
+    "choices": [
+      "FADEC warning",
+      "Low fuel warning",
+      "Alternator warning",
+      "Gearbox warning"
+    ],
+    "answer": "Low fuel warning",
+    "explanation": "The low fuel warning activates below approximately 19 litres usable fuel per tank.",
+    "reference": "POH Supplement Section 2, Page 2-14"
+  },
+  {
+    "question": "Why is prolonged uncoordinated flight prohibited with one-quarter tank or less?",
+    "choices": [
+      "Risk of fuel starvation",
+      "Risk of overspeed",
+      "Risk of gearbox overheating",
+      "Risk of battery failure"
+    ],
+    "answer": "Risk of fuel starvation",
+    "explanation": "Fuel may move away from the pickup during prolonged uncoordinated flight.",
+    "reference": "POH Supplement Section 2, Page 2-14"
+  },
+  {
+    "question": "Why is BOTH recommended in turbulent conditions?",
+    "choices": [
+      "Improves cooling",
+      "Reduces fuel starvation risk",
+      "Improves climb performance",
+      "Reduces drag"
+    ],
+    "answer": "Reduces fuel starvation risk",
+    "explanation": "Using BOTH provides the most reliable fuel supply in turbulence.",
+    "reference": "POH Supplement Section 2, Page 2-14"
+  },
+  {
+    "question": "During a restart attempt, why should the fuel selector be placed on BOTH?",
+    "choices": [
+      "To increase voltage",
+      "To maximize fuel availability",
+      "To reduce RPM",
+      "To cool the engine"
+    ],
+    "answer": "To maximize fuel availability",
+    "explanation": "Selecting BOTH ensures fuel can be supplied from either tank.",
+    "reference": "POH Supplement Section 3, Page 3-4"
+  },
+  {
+    "question": "What is the first priority immediately after an engine failure following take-off?",
+    "choices": [
+      "Contact ATC",
+      "Maintain airspeed",
+      "Turn back to the runway",
+      "Restart the engine"
+    ],
+    "answer": "Maintain airspeed",
+    "explanation": "The POH emphasizes lowering the nose and maintaining safe flying speed.",
+    "reference": "POH Supplement Section 3, Page 3-3"
+  },
+  {
+    "question": "Why is a 180° turn back to the runway usually discouraged after take-off engine failure?",
+    "choices": [
+      "Fuel imbalance",
+      "Insufficient altitude and airspeed",
+      "Propeller limitations",
+      "Flap restrictions"
+    ],
+    "answer": "Insufficient altitude and airspeed",
+    "explanation": "Most failures occur too low for a safe turn-back manoeuvre.",
+    "reference": "POH Supplement Section 3, Page 3-3"
+  },
+  {
+    "question": "During an in-flight restart, why should airspeed remain below 100 KIAS?",
+    "choices": [
+      "To avoid overspeeding the propeller system",
+      "To reduce fuel burn",
+      "To improve radio reception",
+      "To cool the alternator"
+    ],
+    "answer": "To avoid overspeeding the propeller system",
+    "explanation": "Restart procedures specify a maximum airspeed of 100 KIAS.",
+    "reference": "POH Supplement Section 3, Page 3-4"
+  },
+  {
+    "question": "What does a flashing FADEC A and FADEC B indication after fuel starvation most likely mean?",
+    "choices": [
+      "Alternator failure",
+      "Fuel supply interruption",
+      "Engine fire",
+      "Gearbox fault"
+    ],
+    "answer": "Fuel supply interruption",
+    "explanation": "Running a tank dry can trigger both FADEC warning lights.",
+    "reference": "POH Supplement Section 3, Page 3-4"
+  },
+  {
+    "question": "Why must the high-pressure pump be inspected after running a tank dry?",
+    "choices": [
+      "Possible damage from fuel starvation",
+      "Possible oil contamination",
+      "Battery overheating",
+      "Propeller imbalance"
+    ],
+    "answer": "Possible damage from fuel starvation",
+    "explanation": "The POH requires inspection by an authorized service center before further flight.",
+    "reference": "POH Supplement Section 3, Page 3-4"
+  },
+  {
+    "question": "A pilot wants to continue flying with a known alternator failure because the engine is running normally. What is the main concern?",
+    "choices": [
+      "Reduced climb rate",
+      "Loss of FADEC power once batteries are depleted",
+      "Fuel contamination",
+      "Gearbox overheating"
+    ],
+    "answer": "Loss of FADEC power once batteries are depleted",
+    "explanation": "The engine depends on electrical power and cannot continue indefinitely without it.",
+    "reference": "POH Supplement Section 1, Page 1-2"
   }
 ]
