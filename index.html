@@ -42,6 +42,14 @@
   .hidden{display:none!important} .small{color:var(--muted);font-size:12px}
   .feedback-inline{margin-top:12px;padding:10px 12px;border-radius:10px;background:rgba(34,197,94,.12);color:#22c55e}
   .feedback-inline.bad{background:rgba(239,68,68,.12);color:#ef4444}
+  .explanation-wrap{margin:10px 0 14px}
+  .explanation-toggle{border:1px solid rgba(11,11,11,.16);background:rgba(255,255,255,.62);color:var(--qbox-text);border-radius:8px;padding:7px 10px;font-size:12px;font-weight:700;cursor:pointer}
+  .explanation-toggle:hover{background:rgba(255,255,255,.86)}
+  .explanation-box{margin-top:8px;padding:12px 14px;border-radius:8px;background:rgba(255,255,255,.7);border:1px solid rgba(11,11,11,.12);color:var(--qbox-text);font-size:14px;line-height:1.45;white-space:pre-wrap}
+  .explanation-reference{margin-top:12px;padding-top:10px;border-top:1px solid rgba(11,11,11,.14);font-size:12px;font-weight:700;color:rgba(11,11,11,.72);white-space:normal}
+  body.light .explanation-toggle{border-color:rgba(15,23,42,.18)}
+  body.light .explanation-box{border-color:rgba(15,23,42,.14)}
+  body.light .explanation-reference{border-color:rgba(15,23,42,.16);color:rgba(15,23,42,.68)}
 </style>
 
 <style id="search-card-styles">
@@ -664,6 +672,10 @@ body.light #goStats .search-page-button-icon {
       <section class="card">
         <div class="question-box" id="qBox">
           <p id="qText">Select a subject to begin.</p>
+          <div class="explanation-wrap hidden" id="qExplanationWrap">
+            <button class="explanation-toggle" id="qExplanationToggle" type="button" aria-expanded="false">Show explanation</button>
+            <div class="explanation-box hidden" id="qExplanationBox"></div>
+          </div>
           <ul class="option-list" id="qOptions"></ul>
           <div class="hstack hidden" id="qMultiControls" style="margin-top:8px;justify-content:flex-end">
             <button class="button primary" id="qConfirm" disabled>Confirm Answer</button>
@@ -757,6 +769,7 @@ const manualSettings=document.getElementById('manualSettings');
 const btnTest=document.getElementById('btnTest'),btnST=document.getElementById('btnST'),mStart=document.getElementById('mStart');
 const qBack=document.getElementById('qBack'),qSubject=document.getElementById('qSubject'),qTimer=document.getElementById('qTimer'),qProgress=document.getElementById('qProgress'),qScoreLive=document.getElementById('qScoreLive'),qRemaining=document.getElementById('qRemaining');
 const qNumber=document.getElementById('qNumber'),qStatus=document.getElementById('qStatus'),qText=document.getElementById('qText'),qOptions=document.getElementById('qOptions');
+const qExplanationWrap=document.getElementById('qExplanationWrap'),qExplanationToggle=document.getElementById('qExplanationToggle'),qExplanationBox=document.getElementById('qExplanationBox');
 const qPrev=document.getElementById('qPrev'),qNext=document.getElementById('qNext'),qFinish=document.getElementById('qFinish'),qPager=document.getElementById('qPager');
 const qResults=document.getElementById('qResults'),qBreakdown=document.getElementById('qBreakdown');const qAccuracy=document.getElementById('qAccuracy'), qTimeUsed=document.getElementById('qTimeUsed');
 const qResultTitle=document.getElementById('qResultTitle'), qResultSubtitle=document.getElementById('qResultSubtitle'), qResultBadge=document.getElementById('qResultBadge');
@@ -769,6 +782,7 @@ let RAW=null,SUBJECT='',POOL=[],QUESTIONS=[],INDEX=0,ANSWERS=[],MODE='test';
 let SCORE_CORRECT=0,QUESTIONS_ANSWERED=0,START_TS=null; let FLAGGED=[]; let STATS_SESSION_SAVED=false;
 let TIMER_END=null, TIMER_IV=null;
 let TEMP_SEL=[]; // per-question temporary selection for multi (array of arrays)
+let EXPLANATION_OPEN=[]; // per-question explanation visibility
 
 /*** ST CONFIGURATION ***/
 const ST_PLANS = {
@@ -836,9 +850,34 @@ function hasStrictPlan(subject){
 /*** UTILS ***/
 function toTextSet(arr){ return new Set(arr.map(x=>String(x))); }
 function setsEqual(a,b){ if(a.size!==b.size) return false; for(const v of a){ if(!b.has(v)) return false; } return true; }
+function firstValue(...values){ return values.find(v => v !== undefined && v !== null && String(v).trim() !== ''); }
+function normalizeExplanation(q){
+  const raw = firstValue(q.explanation, q.explenation, q.rationale, q.reason, q.solution, q.feedback, q.note);
+  if(Array.isArray(raw)) return raw.map(part => String(part).trim()).filter(Boolean).join('\n\n') || null;
+  if(raw && typeof raw === 'object') return firstValue(raw.text, raw.body, raw.value, raw.content) ? String(firstValue(raw.text, raw.body, raw.value, raw.content)).trim() : null;
+  return raw != null ? String(raw).trim() || null : null;
+}
+function normalizeReference(q){
+  const raw = firstValue(q.reference, q.references, q.sourceReference, q.source_reference, q.source, q.sources, q.citation, q.citations, q.document);
+  if(Array.isArray(raw)) return raw.map(part => String(part).trim()).filter(Boolean).join('; ') || null;
+  if(raw && typeof raw === 'object'){
+    const nested = firstValue(raw.reference, raw.text, raw.title, raw.label, raw.source, raw.document, raw.page);
+    return nested != null ? String(nested).trim() || null : null;
+  }
+  return raw != null ? String(raw).trim() || null : null;
+}
+function extractQuestionArray(data){
+  if(Array.isArray(data)) return data;
+  if(data && typeof data === 'object'){
+    const nested = firstValue(data.questions, data.items, data.bank, data.data);
+    if(Array.isArray(nested)) return nested;
+  }
+  return [];
+}
 
 function normalize(q){
-  let rawOptions = q.choices || q.answers || [];
+  let rawOptions = q.options || q.choices || q.answers || q.alternatives || [];
+  if(!Array.isArray(rawOptions)) rawOptions = [];
   let options = [];
   let correctTexts = [];
 
@@ -850,7 +889,7 @@ function normalize(q){
     });
   } else {
     options = rawOptions.map(o => String(o));
-    let corr = (q.answer !== undefined) ? q.answer : (q.correct_answers || q.correct_answer);
+    let corr = (q.answer !== undefined) ? q.answer : firstValue(q.correct_answers, q.correct_answer, q.correct);
     if (Array.isArray(corr)) { corr.forEach(c => { if (typeof c === 'number' && options[c] != null) { correctTexts.push(String(options[c])); } else if (typeof c === 'string' && /^[A-Za-z]$/.test(c)) { const idx = c.toUpperCase().charCodeAt(0) - 65; if (options[idx] != null) { correctTexts.push(String(options[idx])); } else { correctTexts.push(String(c)); } } else { correctTexts.push(String(c)); } }); } else {
       if (typeof corr === 'number' && options[corr] != null) correctTexts.push(String(options[corr]));
       else if (typeof corr === 'string' && /^[A-Za-z]$/.test(corr)) { const idx = corr.toUpperCase().charCodeAt(0) - 65; if (options[idx] != null) { correctTexts.push(String(options[idx])); } else { correctTexts.push(String(corr)); } } else if (corr != null) { correctTexts.push(String(corr)); }
@@ -859,7 +898,7 @@ function normalize(q){
 
   const correctSet = toTextSet(correctTexts);
   const multi = correctSet.size > 1;
-  return { text: q.question, options: [...options], correct: correctTexts[0] || null, correctSet, multi, explanation: q.explanation || null };
+  return { text: firstValue(q.question, q.text, q.prompt) || '', options: [...options], correct: correctTexts[0] || null, correctSet, multi, explanation: normalizeExplanation(q), reference: normalizeReference(q) };
 }
 
 function fyShuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
@@ -895,6 +934,36 @@ function rebuildPager(){
 }
 
 /*** RENDER ***/
+function renderExplanation(q){
+  const explanation = q && q.explanation ? String(q.explanation).trim() : '';
+  const reference = q && q.reference ? String(q.reference).trim() : '';
+  if(!explanation && !reference){
+    qExplanationWrap.classList.add('hidden');
+    qExplanationBox.classList.add('hidden');
+    qExplanationToggle.setAttribute('aria-expanded', 'false');
+    qExplanationBox.innerHTML = '';
+    return;
+  }
+
+  const open = EXPLANATION_OPEN[INDEX] === true;
+  qExplanationWrap.classList.remove('hidden');
+  qExplanationBox.innerHTML = '';
+  if(explanation){
+    const text=document.createElement('div');
+    text.textContent=explanation;
+    qExplanationBox.appendChild(text);
+  }
+  if(reference){
+    const ref=document.createElement('div');
+    ref.className='explanation-reference';
+    ref.textContent='Source: ' + reference;
+    qExplanationBox.appendChild(ref);
+  }
+  qExplanationBox.classList.toggle('hidden', !open);
+  qExplanationToggle.textContent = open ? 'Hide explanation' : 'Show explanation';
+  qExplanationToggle.setAttribute('aria-expanded', String(open));
+}
+
 function render(){
   const total=QUESTIONS.length; const remaining = ANSWERS.filter((x,idx)=>!isAnswered(idx)).length;
   qProgress.textContent=`${Math.min(INDEX+1,total)} / ${total}`; qRemaining.textContent=`Remaining ${remaining}`;
@@ -902,6 +971,7 @@ function render(){
   qPrev.disabled=INDEX===0; qNext.disabled=INDEX>=total-1;
 
   const q=QUESTIONS[INDEX]; qText.textContent=q? q.text : 'No questions';
+  renderExplanation(q);
 
   qFlagBtn.setAttribute('aria-pressed', String(FLAGGED[INDEX]===true));
   qFlagBtn.textContent = FLAGGED[INDEX] ? '🚩 Unflag' : '🚩 Flag';
@@ -981,7 +1051,6 @@ function showFeedback(ok,correctText,explanation){
   const old=document.querySelector('.feedback-inline'); if(old) old.remove();
   const fb=document.createElement('div'); fb.className='feedback-inline'+(ok?'':' bad');
   fb.textContent= ok ? 'Correct!' : `Incorrect — correct answer: ${correctText}`;
-  if(!ok && explanation){ const ex=document.createElement('div'); ex.className='small'; ex.textContent=explanation; fb.appendChild(ex); }
   document.getElementById('qBox').appendChild(fb);
 }
 
@@ -1169,6 +1238,22 @@ function finish(){
       answers.appendChild(selected);
       answers.appendChild(correctBox);
       item.appendChild(answers);
+      if(q.explanation || q.reference){
+        const explanation=document.createElement('div');
+        explanation.className='explanation-box';
+        if(q.explanation){
+          const text=document.createElement('div');
+          text.textContent=q.explanation;
+          explanation.appendChild(text);
+        }
+        if(q.reference){
+          const ref=document.createElement('div');
+          ref.className='explanation-reference';
+          ref.textContent='Source: ' + q.reference;
+          explanation.appendChild(ref);
+        }
+        item.appendChild(explanation);
+      }
       qBreakdown.appendChild(item);
     });
   }
@@ -1246,7 +1331,7 @@ function beginSession(subject){
     return { ...q, options: opts, correctSet: q.correctSet, multi: q.multi };
   });
 
-  INDEX=0; ANSWERS=Array(QUESTIONS.length).fill(null); FLAGGED=Array(QUESTIONS.length).fill(false); TEMP_SEL=Array(QUESTIONS.length).fill(null);
+  INDEX=0; ANSWERS=Array(QUESTIONS.length).fill(null); FLAGGED=Array(QUESTIONS.length).fill(false); TEMP_SEL=Array(QUESTIONS.length).fill(null); EXPLANATION_OPEN=Array(QUESTIONS.length).fill(false);
   MODE = usingST ? 'st' : 'test'; qModeLabel.textContent = usingST ? '(ST mode)' : '(Test mode)';
   if(usingST){ qPlan.classList.remove('hidden'); const plan = getPlanForSubject(SUBJECT); qPlan.textContent=`ST: ${n} Q • ${minutes} min`; } else { qPlan.classList.add('hidden'); }
 
@@ -1274,6 +1359,7 @@ btnST.onclick=()=>{ btnST.classList.add('active');btnTest.classList.remove('acti
 mSubject.addEventListener('change', ()=>{ SUBJECT=mSubject.value; updateSubjectInfo(); });
 qPrev.onclick=()=>{ if(INDEX>0){ INDEX--; render(); } };
 qNext.onclick=()=>{ if(INDEX<QUESTIONS.length-1){ INDEX++; render(); } };
+qExplanationToggle.onclick=()=>{ if(!QUESTIONS[INDEX] || !QUESTIONS[INDEX].explanation) return; EXPLANATION_OPEN[INDEX]=!EXPLANATION_OPEN[INDEX]; renderExplanation(QUESTIONS[INDEX]); };
 qBack.onclick=()=>{ ensureTimerStopped(); quiz.classList.add('hidden'); menu.classList.remove('hidden'); refreshSubjectLabels(); updateSubjectInfo(); };
 logoutBtn.onclick=()=>{ sessionStorage.removeItem(AUTH_KEY); location.reload(); };
 
@@ -1295,7 +1381,7 @@ async function loadQuestionBank(){
     const subjects = await fetchJsonWithFallback(['subjects.json','./subjects.json']);
     const entries = await Promise.all(subjects.map(async (entry) => {
       const file = String(entry.file || '').replace(/^\.\//,'');
-      const arr = await fetchJsonWithFallback([file, './'+file]);
+      const arr = extractQuestionArray(await fetchJsonWithFallback([file, './'+file]));
       console.log("📚 Loading subject:", entry.name);
       console.log("📂 File:", file);
       console.log("✅ Loaded", Array.isArray(arr) ? arr.length : 0, "questions");
