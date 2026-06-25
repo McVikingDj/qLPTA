@@ -215,6 +215,47 @@ body.light .nav-button:not(.active) {
   cursor: grabbing;
 }
 
+.model-dimensions {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.model-dimensions line,
+.model-dimensions path {
+  vector-effect: non-scaling-stroke;
+}
+
+.dimension-guide {
+  stroke: color-mix(in oklab, var(--ok) 72%, #ffffff);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-dasharray: 7 6;
+}
+
+.dimension-tick {
+  stroke: color-mix(in oklab, var(--ok) 80%, #ffffff);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.dimension-label-bg {
+  fill: color-mix(in oklab, var(--bg) 78%, transparent);
+  stroke: color-mix(in oklab, var(--ok) 48%, var(--border));
+  stroke-width: 1;
+}
+
+.dimension-label {
+  fill: var(--text);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
 .model-status {
   position: absolute;
   left: 14px;

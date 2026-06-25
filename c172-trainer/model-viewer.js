@@ -1,13 +1,22 @@
 const MODEL_URL = "assets/models/cessna172.glb";
 
 const canvas = document.querySelector("#aircraftModelCanvas");
+const dimensionsOverlay = document.querySelector("#modelDimensions");
 const statusEl = document.querySelector("#modelStatus");
 const resetButton = document.querySelector("#modelReset");
+
+const REAL_DIMENSIONS = {
+  span: "Wingspan 11.00 m",
+  length: "Length 8.28 m",
+  height: "Height 2.72 m"
+};
 
 const viewer = {
   gl: null,
   program: null,
   parts: [],
+  bounds: null,
+  dimensionGuides: [],
   center: [0, 0, 0],
   target: [0, 0, 0],
   radius: 1,
@@ -391,6 +400,47 @@ function fitCameraToParts(parts) {
   viewer.target = [...viewer.center];
   viewer.radius = Math.max(vec3Length(vec3Sub(max, min)) / 2, 1);
   viewer.distance = viewer.radius * 1.45;
+  viewer.bounds = { min, max };
+  viewer.dimensionGuides = buildDimensionGuides(min, max);
+}
+
+function buildDimensionGuides(min, max) {
+  const extents = [max[0] - min[0], max[1] - min[1], max[2] - min[2]];
+  const axes = [0, 1, 2].sort((a, b) => extents[b] - extents[a]);
+  const spanAxis = axes[0];
+  const lengthAxis = axes[1];
+  const heightAxis = axes[2];
+  const margin = Math.max(...extents) * 0.09;
+  const center = [(min[0] + max[0]) / 2, (min[1] + max[1]) / 2, (min[2] + max[2]) / 2];
+
+  const point = (overrides) => {
+    const value = [...center];
+    Object.entries(overrides).forEach(([axis, coordinate]) => {
+      value[Number(axis)] = coordinate;
+    });
+    return value;
+  };
+
+  return [
+    {
+      key: "span",
+      label: REAL_DIMENSIONS.span,
+      start: point({ [spanAxis]: min[spanAxis], [lengthAxis]: min[lengthAxis] - margin, [heightAxis]: max[heightAxis] + margin * 0.2 }),
+      end: point({ [spanAxis]: max[spanAxis], [lengthAxis]: min[lengthAxis] - margin, [heightAxis]: max[heightAxis] + margin * 0.2 })
+    },
+    {
+      key: "length",
+      label: REAL_DIMENSIONS.length,
+      start: point({ [lengthAxis]: min[lengthAxis], [spanAxis]: min[spanAxis] - margin * 0.6, [heightAxis]: min[heightAxis] + margin * 0.2 }),
+      end: point({ [lengthAxis]: max[lengthAxis], [spanAxis]: min[spanAxis] - margin * 0.6, [heightAxis]: min[heightAxis] + margin * 0.2 })
+    },
+    {
+      key: "height",
+      label: REAL_DIMENSIONS.height,
+      start: point({ [heightAxis]: min[heightAxis], [lengthAxis]: max[lengthAxis] + margin * 0.55, [spanAxis]: max[spanAxis] + margin * 0.28 }),
+      end: point({ [heightAxis]: max[heightAxis], [lengthAxis]: max[lengthAxis] + margin * 0.55, [spanAxis]: max[spanAxis] + margin * 0.28 })
+    }
+  ];
 }
 
 function bindViewerControls() {
@@ -475,7 +525,7 @@ function handleTouchGesture() {
 }
 
 function rotateCamera(dx, dy) {
-  viewer.yaw += dx * 0.006;
+  viewer.yaw -= dx * 0.006;
   viewer.pitch = clamp(viewer.pitch + dy * 0.006, -1.35, 1.35);
 }
 
@@ -516,8 +566,9 @@ function drawScene() {
   resizeCanvasToDisplaySize(canvas);
   gl.viewport(0, 0, canvas.width, canvas.height);
   gl.enable(gl.DEPTH_TEST);
-  gl.enable(gl.CULL_FACE);
-  gl.cullFace(gl.BACK);
+  // The C172 GLB marks its materials as double-sided. Control surfaces are thin,
+  // so backface culling can make one flap vanish from top/down views.
+  gl.disable(gl.CULL_FACE);
   gl.enable(gl.BLEND);
   gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
   gl.clearColor(0, 0, 0, 0);
@@ -555,6 +606,75 @@ function drawScene() {
     gl.uniform1f(viewer.program.uniforms.contrast, part.contrast || 1);
     gl.drawElements(gl.TRIANGLES, part.count, gl.UNSIGNED_INT, 0);
   });
+
+  updateDimensionOverlay(viewProjection);
+}
+
+function updateDimensionOverlay(viewProjection) {
+  if (!dimensionsOverlay || !viewer.dimensionGuides.length) return;
+
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
+  dimensionsOverlay.setAttribute("viewBox", `0 0 ${width} ${height}`);
+  dimensionsOverlay.setAttribute("width", String(width));
+  dimensionsOverlay.setAttribute("height", String(height));
+
+  const guides = viewer.dimensionGuides
+    .map((guide) => {
+      const start = projectPoint(viewProjection, guide.start, width, height);
+      const end = projectPoint(viewProjection, guide.end, width, height);
+      if (!start || !end) return null;
+      return { ...guide, start, end };
+    })
+    .filter(Boolean);
+
+  dimensionsOverlay.innerHTML = guides.map((guide) => dimensionGuideSvg(guide, width, height)).join("");
+}
+
+function dimensionGuideSvg(guide, width, height) {
+  const start = guide.start;
+  const end = guide.end;
+  const dx = end.x - start.x;
+  const dy = end.y - start.y;
+  const length = Math.hypot(dx, dy) || 1;
+  const nx = -dy / length;
+  const ny = dx / length;
+  const tick = 9;
+  const labelWidth = Math.max(96, guide.label.length * 7.1);
+  const labelHeight = 24;
+  const labelX = clamp((start.x + end.x) / 2 + nx * 20, labelWidth / 2 + 6, width - labelWidth / 2 - 6);
+  const labelY = clamp((start.y + end.y) / 2 + ny * 20, labelHeight / 2 + 6, height - labelHeight / 2 - 6);
+
+  return `
+    <g class="dimension-guide-group dimension-${guide.key}">
+      <line class="dimension-guide" x1="${round(start.x)}" y1="${round(start.y)}" x2="${round(end.x)}" y2="${round(end.y)}"></line>
+      <line class="dimension-tick" x1="${round(start.x - nx * tick)}" y1="${round(start.y - ny * tick)}" x2="${round(start.x + nx * tick)}" y2="${round(start.y + ny * tick)}"></line>
+      <line class="dimension-tick" x1="${round(end.x - nx * tick)}" y1="${round(end.y - ny * tick)}" x2="${round(end.x + nx * tick)}" y2="${round(end.y + ny * tick)}"></line>
+      <rect class="dimension-label-bg" x="${round(labelX - labelWidth / 2)}" y="${round(labelY - labelHeight / 2)}" width="${round(labelWidth)}" height="${labelHeight}" rx="8"></rect>
+      <text class="dimension-label" x="${round(labelX)}" y="${round(labelY + 0.5)}">${guide.label}</text>
+    </g>
+  `;
+}
+
+function projectPoint(matrix, point, width, height) {
+  const x = point[0];
+  const y = point[1];
+  const z = point[2];
+  const clipX = matrix[0] * x + matrix[4] * y + matrix[8] * z + matrix[12];
+  const clipY = matrix[1] * x + matrix[5] * y + matrix[9] * z + matrix[13];
+  const clipZ = matrix[2] * x + matrix[6] * y + matrix[10] * z + matrix[14];
+  const clipW = matrix[3] * x + matrix[7] * y + matrix[11] * z + matrix[15];
+  if (clipW <= 0.001) return null;
+
+  const ndcX = clipX / clipW;
+  const ndcY = clipY / clipW;
+  const ndcZ = clipZ / clipW;
+  if (ndcZ < -1.5 || ndcZ > 1.5) return null;
+
+  return {
+    x: (ndcX * 0.5 + 0.5) * width,
+    y: (1 - (ndcY * 0.5 + 0.5)) * height
+  };
 }
 
 function cameraState() {
@@ -804,6 +924,10 @@ function pointerCenter(a, b) {
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
+}
+
+function round(value) {
+  return Math.round(value * 10) / 10;
 }
 
 function setStatus(text) {

@@ -85,9 +85,9 @@ function renderNotice() {
 
 function renderHomeFacts() {
   const dimensions = [
-    { label: "Wingspan", value: "36 ft 1 in" },
-    { label: "Length", value: "27 ft 2 in" },
-    { label: "Height", value: "8 ft 11 in" }
+    { label: "Wingspan", value: "11.00 m" },
+    { label: "Length", value: "8.28 m" },
+    { label: "Height", value: "2.72 m" }
   ];
 
   $("#homeFacts").innerHTML = [...dimensions, ...state.data.quickFacts].map((fact) => `
