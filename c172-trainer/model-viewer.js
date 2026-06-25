@@ -121,7 +121,8 @@ async function loadMaterialTextures(gl, model) {
       texture,
       hasTexture,
       color,
-      transparent: material?.alphaMode === "BLEND" || color[3] < 0.98
+      transparent: material?.alphaMode === "BLEND" || color[3] < 0.98,
+      contrast: materialContrast(material?.name || "")
     };
   }
 
@@ -217,7 +218,8 @@ function primitiveToPart(model, primitive, worldMatrix, materialTextures) {
     texture: materialTextures.fallbackTexture,
     hasTexture: false,
     color: [0.82, 0.84, 0.8, 1],
-    transparent: false
+    transparent: false,
+    contrast: 1
   };
 
   const transformedPositions = new Float32Array(positions.length);
@@ -245,7 +247,8 @@ function primitiveToPart(model, primitive, worldMatrix, materialTextures) {
     color: material.color,
     texture: material.texture,
     hasTexture: material.hasTexture,
-    transparent: material.transparent
+    transparent: material.transparent,
+    contrast: material.contrast
   };
 }
 
@@ -358,6 +361,15 @@ function materialColor(material) {
   if (name.includes("seat") || name.includes("interior")) return [0.22, 0.24, 0.27, 1];
   if (name.includes("steering") || name.includes("metal")) return [0.62, 0.64, 0.66, 1];
   return [0.82, 0.84, 0.8, 1];
+}
+
+function materialContrast(name) {
+  const lower = name.toLowerCase();
+  if (lower.includes("body")) return 1.75;
+  if (lower.includes("paddle")) return 1.45;
+  if (lower.includes("glass")) return 1.15;
+  if (lower.includes("meter") || lower.includes("interior")) return 1.35;
+  return 1.25;
 }
 
 function fitCameraToParts(parts) {
@@ -540,6 +552,7 @@ function drawScene() {
     gl.bindTexture(gl.TEXTURE_2D, part.texture);
     gl.uniform4fv(viewer.program.uniforms.color, new Float32Array(part.color));
     gl.uniform1i(viewer.program.uniforms.hasTexture, part.hasTexture ? 1 : 0);
+    gl.uniform1f(viewer.program.uniforms.contrast, part.contrast || 1);
     gl.drawElements(gl.TRIANGLES, part.count, gl.UNSIGNED_INT, 0);
   });
 }
@@ -584,15 +597,20 @@ function createProgram(gl) {
     uniform vec3 uLightDir;
     uniform sampler2D uBaseTexture;
     uniform bool uHasTexture;
+    uniform float uContrast;
     out vec4 outColor;
     void main() {
       vec3 n = normalize(vNormal);
       float diffuse = max(dot(n, normalize(uLightDir)), 0.0);
       float fill = max(dot(n, normalize(vec3(-0.65, 0.38, -0.32))), 0.0);
+      float underside = max(dot(n, normalize(vec3(0.05, -0.5, -0.25))), 0.0);
       float rim = pow(1.0 - max(abs(n.z), 0.0), 2.0) * 0.06;
       vec4 texel = uHasTexture ? texture(uBaseTexture, vTexcoord) : vec4(1.0);
-      vec3 base = uColor.rgb * texel.rgb;
-      vec3 color = base * (0.68 + diffuse * 0.46 + fill * 0.18) + vec3(rim);
+      vec3 enhancedTexel = clamp((texel.rgb - vec3(0.5)) * uContrast + vec3(0.5), 0.0, 1.0);
+      enhancedTexel = mix(enhancedTexel, pow(enhancedTexel, vec3(0.86)), 0.35);
+      vec3 base = uColor.rgb * enhancedTexel;
+      vec3 color = base * (0.78 + diffuse * 0.42 + fill * 0.22 + underside * 0.12) + vec3(rim);
+      color += vec3(pow(max(dot(reflect(-normalize(uLightDir), n), normalize(vec3(0.0, 0.2, 1.0))), 0.0), 24.0)) * 0.05;
       float alpha = uColor.a * texel.a;
       if (alpha < 0.04) discard;
       outColor = vec4(color, alpha);
@@ -620,7 +638,8 @@ function createProgram(gl) {
       color: gl.getUniformLocation(program, "uColor"),
       lightDir: gl.getUniformLocation(program, "uLightDir"),
       baseTexture: gl.getUniformLocation(program, "uBaseTexture"),
-      hasTexture: gl.getUniformLocation(program, "uHasTexture")
+      hasTexture: gl.getUniformLocation(program, "uHasTexture"),
+      contrast: gl.getUniformLocation(program, "uContrast")
     }
   };
 }
@@ -643,7 +662,7 @@ function makeBuffer(gl, target, data, usage) {
 }
 
 function resizeCanvasToDisplaySize(targetCanvas) {
-  const ratio = Math.max(window.devicePixelRatio || 1, 1);
+  const ratio = Math.min(Math.max(window.devicePixelRatio || 1, 1.5), 2);
   const width = Math.floor(targetCanvas.clientWidth * ratio);
   const height = Math.floor(targetCanvas.clientHeight * ratio);
   if (targetCanvas.width !== width || targetCanvas.height !== height) {
