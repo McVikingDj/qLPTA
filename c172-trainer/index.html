@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>C172 JT-A Trainer</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">qLPTA addon</p>
+          <h1>C172 JT-A Trainer</h1>
+        </div>
+        <div class="top-actions">
+          <button class="ghost-button" id="themeToggle" type="button" aria-label="Toggle theme">Theme</button>
+          <a class="ghost-button" href="../index.html">Back</a>
+        </div>
+      </header>
+
+      <main class="trainer-grid">
+        <aside class="rail" aria-label="Trainer navigation">
+          <button class="nav-button active" type="button" data-view="cockpit">Cockpit</button>
+          <button class="nav-button" type="button" data-view="systems">Systems</button>
+          <button class="nav-button" type="button" data-view="failures">Failures</button>
+          <button class="nav-button" type="button" data-view="oral">Oral</button>
+          <button class="nav-button" type="button" data-view="limits">Limits</button>
+        </aside>
+
+        <section class="stage">
+          <div class="notice" id="studyNotice"></div>
+
+          <section class="view active" id="view-cockpit">
+            <div class="cockpit-layout">
+              <div class="cockpit-card">
+                <div class="cockpit-toolbar">
+                  <div>
+                    <p class="eyebrow">Interactive cockpit</p>
+                    <h2>Click a control, display, or breaker group</h2>
+                  </div>
+                  <select id="systemFilter" aria-label="Filter cockpit hotspots">
+                    <option value="all">All systems</option>
+                    <option value="fuel">Fuel</option>
+                    <option value="fadec">Engine / FADEC</option>
+                    <option value="electrical">Electrical</option>
+                    <option value="g1000">G1000</option>
+                    <option value="airframe">Airframe</option>
+                    <option value="environment">Environment</option>
+                  </select>
+                </div>
+                <div class="cockpit-board" id="cockpitBoard">
+                  <img src="assets/cockpit-placard.jpg" alt="C172 cockpit placard">
+                  <div class="hotspot-layer" id="hotspotLayer"></div>
+                </div>
+              </div>
+
+              <article class="info-panel" id="hotspotPanel">
+                <p class="eyebrow">Selected item</p>
+                <h2>Pick a hotspot</h2>
+                <p>Use the cockpit image as the home base. The cards stay short, then deeper system pages fill in the details.</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="view" id="view-systems">
+            <div class="systems-wrap">
+              <div class="systems-header">
+                <div>
+                  <p class="eyebrow">Aircraft systems</p>
+                  <h2>Compact system map</h2>
+                </div>
+                <span class="status-pill">Editable from data file</span>
+              </div>
+              <div class="systems-grid" id="systemsGrid"></div>
+              <article class="system-detail" id="systemDetail"></article>
+            </div>
+          </section>
+
+          <section class="view" id="view-failures">
+            <div class="practice-layout">
+              <div>
+                <p class="eyebrow">Failure trainer</p>
+                <h2>Plain-English consequences</h2>
+                <div class="failure-list" id="failureList"></div>
+              </div>
+              <article class="info-panel" id="failurePanel"></article>
+            </div>
+          </section>
+
+          <section class="view" id="view-oral">
+            <div class="practice-layout">
+              <div>
+                <p class="eyebrow">Oral practice</p>
+                <h2>Answer first, then reveal</h2>
+                <div class="question-card">
+                  <p id="oralPrompt"></p>
+                  <textarea id="oralAnswer" placeholder="Type your answer here..."></textarea>
+                  <div class="button-row">
+                    <button class="primary-button" id="showModel" type="button">Show model answer</button>
+                    <button class="ghost-button" id="nextQuestion" type="button">Next</button>
+                  </div>
+                </div>
+              </div>
+              <article class="info-panel" id="modelAnswer"></article>
+            </div>
+          </section>
+
+          <section class="view" id="view-limits">
+            <div class="limits-layout">
+              <div>
+                <p class="eyebrow">Memory drill</p>
+                <h2>Fuel path from memory</h2>
+                <p class="muted" id="memoryPrompt"></p>
+                <div class="tile-bank" id="tileBank"></div>
+              </div>
+              <article class="memory-panel">
+                <h3>Your sequence</h3>
+                <ol id="memorySequence"></ol>
+                <div class="button-row">
+                  <button class="primary-button" id="checkMemory" type="button">Check</button>
+                  <button class="ghost-button" id="resetMemory" type="button">Reset</button>
+                </div>
+                <div class="score-box" id="memoryScore"></div>
+              </article>
+              <div class="facts-strip" id="factsStrip"></div>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,429 @@
+:root {
+  color-scheme: dark;
+  --bg: #0c1015;
+  --panel: #151b23;
+  --panel-2: #1c242e;
+  --text: #f3f6f8;
+  --muted: #99a8b7;
+  --line: rgba(255,255,255,.12);
+  --accent: #59c7a3;
+  --blue: #6aa7ff;
+  --amber: #f2b84b;
+  --red: #ef6b73;
+  --shadow: rgba(0,0,0,.35);
+}
+
+:root.light {
+  color-scheme: light;
+  --bg: #f3f5f7;
+  --panel: #ffffff;
+  --panel-2: #e9edf1;
+  --text: #17202a;
+  --muted: #5c6977;
+  --line: rgba(23,32,42,.14);
+  --shadow: rgba(45,55,72,.16);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+button, select, textarea { font: inherit; }
+
+.app-shell {
+  min-height: 100vh;
+  padding: 14px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel) 92%, transparent);
+  box-shadow: 0 16px 40px var(--shadow);
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  color: var(--muted);
+  font-size: .74rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+h1, h2, h3, p { margin-top: 0; }
+
+h1 {
+  margin-bottom: 0;
+  font-size: clamp(1.15rem, 2vw, 1.65rem);
+}
+
+h2 {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+h3 { font-size: .98rem; }
+
+.top-actions, .button-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ghost-button, .primary-button, .nav-button, .tile, .hotspot {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  cursor: pointer;
+  transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease;
+}
+
+.ghost-button, .primary-button {
+  padding: 9px 12px;
+  text-decoration: none;
+  background: var(--panel-2);
+}
+
+.primary-button {
+  background: var(--accent);
+  border-color: transparent;
+  color: #062018;
+  font-weight: 800;
+}
+
+.ghost-button:hover, .primary-button:hover, .nav-button:hover, .tile:hover, .hotspot:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+}
+
+.trainer-grid {
+  display: grid;
+  grid-template-columns: 116px minmax(0, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.rail {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.nav-button {
+  width: 100%;
+  padding: 11px 8px;
+  background: transparent;
+  color: var(--muted);
+}
+
+.nav-button.active {
+  background: var(--panel-2);
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
+}
+
+.stage {
+  min-width: 0;
+}
+
+.notice {
+  margin-bottom: 10px;
+  padding: 9px 12px;
+  border: 1px solid color-mix(in srgb, var(--amber) 45%, var(--line));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--amber) 10%, var(--panel));
+  color: var(--muted);
+  font-size: .88rem;
+}
+
+.view { display: none; }
+.view.active { display: block; }
+
+.cockpit-layout, .practice-layout, .limits-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 330px;
+  gap: 12px;
+}
+
+.cockpit-card, .info-panel, .system-detail, .question-card, .memory-panel, .facts-strip {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: 0 16px 40px var(--shadow);
+}
+
+.cockpit-toolbar, .systems-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+select {
+  max-width: 180px;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel-2);
+  color: var(--text);
+}
+
+.cockpit-board {
+  position: relative;
+  overflow: auto;
+  max-height: calc(100vh - 178px);
+  background: #fff;
+}
+
+.cockpit-board img {
+  display: block;
+  width: 100%;
+  min-width: 860px;
+  height: auto;
+}
+
+.hotspot-layer {
+  position: absolute;
+  inset: 0;
+  min-width: 860px;
+}
+
+.hotspot {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 74%, white);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 18%, transparent), 0 8px 18px rgba(0,0,0,.25);
+}
+
+.hotspot.hidden { display: none; }
+.hotspot[data-system="fuel"] { background: #68d391; }
+.hotspot[data-system="electrical"] { background: #6aa7ff; }
+.hotspot[data-system="fadec"] { background: #f2b84b; }
+.hotspot[data-system="g1000"] { background: #a78bfa; }
+.hotspot[data-system="airframe"] { background: #f687b3; }
+.hotspot[data-system="environment"] { background: #67e8f9; }
+
+.hotspot.active {
+  outline: 3px solid #fff;
+  transform: scale(1.12);
+}
+
+.info-panel, .system-detail, .memory-panel, .facts-strip {
+  padding: 14px;
+}
+
+.info-panel p, .system-detail p, .muted {
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.info-panel ul, .system-detail ul {
+  padding-left: 18px;
+  color: var(--muted);
+}
+
+.tag-row, .component-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.tag, .status-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 5px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: .82rem;
+}
+
+.systems-wrap {
+  display: grid;
+  gap: 12px;
+}
+
+.systems-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.system-card, .failure-card {
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  transition: transform .18s ease, border-color .18s ease;
+}
+
+.system-card:hover, .failure-card:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+}
+
+.system-card.active, .failure-card.active {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, var(--panel));
+}
+
+.system-card p, .failure-card p {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: .88rem;
+  line-height: 1.35;
+}
+
+.system-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 7px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.system-dot.amber { background: var(--amber); }
+.system-dot.blue { background: var(--blue); }
+.system-dot.cyan { background: #67e8f9; }
+.system-dot.purple { background: #f687b3; }
+.system-dot.violet { background: #a78bfa; }
+
+.failure-list {
+  display: grid;
+  gap: 8px;
+}
+
+.question-card {
+  padding: 14px;
+}
+
+textarea {
+  width: 100%;
+  min-height: 180px;
+  resize: vertical;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel-2);
+  color: var(--text);
+}
+
+.tile-bank {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.tile {
+  padding: 10px 12px;
+  background: var(--panel);
+}
+
+.tile.used {
+  opacity: .45;
+  pointer-events: none;
+}
+
+.memory-panel ol {
+  min-height: 150px;
+  padding-left: 22px;
+  color: var(--muted);
+}
+
+.score-box {
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  background: var(--panel-2);
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.facts-strip {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.fact {
+  padding: 11px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel-2);
+}
+
+.fact strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.fact span {
+  color: var(--muted);
+  font-size: .86rem;
+}
+
+@media (max-width: 1050px) {
+  .cockpit-layout, .practice-layout, .limits-layout {
+    grid-template-columns: 1fr;
+  }
+  .systems-grid, .facts-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .cockpit-board {
+    max-height: 62vh;
+  }
+}
+
+@media (max-width: 720px) {
+  .app-shell { padding: 8px; }
+  .topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .trainer-grid {
+    grid-template-columns: 1fr;
+  }
+  .rail {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    overflow-x: auto;
+  }
+  .nav-button {
+    min-width: 84px;
+  }
+  .systems-grid, .facts-strip {
+    grid-template-columns: 1fr;
+  }
+  .cockpit-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

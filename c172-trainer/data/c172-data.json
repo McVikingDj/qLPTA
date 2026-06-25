@@ -1,0 +1,349 @@
+{
+  "meta": {
+    "title": "C172 JT-A Trainer",
+    "subtitle": "OSM Cessna 172R/S diesel technical study addon",
+    "notice": "Study aid only. Use current POH/AFM, OSM procedures, instructor guidance, and approved checklists for operation."
+  },
+  "quickFacts": [
+    { "label": "Engine", "value": "TAE 125-02-114, FADEC controlled, Jet-A/diesel concept" },
+    { "label": "Power", "value": "155 BHP at 2300 RPM" },
+    { "label": "Fuel", "value": "47.6 US gal total, 44.6 US gal usable" },
+    { "label": "Electrical", "value": "28 V / 60 A alternator, 24 V main battery, 24 V standby battery" },
+    { "label": "Flaps", "value": "10, 20, 30 degrees via electric flap motor" }
+  ],
+  "hotspots": [
+    {
+      "id": "master",
+      "label": "Master / Avionics",
+      "x": 8.2,
+      "y": 31.8,
+      "type": "switch",
+      "system": "electrical",
+      "summary": "Main electrical control area for battery, alternator, and avionics buses.",
+      "details": [
+        "BAT supplies the main bus from the aircraft battery.",
+        "ALT brings the alternator online when the engine is running.",
+        "Avionics Bus 1 and Bus 2 power the installed avionics equipment."
+      ],
+      "check": "Know which items remain available on essential/standby power after failures."
+    },
+    {
+      "id": "stby-batt",
+      "label": "Standby Battery",
+      "x": 8.2,
+      "y": 25.5,
+      "type": "switch",
+      "system": "electrical",
+      "summary": "Independent 24 V standby source connected to the essential bus.",
+      "details": [
+        "Used to support essential equipment during selected electrical failures.",
+        "The diesel installation also uses backup power logic for FADEC A."
+      ],
+      "check": "Treat endurance values as POH/AFM-specific. The trainer marks this as a study reminder, not a checklist."
+    },
+    {
+      "id": "pfd",
+      "label": "PFD",
+      "x": 27.8,
+      "y": 23.2,
+      "type": "display",
+      "system": "g1000",
+      "summary": "Primary flight display for attitude, air data, navigation, and engine strip awareness.",
+      "details": [
+        "Failure modes include display failure, ADC/AHRS loss, magnetometer loss, or engine data loss.",
+        "Reversionary mode can present essential information on the remaining display."
+      ],
+      "check": "Be able to explain what changes when AHRS, ADC, or display information is lost."
+    },
+    {
+      "id": "mfd",
+      "label": "MFD / Engine",
+      "x": 62.8,
+      "y": 23.2,
+      "type": "display",
+      "system": "g1000",
+      "summary": "Multi-function display with map, engine indications, systems information, and G1000 pages.",
+      "details": [
+        "Engine strip indications are central for diesel system monitoring.",
+        "Electrical voltage, current, fuel quantity, and engine parameters are part of the technical scan."
+      ],
+      "check": "Use this area for future clickable G1000 failure and indication training."
+    },
+    {
+      "id": "engine-master",
+      "label": "Engine Master",
+      "x": 19.3,
+      "y": 40.9,
+      "type": "switch",
+      "system": "fadec",
+      "summary": "Engine master switch controls engine/FADEC operating state.",
+      "details": [
+        "The JT-A uses FADEC and single-lever style engine management.",
+        "Engine operation depends on correct FADEC power, fuel, and sensor logic."
+      ],
+      "check": "Good oral topic: explain why diesel/FADEC operation differs from a conventional avgas C172."
+    },
+    {
+      "id": "fadec-panel",
+      "label": "FADEC Test / Force B",
+      "x": 13.1,
+      "y": 47.9,
+      "type": "switch",
+      "system": "fadec",
+      "summary": "FADEC test and backup channel controls.",
+      "details": [
+        "FADEC A and B provide engine control channels.",
+        "The pre-takeoff FADEC test verifies automatic control logic before flight."
+      ],
+      "check": "Later we can model the exact test sequence using approved procedures."
+    },
+    {
+      "id": "circuit-breakers",
+      "label": "Circuit Breaker Panel",
+      "x": 22.3,
+      "y": 50.3,
+      "type": "breaker",
+      "system": "electrical",
+      "summary": "Cockpit circuit breaker panel for protected electrical loads.",
+      "details": [
+        "Groups include electrical buses, avionics, FADEC, lights, flaps, and instruments.",
+        "Breaker logic is a future high-value simulator layer."
+      ],
+      "check": "Use the cockpit card as the visual source for exact breaker names and positions."
+    },
+    {
+      "id": "flaps",
+      "label": "Wing Flaps",
+      "x": 64.8,
+      "y": 50.4,
+      "type": "control",
+      "system": "airframe",
+      "summary": "Electric flap selector with 10, 20, and 30 degree positions.",
+      "details": [
+        "Single slotted Fowler flaps are driven by one electric motor in the right wing.",
+        "Published flap speed limits and landing configurations are core technical test items."
+      ],
+      "check": "Know the max speeds for flap 10 and flap 20/30."
+    },
+    {
+      "id": "cabin-air",
+      "label": "Cabin Heat / Air",
+      "x": 75.5,
+      "y": 51.6,
+      "type": "control",
+      "system": "environment",
+      "summary": "Cabin heat and ventilation controls.",
+      "details": [
+        "Ram air enters through wing openings and can be directed through cabin nozzles.",
+        "Heated air is associated with engine cooling air and must be treated carefully in smoke, fire, or CO scenarios."
+      ],
+      "check": "Oral prompt: when should cabin heat/air not be used?"
+    },
+    {
+      "id": "fuel-shutoff",
+      "label": "Fuel Shutoff",
+      "x": 54.5,
+      "y": 78.8,
+      "type": "control",
+      "system": "fuel",
+      "summary": "Fuel shutoff control on the center pedestal.",
+      "details": [
+        "This is part of engine securing logic in abnormal procedures.",
+        "The trainer keeps responses high-level and avoids checklist replacement."
+      ],
+      "check": "Study link: engine fire, engine failure, and securing engine memory items."
+    },
+    {
+      "id": "fuel-selector",
+      "label": "Fuel Selector",
+      "x": 49.7,
+      "y": 91.6,
+      "type": "control",
+      "system": "fuel",
+      "summary": "Fuel selector with BOTH, LEFT, and RIGHT positions.",
+      "details": [
+        "Normal fuel management and imbalance awareness are part of system knowledge.",
+        "Fuel quantity and LOW FUEL logic should be cross-checked with the G1000 indications."
+      ],
+      "check": "Be able to explain what changes when LEFT or RIGHT is selected."
+    }
+  ],
+  "systems": [
+    {
+      "id": "fuel",
+      "name": "Fuel",
+      "status": "ready",
+      "tone": "green",
+      "headline": "Two wing tanks feed the diesel engine through selector, pumps, filtration, high-pressure delivery, and return logic.",
+      "learn": [
+        "Two tanks: 23.8 US gal each, 47.6 US gal total.",
+        "Usable fuel: 22.3 US gal each, 44.6 US gal total.",
+        "Fuel reaches the engine through gravity/feed path support plus electric and engine-driven pumping.",
+        "Approved fuel notes in the course: Jet A-1 and Jet A; do not fuel with AVGAS."
+      ],
+      "components": ["Left tank", "Right tank", "Fuel selector", "Electric fuel pump", "Fuel filter", "Engine-driven feeder pump", "High-pressure pump", "Common rail", "Injectors", "Return path"],
+      "oral": [
+        "Explain the fuel path from tank to injector.",
+        "What happens to system risk if the fuel filter becomes restricted?",
+        "What changes when only LEFT or only RIGHT is selected?"
+      ]
+    },
+    {
+      "id": "fadec",
+      "name": "Engine / FADEC",
+      "status": "ready",
+      "tone": "amber",
+      "headline": "A liquid-cooled turbocharged diesel engine is controlled by FADEC with A/B channel logic.",
+      "learn": [
+        "TAE 125-02-114, four-cylinder, liquid-cooled, turbocharged engine.",
+        "155 BHP at 2300 RPM through a reduction gearbox.",
+        "Compression ignition: no conventional spark ignition system.",
+        "FADEC power and backup logic are central oral-test topics."
+      ],
+      "components": ["Engine master", "FADEC A", "FADEC B", "Sensors", "Single power lever", "Turbocharger", "Reduction gearbox"],
+      "oral": [
+        "Explain what FADEC does in simple terms.",
+        "Why does this engine not use magnetos?",
+        "What is the purpose of the FADEC test before takeoff?"
+      ]
+    },
+    {
+      "id": "electrical",
+      "name": "Electrical",
+      "status": "ready",
+      "tone": "blue",
+      "headline": "A 28 V alternator, main battery, standby battery, buses, switches, and breakers supply aircraft loads.",
+      "learn": [
+        "Alternator: 28 V, 60 A.",
+        "Main battery: 24 V, installed forward of the firewall area.",
+        "Standby battery: 24 V, connected to essential bus logic.",
+        "Electrical failures are best learned through bus/load relationships."
+      ],
+      "components": ["Alternator", "Main battery", "Standby battery", "Main bus", "Essential bus", "Avionics buses", "Circuit breakers", "Master switches"],
+      "oral": [
+        "Explain normal alternator and battery roles.",
+        "What is the purpose of the standby battery?",
+        "What cockpit indications would you expect during low-voltage operation?"
+      ]
+    },
+    {
+      "id": "cooling-oil",
+      "name": "Cooling / Oil / Gearbox",
+      "status": "draft",
+      "tone": "cyan",
+      "headline": "Liquid cooling, oil quantity, and gearbox oil checks are key diesel-specific handling items.",
+      "learn": [
+        "Cooling circuit changes with temperature through thermostat logic.",
+        "Course note: small circuit below 84 C, transition 84-94 C, large circuit 94-105 C.",
+        "Oil quantity range: 4.5-6 L.",
+        "Gearbox oil quantity is checked before flight."
+      ],
+      "components": ["Coolant pump", "Thermostat", "Radiator", "Oil system", "Gearbox oil sight glass"],
+      "oral": [
+        "Why does coolant temperature matter for diesel engine operation?",
+        "What oil quantity range should you know?",
+        "What is checked at the gearbox before flight?"
+      ]
+    },
+    {
+      "id": "airframe",
+      "name": "Airframe / Controls",
+      "status": "draft",
+      "tone": "purple",
+      "headline": "Flaps, controls, landing gear, brakes, doors, and limitation numbers form the aircraft-handling foundation.",
+      "learn": [
+        "Flaps are electrically operated single slotted Fowler flaps.",
+        "Flap positions: 10, 20, and 30 degrees.",
+        "Know normal and utility category weight/load-factor differences.",
+        "Landing technique varies with flap setting, wind, and surface."
+      ],
+      "components": ["Ailerons", "Elevator", "Rudder", "Flaps", "Nose wheel", "Main gear", "Brakes"],
+      "oral": [
+        "Describe the flap system.",
+        "When might flap 20 be preferred over full flap?",
+        "What is the difference between normal and utility category?"
+      ]
+    },
+    {
+      "id": "g1000",
+      "name": "G1000 / Instruments",
+      "status": "ready",
+      "tone": "violet",
+      "headline": "PFD, MFD, LRUs, ADC/AHRS, magnetometer, engine data, and reversionary mode tie the cockpit together.",
+      "learn": [
+        "PFD and MFD failure modes must be recognized quickly.",
+        "AHRS, ADC, magnetometer, GEA, NAV/COM, and audio panel failures have different symptoms.",
+        "Engine and electrical indications support technical decision-making.",
+        "Traffic, AoA, and map functions are useful but do not replace basic scan."
+      ],
+      "components": ["PFD", "MFD", "Audio panel", "ADAHRS", "ADC", "Magnetometer", "GEA", "Transponder"],
+      "oral": [
+        "Explain what happens after a display failure.",
+        "What information is lost with ADC failure?",
+        "How would you recognize AHRS failure?"
+      ]
+    }
+  ],
+  "failures": [
+    {
+      "id": "low-volts",
+      "system": "electrical",
+      "title": "LOW VOLTS / alternator not carrying load",
+      "indication": "Low-voltage warning, battery discharge trend, reduced electrical endurance.",
+      "risk": "Progressive loss of electrical equipment if power source management is not corrected.",
+      "studyResponse": "Study note: identify source/load problem, preserve essential equipment, and use approved checklist."
+    },
+    {
+      "id": "restricted-filter",
+      "system": "fuel",
+      "title": "Restricted fuel filter",
+      "indication": "Possible power instability, abnormal fuel pressure/flow logic, or engine roughness depending on severity.",
+      "risk": "Reduced fuel delivery to high-pressure side and engine power reliability concern.",
+      "studyResponse": "Study note: treat as fuel/engine abnormality and follow approved procedures."
+    },
+    {
+      "id": "fadec-channel",
+      "system": "fadec",
+      "title": "FADEC channel problem",
+      "indication": "FADEC caution/warning logic and possible channel reversion depending on fault.",
+      "risk": "Reduced redundancy or degraded engine control logic.",
+      "studyResponse": "Study note: understand A/B channel purpose and use the aircraft checklist, not memory guesses."
+    },
+    {
+      "id": "coolant-high",
+      "system": "cooling-oil",
+      "title": "High coolant temperature",
+      "indication": "Coolant temperature rising toward or beyond normal range.",
+      "risk": "Thermal stress, possible engine limitation exceedance, or power management issue.",
+      "studyResponse": "Study note: reduce thermal load as directed by approved procedures and monitor trend."
+    }
+  ],
+  "oralQuestions": [
+    {
+      "prompt": "Explain the complete fuel path from tank to injector.",
+      "model": "Fuel is stored in the wing tanks, selected through the fuel selector, then routed through the low-pressure/feed side including pump and filter functions before engine-driven/high-pressure delivery supplies the common rail and injectors. Return logic routes unused fuel back through the system as designed."
+    },
+    {
+      "prompt": "Why is the JT-A engine different from a normal avgas C172 engine?",
+      "model": "It is a diesel/Jet-A installation with compression ignition, FADEC control, liquid cooling, turbocharging, a reduction gearbox, and single-lever style power management instead of mixture/prop/magneto handling."
+    },
+    {
+      "prompt": "What are the main electrical power sources?",
+      "model": "The system uses a 28 V alternator, 24 V main battery, and 24 V standby battery. The alternator normally carries the load in flight, the main battery supports starting and backup supply, and the standby battery supports essential bus logic."
+    },
+    {
+      "prompt": "Describe the flap system and important speeds.",
+      "model": "The aircraft has electrically operated single slotted Fowler flaps with 10, 20, and 30 degree positions. Course limits include 110 KIAS for flap 10 and 85 KIAS for flap 20/30."
+    },
+    {
+      "prompt": "When should cabin heat or cabin air not be used?",
+      "model": "Study note: do not use cabin heat/air in scenarios such as engine fire, electrical fire, suspected carbon monoxide, strange smell, dizziness, or as otherwise directed by approved procedures."
+    }
+  ],
+  "memoryDrill": {
+    "title": "Fuel Path Memory",
+    "prompt": "Click the fuel components in the most logical tank-to-engine order.",
+    "answer": ["Wing tanks", "Fuel selector", "Electric fuel pump", "Fuel filter", "Engine-driven feeder pump", "High-pressure pump", "Common rail", "Injectors", "Engine"],
+    "options": ["Injectors", "Fuel filter", "Wing tanks", "Engine", "Fuel selector", "Common rail", "Electric fuel pump", "Return path", "High-pressure pump", "Engine-driven feeder pump"]
+  }
+}
