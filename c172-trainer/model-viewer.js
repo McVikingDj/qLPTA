@@ -39,12 +39,14 @@ async function initModelViewer() {
   viewer.program = createProgram(gl);
 
   const model = await loadGlb(MODEL_URL);
-  viewer.parts = buildRenderableParts(gl, model);
+  const materialTextures = await loadMaterialTextures(gl, model);
+  viewer.parts = buildRenderableParts(gl, model, materialTextures);
   fitCameraToParts(viewer.parts);
   bindViewerControls();
   canvas.dataset.modelReady = "true";
   canvas.dataset.modelParts = String(viewer.parts.length);
   canvas.dataset.modelTriangles = String(Math.round(viewer.parts.reduce((sum, part) => sum + part.count / 3, 0)));
+  canvas.dataset.modelTextures = String(materialTextures.textureCount);
   hideStatus();
   requestDraw();
 
@@ -57,6 +59,7 @@ async function initModelViewer() {
     stats: () => ({
       parts: viewer.parts.length,
       triangles: viewer.parts.reduce((sum, part) => sum + part.count / 3, 0),
+      textures: viewer.parts.filter((part) => part.hasTexture).length,
       radius: viewer.radius
     })
   };
@@ -94,17 +97,85 @@ async function loadGlb(url) {
   return { json, bin };
 }
 
-function buildRenderableParts(gl, model) {
+async function loadMaterialTextures(gl, model) {
+  const fallbackTexture = createSolidTexture(gl, [255, 255, 255, 255]);
+  const textureCache = new Map();
+  const materials = [];
+
+  for (let index = 0; index < (model.json.materials || []).length; index++) {
+    const material = model.json.materials[index];
+    const color = materialColor(material);
+    const textureIndex = material?.pbrMetallicRoughness?.baseColorTexture?.index;
+    let texture = fallbackTexture;
+    let hasTexture = false;
+
+    if (Number.isInteger(textureIndex)) {
+      if (!textureCache.has(textureIndex)) {
+        textureCache.set(textureIndex, await createGlTexture(gl, model, textureIndex));
+      }
+      texture = textureCache.get(textureIndex);
+      hasTexture = true;
+    }
+
+    materials[index] = {
+      texture,
+      hasTexture,
+      color,
+      transparent: material?.alphaMode === "BLEND" || color[3] < 0.98
+    };
+  }
+
+  return { fallbackTexture, materials, textureCount: textureCache.size };
+}
+
+async function createGlTexture(gl, model, textureIndex) {
+  const textureDef = model.json.textures[textureIndex];
+  const imageDef = model.json.images[textureDef.source];
+  const sampler = model.json.samplers?.[textureDef.sampler] || {};
+  const view = model.json.bufferViews[imageDef.bufferView];
+  const byteOffset = view.byteOffset || 0;
+  const byteLength = view.byteLength;
+  const bytes = model.bin.slice(byteOffset, byteOffset + byteLength);
+  const blob = new Blob([bytes], { type: imageDef.mimeType || "image/png" });
+  const image = await createImageBitmap(blob);
+  const texture = gl.createTexture();
+
+  gl.bindTexture(gl.TEXTURE_2D, texture);
+  gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, sampler.wrapS || gl.REPEAT);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, sampler.wrapT || gl.REPEAT);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, sampler.magFilter || gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, sampler.minFilter || gl.LINEAR_MIPMAP_LINEAR);
+  gl.generateMipmap(gl.TEXTURE_2D);
+  image.close?.();
+
+  return texture;
+}
+
+function createSolidTexture(gl, rgba) {
+  const texture = gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_2D, texture);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(rgba));
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  return texture;
+}
+
+function buildRenderableParts(gl, model, materialTextures) {
   const parts = [];
   const scene = model.json.scenes?.[model.json.scene || 0];
   const roots = scene?.nodes || [];
   const identity = mat4Identity();
 
-  roots.forEach((nodeIndex) => traverseNode(model, nodeIndex, identity, parts));
+  roots.forEach((nodeIndex) => traverseNode(model, nodeIndex, identity, parts, materialTextures));
 
   parts.forEach((part) => {
     part.positionBuffer = makeBuffer(gl, gl.ARRAY_BUFFER, part.positions, gl.STATIC_DRAW);
     part.normalBuffer = makeBuffer(gl, gl.ARRAY_BUFFER, part.normals, gl.STATIC_DRAW);
+    part.texcoordBuffer = makeBuffer(gl, gl.ARRAY_BUFFER, part.texcoords, gl.STATIC_DRAW);
     part.indexBuffer = makeBuffer(gl, gl.ELEMENT_ARRAY_BUFFER, part.indices, gl.STATIC_DRAW);
     part.count = part.indices.length;
   });
@@ -112,7 +183,7 @@ function buildRenderableParts(gl, model) {
   return parts;
 }
 
-function traverseNode(model, nodeIndex, parentMatrix, parts) {
+function traverseNode(model, nodeIndex, parentMatrix, parts, materialTextures) {
   const node = model.json.nodes[nodeIndex];
   const worldMatrix = mat4Multiply(parentMatrix, nodeLocalMatrix(node));
 
@@ -120,15 +191,15 @@ function traverseNode(model, nodeIndex, parentMatrix, parts) {
     const mesh = model.json.meshes[node.mesh];
     mesh.primitives.forEach((primitive) => {
       if (primitive.mode !== undefined && primitive.mode !== 4) return;
-      const part = primitiveToPart(model, primitive, worldMatrix);
+      const part = primitiveToPart(model, primitive, worldMatrix, materialTextures);
       if (part) parts.push(part);
     });
   }
 
-  (node.children || []).forEach((childIndex) => traverseNode(model, childIndex, worldMatrix, parts));
+  (node.children || []).forEach((childIndex) => traverseNode(model, childIndex, worldMatrix, parts, materialTextures));
 }
 
-function primitiveToPart(model, primitive, worldMatrix) {
+function primitiveToPart(model, primitive, worldMatrix, materialTextures) {
   const positionAccessor = primitive.attributes?.POSITION;
   if (!Number.isInteger(positionAccessor)) return null;
 
@@ -136,9 +207,18 @@ function primitiveToPart(model, primitive, worldMatrix) {
   const normals = Number.isInteger(primitive.attributes.NORMAL)
     ? readAccessor(model, primitive.attributes.NORMAL)
     : null;
+  const texcoords = Number.isInteger(primitive.attributes.TEXCOORD_0)
+    ? readAccessor(model, primitive.attributes.TEXCOORD_0)
+    : new Float32Array((positions.length / 3) * 2);
   const indices = Number.isInteger(primitive.indices)
     ? readIndices(model, primitive.indices)
     : sequentialIndices(positions.length / 3);
+  const material = materialTextures.materials[primitive.material] || {
+    texture: materialTextures.fallbackTexture,
+    hasTexture: false,
+    color: [0.82, 0.84, 0.8, 1],
+    transparent: false
+  };
 
   const transformedPositions = new Float32Array(positions.length);
   const transformedNormals = normals ? new Float32Array(normals.length) : null;
@@ -160,8 +240,12 @@ function primitiveToPart(model, primitive, worldMatrix) {
   return {
     positions: transformedPositions,
     normals: transformedNormals || buildNormals(transformedPositions, indices),
+    texcoords,
     indices,
-    color: materialColor(model.json.materials?.[primitive.material])
+    color: material.color,
+    texture: material.texture,
+    hasTexture: material.hasTexture,
+    transparent: material.transparent
   };
 }
 
@@ -262,11 +346,13 @@ function buildNormals(positions, indices) {
 function materialColor(material) {
   const name = (material?.name || "").toLowerCase();
   const factor = material?.pbrMetallicRoughness?.baseColorFactor;
+  const hasTexture = Number.isInteger(material?.pbrMetallicRoughness?.baseColorTexture?.index);
 
   if (factor && factor.length >= 3 && factor[0] + factor[1] + factor[2] > 0.04) {
     return [factor[0], factor[1], factor[2], factor[3] ?? 1];
   }
 
+  if (hasTexture) return [1, 1, 1, 1];
   if (name.includes("glass") || name.includes("window")) return [0.34, 0.62, 0.72, 0.72];
   if (name.includes("wheel") || name.includes("tire") || name.includes("button")) return [0.03, 0.03, 0.035, 1];
   if (name.includes("seat") || name.includes("interior")) return [0.22, 0.24, 0.27, 1];
@@ -420,6 +506,8 @@ function drawScene() {
   gl.enable(gl.DEPTH_TEST);
   gl.enable(gl.CULL_FACE);
   gl.cullFace(gl.BACK);
+  gl.enable(gl.BLEND);
+  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
   gl.clearColor(0, 0, 0, 0);
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
@@ -432,6 +520,7 @@ function drawScene() {
   gl.useProgram(viewer.program.program);
   gl.uniformMatrix4fv(viewer.program.uniforms.viewProjection, false, viewProjection);
   gl.uniform3fv(viewer.program.uniforms.lightDir, new Float32Array(vec3Normalize([0.4, 0.75, 0.55])));
+  gl.uniform1i(viewer.program.uniforms.baseTexture, 0);
 
   viewer.parts.forEach((part) => {
     gl.bindBuffer(gl.ARRAY_BUFFER, part.positionBuffer);
@@ -442,8 +531,15 @@ function drawScene() {
     gl.enableVertexAttribArray(viewer.program.attributes.normal);
     gl.vertexAttribPointer(viewer.program.attributes.normal, 3, gl.FLOAT, false, 0, 0);
 
+    gl.bindBuffer(gl.ARRAY_BUFFER, part.texcoordBuffer);
+    gl.enableVertexAttribArray(viewer.program.attributes.texcoord);
+    gl.vertexAttribPointer(viewer.program.attributes.texcoord, 2, gl.FLOAT, false, 0, 0);
+
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, part.indexBuffer);
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, part.texture);
     gl.uniform4fv(viewer.program.uniforms.color, new Float32Array(part.color));
+    gl.uniform1i(viewer.program.uniforms.hasTexture, part.hasTexture ? 1 : 0);
     gl.drawElements(gl.TRIANGLES, part.count, gl.UNSIGNED_INT, 0);
   });
 }
@@ -465,13 +561,16 @@ function createProgram(gl) {
   const vertex = compileShader(gl, gl.VERTEX_SHADER, `#version 300 es
     in vec3 aPosition;
     in vec3 aNormal;
+    in vec2 aTexcoord;
     uniform mat4 uViewProjection;
     out vec3 vNormal;
+    out vec2 vTexcoord;
     out float vDepth;
     void main() {
       vec4 clip = uViewProjection * vec4(aPosition, 1.0);
       gl_Position = clip;
       vNormal = normalize(aNormal);
+      vTexcoord = aTexcoord;
       vDepth = clip.z / clip.w;
     }
   `);
@@ -479,16 +578,24 @@ function createProgram(gl) {
   const fragment = compileShader(gl, gl.FRAGMENT_SHADER, `#version 300 es
     precision highp float;
     in vec3 vNormal;
+    in vec2 vTexcoord;
     in float vDepth;
     uniform vec4 uColor;
     uniform vec3 uLightDir;
+    uniform sampler2D uBaseTexture;
+    uniform bool uHasTexture;
     out vec4 outColor;
     void main() {
       vec3 n = normalize(vNormal);
       float diffuse = max(dot(n, normalize(uLightDir)), 0.0);
-      float rim = pow(1.0 - max(abs(n.z), 0.0), 2.0) * 0.12;
-      vec3 color = uColor.rgb * (0.36 + diffuse * 0.62) + vec3(rim);
-      outColor = vec4(color, uColor.a);
+      float fill = max(dot(n, normalize(vec3(-0.65, 0.38, -0.32))), 0.0);
+      float rim = pow(1.0 - max(abs(n.z), 0.0), 2.0) * 0.06;
+      vec4 texel = uHasTexture ? texture(uBaseTexture, vTexcoord) : vec4(1.0);
+      vec3 base = uColor.rgb * texel.rgb;
+      vec3 color = base * (0.68 + diffuse * 0.46 + fill * 0.18) + vec3(rim);
+      float alpha = uColor.a * texel.a;
+      if (alpha < 0.04) discard;
+      outColor = vec4(color, alpha);
     }
   `);
 
@@ -505,12 +612,15 @@ function createProgram(gl) {
     program,
     attributes: {
       position: gl.getAttribLocation(program, "aPosition"),
-      normal: gl.getAttribLocation(program, "aNormal")
+      normal: gl.getAttribLocation(program, "aNormal"),
+      texcoord: gl.getAttribLocation(program, "aTexcoord")
     },
     uniforms: {
       viewProjection: gl.getUniformLocation(program, "uViewProjection"),
       color: gl.getUniformLocation(program, "uColor"),
-      lightDir: gl.getUniformLocation(program, "uLightDir")
+      lightDir: gl.getUniformLocation(program, "uLightDir"),
+      baseTexture: gl.getUniformLocation(program, "uBaseTexture"),
+      hasTexture: gl.getUniformLocation(program, "uHasTexture")
     }
   };
 }
