@@ -9,125 +9,206 @@
   <body>
     <div class="app-shell">
       <header class="topbar">
-        <div>
-          <p class="eyebrow">qLPTA addon</p>
-          <h1>C172 JT-A Trainer</h1>
-        </div>
+        <h1>Cessna 172 Trainer Module</h1>
         <div class="top-actions">
           <button class="ghost-button" id="themeToggle" type="button" aria-label="Toggle theme">Theme</button>
           <a class="ghost-button" href="../index.html">Back</a>
         </div>
       </header>
 
-      <main class="trainer-grid">
-        <aside class="rail" aria-label="Trainer navigation">
-          <button class="nav-button active" type="button" data-view="cockpit">Cockpit</button>
-          <button class="nav-button" type="button" data-view="systems">Systems</button>
-          <button class="nav-button" type="button" data-view="failures">Failures</button>
-          <button class="nav-button" type="button" data-view="oral">Oral</button>
-          <button class="nav-button" type="button" data-view="limits">Limits</button>
-        </aside>
+      <main class="trainer-stage">
+        <div class="notice" id="studyNotice"></div>
 
-        <section class="stage">
-          <div class="notice" id="studyNotice"></div>
-
-          <section class="view active" id="view-cockpit">
-            <div class="cockpit-layout">
-              <div class="cockpit-card">
-                <div class="cockpit-toolbar">
-                  <div>
-                    <p class="eyebrow">Interactive cockpit</p>
-                    <h2>Click a control, display, or breaker group</h2>
-                  </div>
-                  <select id="systemFilter" aria-label="Filter cockpit hotspots">
-                    <option value="all">All systems</option>
-                    <option value="fuel">Fuel</option>
-                    <option value="fadec">Engine / FADEC</option>
-                    <option value="electrical">Electrical</option>
-                    <option value="g1000">G1000</option>
-                    <option value="airframe">Airframe</option>
-                    <option value="environment">Environment</option>
-                  </select>
-                </div>
-                <div class="cockpit-board" id="cockpitBoard">
-                  <img src="assets/cockpit-placard.jpg" alt="C172 cockpit placard">
-                  <div class="hotspot-layer" id="hotspotLayer"></div>
-                </div>
+        <section class="view active" id="view-airframe">
+          <div class="airframe-home">
+            <section class="aircraft-board" aria-labelledby="airframeTitle">
+              <div class="section-heading">
+                <p class="eyebrow">Airframe overview</p>
+                <h2 id="airframeTitle">Exterior reference</h2>
               </div>
+              <div class="aircraft-render" role="img" aria-label="Exterior Cessna 172 side and top reference with dimensions and component labels">
+                <svg viewBox="0 0 1120 620" aria-hidden="true">
+                  <defs>
+                    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                      <path d="M 0 0 L 10 5 L 0 10 z"></path>
+                    </marker>
+                  </defs>
 
-              <article class="info-panel" id="hotspotPanel">
-                <p class="eyebrow">Selected item</p>
-                <h2>Pick a hotspot</h2>
-                <p>Use the cockpit image as the home base. The cards stay short, then deeper system pages fill in the details.</p>
-              </article>
+                  <g class="dimension-lines">
+                    <line class="dim-main" x1="165" y1="470" x2="895" y2="470"></line>
+                    <line x1="165" y1="450" x2="165" y2="490"></line>
+                    <line x1="895" y1="450" x2="895" y2="490"></line>
+                    <text x="530" y="504">Length 27 ft 2 in</text>
+
+                    <line class="dim-main" x1="1000" y1="156" x2="1000" y2="396"></line>
+                    <line x1="978" y1="156" x2="1022" y2="156"></line>
+                    <line x1="978" y1="396" x2="1022" y2="396"></line>
+                    <text x="1032" y="278">Height 8 ft 11 in</text>
+
+                    <line class="dim-main" x1="180" y1="110" x2="535" y2="110"></line>
+                    <line x1="180" y1="92" x2="180" y2="128"></line>
+                    <line x1="535" y1="92" x2="535" y2="128"></line>
+                    <text x="358" y="82">Wingspan 36 ft 1 in</text>
+                  </g>
+
+                  <g class="top-view">
+                    <path class="wing-plan" d="M180 143 C245 126 471 126 535 143 L525 176 C458 166 257 166 190 176 Z"></path>
+                    <path class="fuselage-plan" d="M334 126 C365 122 389 122 420 126 L432 180 C396 188 358 188 322 180 Z"></path>
+                    <path class="tail-plan" d="M326 183 L426 183 L450 218 L302 218 Z"></path>
+                  </g>
+
+                  <g class="side-view">
+                    <path class="wing-side" d="M410 230 C495 211 610 213 710 232 L694 252 C590 246 500 246 394 252 Z"></path>
+                    <path class="strut" d="M502 251 L610 356"></path>
+                    <path class="strut" d="M676 250 L620 357"></path>
+                    <path class="fuselage" d="M190 350 C270 304 352 281 493 286 L710 294 C786 296 841 309 887 340 C845 365 771 380 656 379 L317 378 C256 378 214 369 190 350 Z"></path>
+                    <path class="nose" d="M878 335 C914 342 930 352 879 362"></path>
+                    <path class="cabin" d="M430 294 L545 296 L589 346 L398 344 Z"></path>
+                    <path class="window" d="M442 304 L493 305 L488 336 L420 335 Z"></path>
+                    <path class="window" d="M504 305 L540 306 L568 337 L498 336 Z"></path>
+                    <path class="tailboom" d="M214 342 C165 304 128 282 82 270 L68 292 C115 317 153 343 196 361 Z"></path>
+                    <path class="vertical-tail" d="M82 270 L75 182 L139 285 Z"></path>
+                    <path class="rudder" d="M77 198 L105 250 L82 270 Z"></path>
+                    <path class="horizontal-tail" d="M96 300 L178 306 L162 324 L71 318 Z"></path>
+                    <path class="gear-line" d="M436 378 L405 423"></path>
+                    <path class="gear-line" d="M666 378 L700 423"></path>
+                    <path class="gear-line" d="M806 368 L836 409"></path>
+                    <circle class="wheel" cx="405" cy="426" r="18"></circle>
+                    <circle class="wheel" cx="700" cy="426" r="18"></circle>
+                    <circle class="wheel" cx="837" cy="412" r="13"></circle>
+                    <ellipse class="prop" cx="916" cy="351" rx="12" ry="72"></ellipse>
+                  </g>
+
+                  <g class="label-lines">
+                    <path d="M909 250 L832 317"></path><text x="910" y="247">Propeller / spinner</text>
+                    <path d="M682 220 L736 182"></path><text x="742" y="178">Wing fuel tanks</text>
+                    <path d="M608 246 L640 205"></path><text x="648" y="204">Flaps</text>
+                    <path d="M706 240 L798 214"></path><text x="804" y="214">Ailerons</text>
+                    <path d="M565 346 L650 330"></path><text x="658" y="329">Cabin doors / windows</text>
+                    <path d="M616 360 L682 398"></path><text x="690" y="400">Wing strut</text>
+                    <path d="M682 426 L753 454"></path><text x="760" y="459">Main landing gear</text>
+                    <path d="M837 412 L903 428"></path><text x="910" y="433">Nose gear</text>
+                    <path d="M151 315 L72 358"></path><text x="34" y="373">Stabilizer / elevator</text>
+                    <path d="M89 222 L38 190"></path><text x="26" y="178">Rudder</text>
+                  </g>
+                </svg>
+              </div>
+            </section>
+
+            <aside class="airframe-facts" aria-label="Airframe facts">
+              <div class="fact-block">
+                <span class="small-label">Aircraft</span>
+                <strong>Cessna 172 JT-A</strong>
+                <p>High-wing, fixed tricycle-gear trainer with diesel/Jet-A engine management.</p>
+              </div>
+              <div class="fact-grid" id="homeFacts"></div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="view" id="view-systems">
+          <div class="systems-wrap">
+            <div class="section-heading">
+              <p class="eyebrow">Aircraft systems</p>
+              <h2>Compact system map</h2>
             </div>
-          </section>
+            <div class="systems-grid" id="systemsGrid"></div>
+            <article class="system-detail" id="systemDetail"></article>
+          </div>
+        </section>
 
-          <section class="view" id="view-systems">
-            <div class="systems-wrap">
-              <div class="systems-header">
+        <section class="view" id="view-procedures">
+          <div class="practice-layout">
+            <div>
+              <div class="section-heading">
+                <p class="eyebrow">Procedures</p>
+                <h2>Abnormal scenarios</h2>
+              </div>
+              <div class="failure-list" id="failureList"></div>
+            </div>
+            <article class="info-panel" id="failurePanel"></article>
+          </div>
+        </section>
+
+        <section class="view" id="view-checklists">
+          <div class="checklist-layout" id="checklistGrid"></div>
+        </section>
+
+        <section class="view" id="view-cockpit">
+          <div class="cockpit-layout">
+            <div class="cockpit-card">
+              <div class="cockpit-toolbar">
                 <div>
-                  <p class="eyebrow">Aircraft systems</p>
-                  <h2>Compact system map</h2>
+                  <p class="eyebrow">Interactive cockpit</p>
+                  <h2>Click a control, display, or breaker group</h2>
                 </div>
-                <span class="status-pill">Editable from data file</span>
+                <select id="systemFilter" aria-label="Filter cockpit hotspots">
+                  <option value="all">All systems</option>
+                  <option value="fuel">Fuel</option>
+                  <option value="fadec">Engine / FADEC</option>
+                  <option value="electrical">Electrical</option>
+                  <option value="g1000">G1000</option>
+                  <option value="airframe">Airframe</option>
+                  <option value="environment">Environment</option>
+                </select>
               </div>
-              <div class="systems-grid" id="systemsGrid"></div>
-              <article class="system-detail" id="systemDetail"></article>
-            </div>
-          </section>
-
-          <section class="view" id="view-failures">
-            <div class="practice-layout">
-              <div>
-                <p class="eyebrow">Failure trainer</p>
-                <h2>Plain-English consequences</h2>
-                <div class="failure-list" id="failureList"></div>
+              <div class="cockpit-board" id="cockpitBoard">
+                <img src="assets/cockpit-placard.jpg" alt="C172 cockpit placard">
+                <div class="hotspot-layer" id="hotspotLayer"></div>
               </div>
-              <article class="info-panel" id="failurePanel"></article>
             </div>
-          </section>
 
-          <section class="view" id="view-oral">
-            <div class="practice-layout">
-              <div>
+            <article class="info-panel" id="hotspotPanel">
+              <p class="eyebrow">Selected item</p>
+              <h2>Pick a hotspot</h2>
+              <p>Use the cockpit image as the cockpit reference. System pages fill in the deeper technical details.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" id="view-practice">
+          <div class="practice-layout">
+            <div>
+              <div class="section-heading">
                 <p class="eyebrow">Oral practice</p>
                 <h2>Answer first, then reveal</h2>
-                <div class="question-card">
-                  <p id="oralPrompt"></p>
-                  <textarea id="oralAnswer" placeholder="Type your answer here..."></textarea>
-                  <div class="button-row">
-                    <button class="primary-button" id="showModel" type="button">Show model answer</button>
-                    <button class="ghost-button" id="nextQuestion" type="button">Next</button>
-                  </div>
-                </div>
               </div>
-              <article class="info-panel" id="modelAnswer"></article>
-            </div>
-          </section>
-
-          <section class="view" id="view-limits">
-            <div class="limits-layout">
-              <div>
-                <p class="eyebrow">Memory drill</p>
-                <h2>Fuel path from memory</h2>
-                <p class="muted" id="memoryPrompt"></p>
-                <div class="tile-bank" id="tileBank"></div>
-              </div>
-              <article class="memory-panel">
-                <h3>Your sequence</h3>
-                <ol id="memorySequence"></ol>
+              <div class="question-card">
+                <p id="oralPrompt"></p>
+                <textarea id="oralAnswer" placeholder="Type your answer here..."></textarea>
                 <div class="button-row">
-                  <button class="primary-button" id="checkMemory" type="button">Check</button>
-                  <button class="ghost-button" id="resetMemory" type="button">Reset</button>
+                  <button class="primary-button" id="showModel" type="button">Show model answer</button>
+                  <button class="ghost-button" id="nextQuestion" type="button">Next</button>
                 </div>
-                <div class="score-box" id="memoryScore"></div>
-              </article>
-              <div class="facts-strip" id="factsStrip"></div>
+              </div>
             </div>
-          </section>
+            <article class="info-panel" id="modelAnswer"></article>
+            <div class="memory-panel">
+              <h3 id="memoryTitle">Fuel path memory</h3>
+              <p class="muted" id="memoryPrompt"></p>
+              <div class="tile-bank" id="tileBank"></div>
+            </div>
+            <article class="memory-panel">
+              <h3>Your sequence</h3>
+              <ol id="memorySequence"></ol>
+              <div class="button-row">
+                <button class="primary-button" id="checkMemory" type="button">Check</button>
+                <button class="ghost-button" id="resetMemory" type="button">Reset</button>
+              </div>
+              <div class="score-box" id="memoryScore"></div>
+            </article>
+          </div>
         </section>
       </main>
+
+      <nav class="module-nav" aria-label="Trainer categories">
+          <button class="nav-button active" type="button" data-view="airframe">Airframe</button>
+          <button class="nav-button" type="button" data-view="systems">Systems</button>
+          <button class="nav-button" type="button" data-view="procedures">Procedures</button>
+          <button class="nav-button" type="button" data-view="checklists">Checklists</button>
+          <button class="nav-button" type="button" data-view="cockpit">Cockpit</button>
+          <button class="nav-button" type="button" data-view="practice">Practice</button>
+      </nav>
     </div>
 
     <script src="app.js"></script>

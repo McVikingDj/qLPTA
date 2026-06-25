@@ -1,19 +1,32 @@
 const state = {
   data: null,
-  activeView: "cockpit",
+  activeView: "airframe",
   selectedHotspot: null,
-  selectedSystem: "fuel",
+  selectedSystem: "airframe",
   selectedFailure: null,
   oralIndex: 0,
   memorySequence: []
 };
 
+const checklistGroups = [
+  {
+    title: "Exterior Walkaround",
+    items: ["Airframe condition", "Fuel caps and vents", "Wing leading edges", "Flaps and ailerons", "Tail surfaces", "Landing gear and tires"]
+  },
+  {
+    title: "Cockpit Setup",
+    items: ["Documents and equipment", "Circuit breakers", "Fuel selector", "G1000 power-up", "Engine and FADEC indications", "Flight controls"]
+  },
+  {
+    title: "Technical Brief",
+    items: ["Fuel quantity and type", "Electrical sources", "FADEC test concept", "Flap limits", "Abnormal priorities", "Current approved checklist"]
+  }
+];
+
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
 
 async function init() {
-  // Aircraft/course content lives in data/c172-data.json so accurate POH/AFM
-  // details can be added later without changing the UI code.
   const response = await fetch("data/c172-data.json");
   state.data = await response.json();
 
@@ -21,27 +34,28 @@ async function init() {
   bindNavigation();
   bindTheme();
   renderNotice();
+  renderHomeFacts();
   renderHotspots();
   renderSystems();
   renderFailures();
+  renderChecklists();
   renderOral();
   renderMemory();
 
   selectHotspot(state.data.hotspots[0].id);
-  selectSystem("fuel");
+  selectSystem("airframe");
   selectFailure(state.data.failures[0].id);
 }
 
 function applyStoredTheme() {
   const stored = localStorage.getItem("c172TrainerTheme");
-  const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
-  document.documentElement.classList.toggle("light", stored ? stored === "light" : prefersLight);
+  document.body.classList.toggle("light", stored === "light");
 }
 
 function bindTheme() {
   $("#themeToggle").addEventListener("click", () => {
-    document.documentElement.classList.toggle("light");
-    localStorage.setItem("c172TrainerTheme", document.documentElement.classList.contains("light") ? "light" : "dark");
+    document.body.classList.toggle("light");
+    localStorage.setItem("c172TrainerTheme", document.body.classList.contains("light") ? "light" : "dark");
   });
 }
 
@@ -54,16 +68,31 @@ function bindNavigation() {
     });
   });
 
-  $("#systemFilter").addEventListener("change", (event) => {
-    const value = event.target.value;
-    $$(".hotspot").forEach((button) => {
-      button.classList.toggle("hidden", value !== "all" && button.dataset.system !== value);
+  const systemFilter = $("#systemFilter");
+  if (systemFilter) {
+    systemFilter.addEventListener("change", (event) => {
+      const value = event.target.value;
+      $$(".hotspot").forEach((button) => {
+        button.classList.toggle("hidden", value !== "all" && button.dataset.system !== value);
+      });
     });
-  });
+  }
 }
 
 function renderNotice() {
   $("#studyNotice").textContent = state.data.meta.notice;
+}
+
+function renderHomeFacts() {
+  const dimensions = [
+    { label: "Wingspan", value: "36 ft 1 in" },
+    { label: "Length", value: "27 ft 2 in" },
+    { label: "Height", value: "8 ft 11 in" }
+  ];
+
+  $("#homeFacts").innerHTML = [...dimensions, ...state.data.quickFacts].map((fact) => `
+    <div class="fact"><strong>${escapeHtml(fact.label)}</strong><span>${escapeHtml(fact.value)}</span></div>
+  `).join("");
 }
 
 function renderHotspots() {
@@ -160,6 +189,16 @@ function selectFailure(id) {
   `;
 }
 
+function renderChecklists() {
+  $("#checklistGrid").innerHTML = checklistGroups.map((group) => `
+    <article class="checklist-card">
+      <p class="eyebrow">Study checklist</p>
+      <h2>${escapeHtml(group.title)}</h2>
+      <ul>${group.items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+    </article>
+  `).join("");
+}
+
 function renderOral() {
   $("#showModel").addEventListener("click", () => {
     const question = state.data.oralQuestions[state.oralIndex];
@@ -191,12 +230,10 @@ function updateOralPrompt() {
 
 function renderMemory() {
   const drill = state.data.memoryDrill;
+  $("#memoryTitle").textContent = drill.title;
   $("#memoryPrompt").textContent = drill.prompt;
   $("#tileBank").innerHTML = drill.options.map((option) => `
     <button class="tile" type="button" data-value="${escapeHtml(option)}">${escapeHtml(option)}</button>
-  `).join("");
-  $("#factsStrip").innerHTML = state.data.quickFacts.map((fact) => `
-    <div class="fact"><strong>${escapeHtml(fact.label)}</strong><span>${escapeHtml(fact.value)}</span></div>
   `).join("");
 
   $$(".tile").forEach((tile) => {

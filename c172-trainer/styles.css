@@ -1,27 +1,28 @@
 :root {
   color-scheme: dark;
-  --bg: #0c1015;
-  --panel: #151b23;
-  --panel-2: #1c242e;
-  --text: #f3f6f8;
-  --muted: #99a8b7;
-  --line: rgba(255,255,255,.12);
-  --accent: #59c7a3;
-  --blue: #6aa7ff;
-  --amber: #f2b84b;
-  --red: #ef6b73;
-  --shadow: rgba(0,0,0,.35);
+  --bg: #0b0b0b;
+  --bg-soft: #141414;
+  --card: #111315;
+  --text: #ffffff;
+  --muted: #9ca3af;
+  --border: #262626;
+  --ok: #22c55e;
+  --bad: #ef4444;
+  --flag: #f59e0b;
+  --shadow: rgba(0, 0, 0, .35);
+  --panel-line: rgba(255, 255, 255, .08);
 }
 
-:root.light {
+body.light {
   color-scheme: light;
-  --bg: #f3f5f7;
-  --panel: #ffffff;
-  --panel-2: #e9edf1;
-  --text: #17202a;
-  --muted: #5c6977;
-  --line: rgba(23,32,42,.14);
-  --shadow: rgba(45,55,72,.16);
+  --bg: #f5f7fb;
+  --bg-soft: #ffffff;
+  --card: #ffffff;
+  --text: #111827;
+  --muted: #6b7280;
+  --border: #d1d5db;
+  --shadow: rgba(15, 23, 42, .11);
+  --panel-line: rgba(15, 23, 42, .09);
 }
 
 * { box-sizing: border-box; }
@@ -29,52 +30,51 @@
 body {
   margin: 0;
   min-height: 100vh;
+  overflow-x: hidden;
   background: var(--bg);
   color: var(--text);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 button, select, textarea { font: inherit; }
+h1, h2, h3, p { margin-top: 0; }
 
 .app-shell {
   min-height: 100vh;
-  padding: 14px;
+  padding-bottom: 96px;
 }
 
 .topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 12px 14px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: color-mix(in srgb, var(--panel) 92%, transparent);
-  box-shadow: 0 16px 40px var(--shadow);
+  gap: 12px;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in oklab, var(--bg) 85%, transparent);
+  backdrop-filter: blur(8px);
 }
-
-.eyebrow {
-  margin: 0 0 4px;
-  color: var(--muted);
-  font-size: .74rem;
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-}
-
-h1, h2, h3, p { margin-top: 0; }
 
 h1 {
   margin-bottom: 0;
-  font-size: clamp(1.15rem, 2vw, 1.65rem);
+  font-size: clamp(1.15rem, 2vw, 1.6rem);
+  letter-spacing: 0;
 }
 
 h2 {
-  margin-bottom: 10px;
-  font-size: 1.1rem;
+  margin-bottom: 0;
+  font-size: 1.08rem;
+  letter-spacing: 0;
 }
 
-h3 { font-size: .98rem; }
+h3 {
+  margin-bottom: 8px;
+  font-size: .98rem;
+  letter-spacing: 0;
+}
 
 .top-actions, .button-row {
   display: flex;
@@ -83,114 +83,300 @@ h3 { font-size: .98rem; }
 }
 
 .ghost-button, .primary-button, .nav-button, .tile, .hotspot {
-  border: 1px solid var(--line);
-  border-radius: 8px;
+  border: 1px solid var(--border);
   color: var(--text);
   cursor: pointer;
   transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease;
 }
 
 .ghost-button, .primary-button {
-  padding: 9px 12px;
+  min-height: 42px;
+  padding: 10px 12px;
+  border-radius: 12px;
   text-decoration: none;
-  background: var(--panel-2);
+  background: var(--bg-soft);
+}
+
+body.light .ghost-button,
+body.light .nav-button:not(.active) {
+  background: #ffffff;
+  color: #111827;
 }
 
 .primary-button {
-  background: var(--accent);
-  border-color: transparent;
-  color: #062018;
-  font-weight: 800;
+  border: 0;
+  background: linear-gradient(135deg, #3f3f46, #52525b);
+  color: #fff;
+  font-weight: 750;
 }
 
 .ghost-button:hover, .primary-button:hover, .nav-button:hover, .tile:hover, .hotspot:hover {
   transform: translateY(-1px);
-  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  border-color: color-mix(in oklab, var(--ok) 55%, var(--border));
 }
 
-.trainer-grid {
-  display: grid;
-  grid-template-columns: 116px minmax(0, 1fr);
-  gap: 12px;
-  margin-top: 12px;
-}
-
-.rail {
-  display: grid;
-  align-content: start;
-  gap: 8px;
-  padding: 8px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel);
-}
-
-.nav-button {
-  width: 100%;
-  padding: 11px 8px;
-  background: transparent;
-  color: var(--muted);
-}
-
-.nav-button.active {
-  background: var(--panel-2);
-  color: var(--text);
-  border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
-}
-
-.stage {
-  min-width: 0;
+.trainer-stage {
+  width: min(1280px, calc(100% - 48px));
+  margin: 16px auto 0;
 }
 
 .notice {
-  margin-bottom: 10px;
-  padding: 9px 12px;
-  border: 1px solid color-mix(in srgb, var(--amber) 45%, var(--line));
-  border-radius: 8px;
-  background: color-mix(in srgb, var(--amber) 10%, var(--panel));
+  margin-bottom: 16px;
+  padding: 10px 12px;
+  border: 1px solid color-mix(in oklab, var(--flag) 50%, var(--border));
+  border-radius: 12px;
+  background: color-mix(in oklab, var(--flag) 12%, var(--card));
   color: var(--muted);
   font-size: .88rem;
+  line-height: 1.4;
 }
 
 .view { display: none; }
 .view.active { display: block; }
 
-.cockpit-layout, .practice-layout, .limits-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 330px;
+.section-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
   gap: 12px;
+  margin-bottom: 12px;
 }
 
-.cockpit-card, .info-panel, .system-detail, .question-card, .memory-panel, .facts-strip {
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel);
+.eyebrow, .small-label {
+  margin: 0;
+  color: var(--muted);
+  font-size: .74rem;
+  font-weight: 750;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.airframe-home {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.aircraft-board,
+.airframe-facts,
+.cockpit-card,
+.info-panel,
+.system-detail,
+.question-card,
+.memory-panel,
+.checklist-card {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--card);
   box-shadow: 0 16px 40px var(--shadow);
 }
 
-.cockpit-toolbar, .systems-header {
+.aircraft-board {
+  padding: 16px;
+  min-width: 0;
+}
+
+.aircraft-render {
+  overflow: hidden;
+  border: 1px solid var(--panel-line);
+  border-radius: 12px;
+  background:
+    linear-gradient(color-mix(in oklab, var(--border) 26%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--border) 26%, transparent) 1px, transparent 1px),
+    var(--bg-soft);
+  background-size: 40px 40px;
+}
+
+.aircraft-render svg {
+  display: block;
+  width: 100%;
+  height: min(52vh, 420px);
+}
+
+.aircraft-render text {
+  fill: var(--text);
+  font-size: 17px;
+  font-weight: 700;
+}
+
+#arrow path {
+  fill: var(--muted);
+}
+
+.dimension-lines line,
+.dimension-lines path {
+  stroke: var(--muted);
+  stroke-width: 2;
+}
+
+.dimension-lines .dim-main {
+  marker-start: url("#arrow");
+  marker-end: url("#arrow");
+}
+
+.dimension-lines text {
+  fill: var(--muted);
+  text-anchor: middle;
+}
+
+.dimension-lines path,
+.label-lines path,
+.strut,
+.gear-line {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.top-view { opacity: .95; }
+
+.wing-plan,
+.fuselage-plan,
+.tail-plan,
+.wing-side,
+.fuselage,
+.tailboom,
+.vertical-tail,
+.horizontal-tail {
+  fill: color-mix(in oklab, var(--text) 80%, var(--bg-soft));
+  stroke: color-mix(in oklab, var(--text) 18%, var(--border));
+  stroke-width: 2;
+}
+
+.wing-side {
+  fill: color-mix(in oklab, var(--ok) 24%, var(--text));
+}
+
+.cabin {
+  fill: color-mix(in oklab, var(--bg-soft) 45%, #94a3b8);
+  stroke: color-mix(in oklab, var(--text) 20%, var(--border));
+  stroke-width: 2;
+}
+
+.window {
+  fill: color-mix(in oklab, #38bdf8 32%, var(--bg));
+  stroke: color-mix(in oklab, #38bdf8 40%, var(--border));
+  stroke-width: 2;
+}
+
+.nose,
+.rudder {
+  fill: color-mix(in oklab, var(--ok) 38%, var(--text));
+  stroke: color-mix(in oklab, var(--text) 20%, var(--border));
+  stroke-width: 2;
+}
+
+.strut,
+.gear-line {
+  stroke: color-mix(in oklab, var(--text) 70%, var(--border));
+  stroke-width: 6;
+}
+
+.wheel {
+  fill: #0b0b0b;
+  stroke: color-mix(in oklab, var(--text) 80%, var(--border));
+  stroke-width: 3;
+}
+
+.prop {
+  fill: transparent;
+  stroke: color-mix(in oklab, var(--text) 70%, var(--border));
+  stroke-width: 4;
+}
+
+.label-lines path {
+  stroke: color-mix(in oklab, var(--ok) 70%, var(--muted));
+  stroke-width: 2;
+}
+
+.label-lines text {
+  fill: color-mix(in oklab, var(--ok) 52%, var(--text));
+  font-size: 16px;
+}
+
+.airframe-facts {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  max-height: calc(100vh - 240px);
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+
+.fact-block {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.fact-block strong {
+  display: block;
+  margin: 6px 0;
+  font-size: 1.1rem;
+}
+
+.fact-block p,
+.info-panel p,
+.system-detail p,
+.muted {
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.fact-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.fact {
+  padding: 11px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-soft);
+}
+
+.fact strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.fact span {
+  color: var(--muted);
+  font-size: .86rem;
+  line-height: 1.35;
+}
+
+.cockpit-layout, .practice-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 330px;
+  gap: 16px;
+}
+
+.cockpit-toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  padding: 12px;
-  border-bottom: 1px solid var(--line);
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
 }
 
 select {
-  max-width: 180px;
-  padding: 9px 10px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel-2);
+  max-width: 190px;
+  min-height: 42px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-soft);
   color: var(--text);
 }
 
 .cockpit-board {
   position: relative;
   overflow: auto;
-  max-height: calc(100vh - 178px);
+  max-height: calc(100vh - 216px);
   background: #fff;
+  border-radius: 0 0 14px 14px;
 }
 
 .cockpit-board img {
@@ -212,84 +398,64 @@ select {
   height: 24px;
   padding: 0;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--accent) 74%, white);
-  box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 18%, transparent), 0 8px 18px rgba(0,0,0,.25);
+  background: color-mix(in oklab, var(--ok) 74%, white);
+  box-shadow: 0 0 0 5px color-mix(in oklab, var(--ok) 18%, transparent), 0 8px 18px rgba(0,0,0,.25);
 }
 
 .hotspot.hidden { display: none; }
-.hotspot[data-system="fuel"] { background: #68d391; }
-.hotspot[data-system="electrical"] { background: #6aa7ff; }
-.hotspot[data-system="fadec"] { background: #f2b84b; }
+.hotspot[data-system="fuel"] { background: #22c55e; }
+.hotspot[data-system="electrical"] { background: #60a5fa; }
+.hotspot[data-system="fadec"] { background: #f59e0b; }
 .hotspot[data-system="g1000"] { background: #a78bfa; }
-.hotspot[data-system="airframe"] { background: #f687b3; }
-.hotspot[data-system="environment"] { background: #67e8f9; }
+.hotspot[data-system="airframe"] { background: #fb7185; }
+.hotspot[data-system="environment"] { background: #22d3ee; }
 
 .hotspot.active {
   outline: 3px solid #fff;
   transform: scale(1.12);
 }
 
-.info-panel, .system-detail, .memory-panel, .facts-strip {
-  padding: 14px;
+.info-panel, .system-detail, .memory-panel {
+  padding: 16px;
 }
 
-.info-panel p, .system-detail p, .muted {
+.info-panel ul, .system-detail ul, .checklist-card ul {
+  padding-left: 18px;
   color: var(--muted);
   line-height: 1.45;
 }
 
-.info-panel ul, .system-detail ul {
-  padding-left: 18px;
-  color: var(--muted);
-}
-
-.tag-row, .component-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-}
-
-.tag, .status-pill {
-  display: inline-flex;
-  align-items: center;
-  min-height: 28px;
-  padding: 5px 9px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  color: var(--muted);
-  font-size: .82rem;
-}
-
 .systems-wrap {
   display: grid;
-  gap: 12px;
+  gap: 16px;
 }
 
 .systems-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
+  gap: 12px;
 }
 
 .system-card, .failure-card {
-  padding: 13px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel);
+  min-height: 132px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--card);
   color: var(--text);
   text-align: left;
   cursor: pointer;
-  transition: transform .18s ease, border-color .18s ease;
+  transition: transform .18s ease, border-color .18s ease, background .18s ease;
 }
 
 .system-card:hover, .failure-card:hover {
   transform: translateY(-1px);
-  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  border-color: color-mix(in oklab, var(--ok) 45%, var(--border));
 }
 
 .system-card.active, .failure-card.active {
-  border-color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 10%, var(--panel));
+  border-color: var(--ok);
+  background: color-mix(in oklab, var(--ok) 10%, var(--card));
 }
 
 .system-card p, .failure-card p {
@@ -305,14 +471,33 @@ select {
   height: 9px;
   margin-right: 7px;
   border-radius: 999px;
-  background: var(--accent);
+  background: var(--ok);
 }
 
-.system-dot.amber { background: var(--amber); }
-.system-dot.blue { background: var(--blue); }
-.system-dot.cyan { background: #67e8f9; }
-.system-dot.purple { background: #f687b3; }
+.system-dot.amber { background: var(--flag); }
+.system-dot.blue { background: #60a5fa; }
+.system-dot.cyan { background: #22d3ee; }
+.system-dot.purple { background: #fb7185; }
 .system-dot.violet { background: #a78bfa; }
+
+.tag-row, .component-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 12px 0;
+}
+
+.tag, .status-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 5px 9px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--muted);
+  background: var(--bg-soft);
+  font-size: .82rem;
+}
 
 .failure-list {
   display: grid;
@@ -320,18 +505,18 @@ select {
 }
 
 .question-card {
-  padding: 14px;
+  padding: 16px;
 }
 
 textarea {
   width: 100%;
-  min-height: 180px;
+  min-height: 148px;
   resize: vertical;
   padding: 12px;
   margin: 10px 0;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-soft);
   color: var(--text);
 }
 
@@ -344,7 +529,8 @@ textarea {
 
 .tile {
   padding: 10px 12px;
-  background: var(--panel);
+  border-radius: 12px;
+  background: var(--bg-soft);
 }
 
 .tile.used {
@@ -353,7 +539,7 @@ textarea {
 }
 
 .memory-panel ol {
-  min-height: 150px;
+  min-height: 116px;
   padding-left: 22px;
   color: var(--muted);
 }
@@ -361,69 +547,153 @@ textarea {
 .score-box {
   margin-top: 12px;
   padding: 10px;
-  border-radius: 8px;
-  background: var(--panel-2);
+  border-radius: 10px;
+  background: var(--bg-soft);
   color: var(--muted);
   line-height: 1.45;
 }
 
-.facts-strip {
-  grid-column: 1 / -1;
+.checklist-layout {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.checklist-card {
+  padding: 16px;
+}
+
+.module-nav {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  z-index: 30;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(104px, 1fr));
   gap: 8px;
+  width: min(880px, calc(100% - 32px));
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: color-mix(in oklab, var(--bg) 88%, transparent);
+  box-shadow: 0 16px 40px var(--shadow);
+  backdrop-filter: blur(10px);
+  transform: translateX(-50%);
 }
 
-.fact {
-  padding: 11px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel-2);
+body.light .module-nav {
+  background: rgba(245, 247, 251, .92);
 }
 
-.fact strong {
-  display: block;
-  margin-bottom: 4px;
-}
-
-.fact span {
+.nav-button {
+  min-height: 44px;
+  padding: 9px 10px;
+  border-radius: 12px;
+  background: var(--bg-soft);
   color: var(--muted);
-  font-size: .86rem;
+  white-space: nowrap;
+}
+
+.nav-button.active {
+  border-color: var(--ok);
+  background: linear-gradient(135deg, #3f3f46, #52525b);
+  color: #fff;
 }
 
 @media (max-width: 1050px) {
-  .cockpit-layout, .practice-layout, .limits-layout {
+  .airframe-home,
+  .cockpit-layout,
+  .practice-layout {
     grid-template-columns: 1fr;
   }
-  .systems-grid, .facts-strip {
+
+  .systems-grid,
+  .checklist-layout {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .cockpit-board {
-    max-height: 62vh;
+
+  .airframe-facts {
+    display: grid;
+    grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+    max-height: none;
+    overflow: visible;
+  }
+
+  .fact-block {
+    border-right: 1px solid var(--border);
+    border-bottom: 0;
+    padding-right: 12px;
+    padding-bottom: 0;
+  }
+
+  .fact-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 720px) {
-  .app-shell { padding: 8px; }
+  .app-shell { padding-bottom: 112px; }
+
   .topbar {
+    padding: 12px;
     align-items: flex-start;
     flex-direction: column;
   }
-  .trainer-grid {
-    grid-template-columns: 1fr;
+
+  .trainer-stage {
+    width: calc(100% - 16px);
+    margin-top: 8px;
   }
-  .rail {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+
+  .aircraft-board,
+  .airframe-facts,
+  .info-panel,
+  .system-detail,
+  .question-card,
+  .memory-panel,
+  .checklist-card {
+    padding: 12px;
+  }
+
+  .aircraft-render {
     overflow-x: auto;
   }
-  .nav-button {
-    min-width: 84px;
+
+  .aircraft-render svg {
+    width: 900px;
+    height: 500px;
   }
-  .systems-grid, .facts-strip {
+
+  .airframe-facts,
+  .fact-grid,
+  .systems-grid,
+  .checklist-layout {
     grid-template-columns: 1fr;
   }
+
+  .fact-block {
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+    padding-right: 0;
+    padding-bottom: 12px;
+  }
+
   .cockpit-toolbar {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .module-nav {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    bottom: 8px;
+    width: calc(100% - 16px);
+    border-radius: 14px;
+  }
+
+  .nav-button {
+    min-width: 0;
+    min-height: 40px;
+    padding: 8px 6px;
+    font-size: .86rem;
   }
 }
