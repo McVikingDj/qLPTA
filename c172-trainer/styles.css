@@ -48,9 +48,9 @@ h1, h2, h3, p { margin-top: 0; }
   position: sticky;
   top: 0;
   z-index: 20;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   gap: 12px;
   padding: 14px 24px;
   border-bottom: 1px solid var(--border);
@@ -59,8 +59,11 @@ h1, h2, h3, p { margin-top: 0; }
 }
 
 h1 {
+  grid-column: 2;
   margin-bottom: 0;
-  font-size: clamp(1.15rem, 2vw, 1.6rem);
+  text-align: center;
+  font-size: clamp(1.45rem, 2.4vw, 2.15rem);
+  font-weight: 800;
   letter-spacing: 0;
 }
 
@@ -80,6 +83,11 @@ h3 {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.top-actions {
+  grid-column: 3;
+  justify-self: end;
 }
 
 .ghost-button, .primary-button, .nav-button, .tile, .hotspot {
@@ -111,8 +119,11 @@ body.light .nav-button:not(.active) {
 }
 
 .ghost-button:hover, .primary-button:hover, .nav-button:hover, .tile:hover, .hotspot:hover {
-  transform: translateY(-1px);
   border-color: color-mix(in oklab, var(--ok) 55%, var(--border));
+}
+
+.nav-button:hover, .tile:hover, .hotspot:hover {
+  transform: translateY(-1px);
 }
 
 .trainer-stage {
@@ -177,121 +188,60 @@ body.light .nav-button:not(.active) {
   min-width: 0;
 }
 
-.aircraft-render {
+.model-viewer {
+  position: relative;
   overflow: hidden;
+  height: min(58vh, 500px);
+  min-height: 390px;
   border: 1px solid var(--panel-line);
   border-radius: 12px;
   background:
-    linear-gradient(color-mix(in oklab, var(--border) 26%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in oklab, var(--border) 26%, transparent) 1px, transparent 1px),
+    radial-gradient(circle at 50% 40%, color-mix(in oklab, var(--text) 8%, transparent), transparent 34%),
+    linear-gradient(color-mix(in oklab, var(--border) 23%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--border) 23%, transparent) 1px, transparent 1px),
     var(--bg-soft);
-  background-size: 40px 40px;
+  background-size: auto, 40px 40px, 40px 40px, auto;
+  touch-action: none;
 }
 
-.aircraft-render svg {
+.model-viewer canvas {
   display: block;
   width: 100%;
-  height: min(52vh, 420px);
+  height: 100%;
+  cursor: grab;
 }
 
-.aircraft-render text {
-  fill: var(--text);
-  font-size: 17px;
-  font-weight: 700;
+.model-viewer canvas:active {
+  cursor: grabbing;
 }
 
-#arrow path {
-  fill: var(--muted);
+.model-status {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  max-width: calc(100% - 120px);
+  padding: 7px 10px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: color-mix(in oklab, var(--bg) 82%, transparent);
+  color: var(--muted);
+  font-size: .8rem;
+  pointer-events: none;
 }
 
-.dimension-lines line,
-.dimension-lines path {
-  stroke: var(--muted);
-  stroke-width: 2;
+.model-status.is-hidden {
+  display: none;
 }
 
-.dimension-lines .dim-main {
-  marker-start: url("#arrow");
-  marker-end: url("#arrow");
+.model-actions {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
 }
 
-.dimension-lines text {
-  fill: var(--muted);
-  text-anchor: middle;
-}
-
-.dimension-lines path,
-.label-lines path,
-.strut,
-.gear-line {
-  fill: none;
-  stroke-linecap: round;
-}
-
-.top-view { opacity: .95; }
-
-.wing-plan,
-.fuselage-plan,
-.tail-plan,
-.wing-side,
-.fuselage,
-.tailboom,
-.vertical-tail,
-.horizontal-tail {
-  fill: color-mix(in oklab, var(--text) 80%, var(--bg-soft));
-  stroke: color-mix(in oklab, var(--text) 18%, var(--border));
-  stroke-width: 2;
-}
-
-.wing-side {
-  fill: color-mix(in oklab, var(--ok) 24%, var(--text));
-}
-
-.cabin {
-  fill: color-mix(in oklab, var(--bg-soft) 45%, #94a3b8);
-  stroke: color-mix(in oklab, var(--text) 20%, var(--border));
-  stroke-width: 2;
-}
-
-.window {
-  fill: color-mix(in oklab, #38bdf8 32%, var(--bg));
-  stroke: color-mix(in oklab, #38bdf8 40%, var(--border));
-  stroke-width: 2;
-}
-
-.nose,
-.rudder {
-  fill: color-mix(in oklab, var(--ok) 38%, var(--text));
-  stroke: color-mix(in oklab, var(--text) 20%, var(--border));
-  stroke-width: 2;
-}
-
-.strut,
-.gear-line {
-  stroke: color-mix(in oklab, var(--text) 70%, var(--border));
-  stroke-width: 6;
-}
-
-.wheel {
-  fill: #0b0b0b;
-  stroke: color-mix(in oklab, var(--text) 80%, var(--border));
-  stroke-width: 3;
-}
-
-.prop {
-  fill: transparent;
-  stroke: color-mix(in oklab, var(--text) 70%, var(--border));
-  stroke-width: 4;
-}
-
-.label-lines path {
-  stroke: color-mix(in oklab, var(--ok) 70%, var(--muted));
-  stroke-width: 2;
-}
-
-.label-lines text {
-  fill: color-mix(in oklab, var(--ok) 52%, var(--text));
-  font-size: 16px;
+.model-actions .ghost-button {
+  min-height: 36px;
+  padding: 7px 10px;
 }
 
 .airframe-facts {
@@ -635,9 +585,19 @@ body.light .module-nav {
   .app-shell { padding-bottom: 112px; }
 
   .topbar {
+    grid-template-columns: 1fr;
     padding: 12px;
-    align-items: flex-start;
-    flex-direction: column;
+  }
+
+  h1 {
+    grid-column: 1;
+    width: 100%;
+    font-size: 1.45rem;
+  }
+
+  .top-actions {
+    grid-column: 1;
+    justify-self: center;
   }
 
   .trainer-stage {
@@ -655,13 +615,9 @@ body.light .module-nav {
     padding: 12px;
   }
 
-  .aircraft-render {
-    overflow-x: auto;
-  }
-
-  .aircraft-render svg {
-    width: 900px;
-    height: 500px;
+  .model-viewer {
+    height: 50vh;
+    min-height: 330px;
   }
 
   .airframe-facts,
