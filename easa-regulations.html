@@ -30,9 +30,15 @@
   }
 
   .container {
-    max-width: 1280px;
+    width: 100%;
     margin: 0 auto;
     padding: 16px 24px;
+  }
+
+  .page-shell {
+    width: 100%;
+    max-width: none;
+    padding-inline: clamp(12px, 1.6vw, 24px);
   }
 
   .topbar {
@@ -118,25 +124,15 @@
   .source-note strong { color: rgba(255,255,255,.72); }
 
   .structure-scroll {
-    overflow-x: auto;
+    overflow: visible;
     padding-bottom: 14px;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255,255,255,.18) rgba(255,255,255,.03);
-  }
-
-  .structure-scroll::-webkit-scrollbar { height: 10px; }
-  .structure-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,.03); border-radius: 999px; }
-  .structure-scroll::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,.18);
-    border-radius: 999px;
-    border: 2px solid transparent;
-    background-clip: padding-box;
   }
 
   .structure-board {
     position: relative;
-    min-width: 2570px;
-    padding: 28px 36px 36px 184px;
+    width: 100%;
+    min-width: 0;
+    padding: clamp(18px, 2vw, 28px) clamp(12px, 1.6vw, 36px) clamp(22px, 2vw, 36px) clamp(104px, 11vw, 184px);
     border: 1px solid rgba(255,255,255,.09);
     border-radius: 14px;
     background:
@@ -148,13 +144,13 @@
   .board-head {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    min-height: 158px;
+    gap: clamp(18px, 2.4vw, 40px);
+    min-height: clamp(116px, 12vw, 158px);
   }
 
   .board-head h2 {
     margin: 0;
-    font-size: 58px;
+    font-size: clamp(32px, 4vw, 58px);
     font-weight: 500;
     line-height: 1;
     color: rgba(255,255,255,.66);
@@ -162,24 +158,24 @@
 
   .amc-copy {
     color: rgba(255,255,255,.55);
-    font-size: 19px;
+    font-size: clamp(12px, 1.25vw, 19px);
     line-height: 1.25;
   }
 
-  .amc-copy p { margin: 0 0 22px; }
+  .amc-copy p { margin: 0 0 clamp(12px, 1.6vw, 22px); }
   .amc-copy strong { color: rgba(255,255,255,.76); }
 
   .basic-regulation {
     position: relative;
     z-index: 2;
-    width: 350px;
-    margin: -36px auto 72px;
-    padding: 20px 26px;
+    width: clamp(220px, 24vw, 350px);
+    margin: clamp(-36px, -2vw, -18px) auto clamp(48px, 5vw, 72px);
+    padding: clamp(13px, 1.35vw, 20px) clamp(16px, 1.8vw, 26px);
     border: 3px solid rgba(255,194,71,.34);
-    border-radius: 28px;
+    border-radius: clamp(20px, 2vw, 28px);
     background: rgba(255,194,71,.07);
     color: rgba(255,255,255,.86);
-    font-size: 30px;
+    font-size: clamp(18px, 2.1vw, 30px);
     text-align: center;
   }
 
@@ -196,9 +192,9 @@
 
   .side-label {
     position: absolute;
-    left: 28px;
+    left: clamp(18px, 2vw, 28px);
     color: var(--easa-blue);
-    font-size: 30px;
+    font-size: clamp(18px, 2vw, 30px);
     font-weight: 500;
     letter-spacing: .02em;
   }
@@ -209,9 +205,9 @@
 
   .annex-row-label {
     position: absolute;
-    left: 48px;
+    left: clamp(36px, 3vw, 48px);
     color: var(--easa-blue);
-    font-size: 25px;
+    font-size: clamp(16px, 1.75vw, 25px);
   }
 
   .row-i { top: 485px; }
@@ -225,16 +221,16 @@
   .reg-grid {
     position: relative;
     display: grid;
-    grid-template-columns: repeat(10, 210px);
-    gap: 26px;
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+    gap: clamp(8px, 1vw, 26px);
     align-items: start;
   }
 
   .reg-grid::before {
     content: "";
     position: absolute;
-    left: 105px;
-    right: 105px;
+    left: 5%;
+    right: 5%;
     top: -40px;
     height: 16px;
     background: var(--line-gold);
@@ -270,11 +266,11 @@
 
   .reg-card {
     min-height: 76px;
-    padding: 10px 14px;
+    padding: 8px clamp(5px, .7vw, 14px);
     border: 3px solid rgba(255,194,71,.28);
-    border-radius: 27px;
+    border-radius: clamp(16px, 1.8vw, 27px);
     background: rgba(255,194,71,.055);
-    font-size: 22px;
+    font-size: clamp(12px, 1.35vw, 22px);
     line-height: 1.22;
   }
 
@@ -317,23 +313,23 @@
     z-index: 2;
     align-self: center;
     justify-self: center;
-    width: 148px;
-    min-height: 72px;
-    padding: 10px 12px;
+    width: min(82%, 148px);
+    min-height: clamp(48px, 5vw, 72px);
+    padding: 8px clamp(4px, .75vw, 12px);
     border: 3px solid rgba(104,185,225,.28);
-    border-radius: 27px;
+    border-radius: clamp(16px, 1.8vw, 27px);
     background: rgba(104,185,225,.09);
-    font-size: 20px;
+    font-size: clamp(11px, 1.2vw, 20px);
     line-height: 1.15;
   }
 
   .part-node.small {
-    font-size: 15px;
-    width: 124px;
+    font-size: clamp(9px, .95vw, 15px);
+    width: min(78%, 124px);
   }
 
   .part-node.wide {
-    width: 170px;
+    width: min(92%, 170px);
   }
 
   .part-node::before {
@@ -360,7 +356,7 @@
     padding-top: 22px;
     border-top: 16px solid rgba(104,185,225,.18);
     color: rgba(255,255,255,.62);
-    font-size: 16px;
+    font-size: clamp(9px, .9vw, 16px);
     line-height: 1.28;
   }
 
@@ -425,14 +421,9 @@
     .page-title h1 {
       font-size: 42px;
     }
-
-    .structure-scroll {
-      margin-inline: -14px;
-      padding-inline: 14px;
-    }
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 980px) {
     .source-note { font-size: 14px; }
     .structure-scroll { display: none; }
     .mobile-structure { display: grid; }
@@ -450,7 +441,7 @@
     </div>
   </div>
 
-  <main class="container">
+  <main class="container page-shell">
     <section class="page-title" aria-labelledby="pageTitle">
       <h1 id="pageTitle">EASA Regulations Structure</h1>
       <div class="source-note">
