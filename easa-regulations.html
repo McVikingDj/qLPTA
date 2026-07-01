@@ -167,6 +167,7 @@
   .basic-regulation {
     position: relative;
     z-index: 2;
+    display: block;
     width: clamp(160px, 16vw, 230px);
     margin: clamp(-14px, -1vw, -8px) auto clamp(24px, 2.2vw, 34px);
     padding: clamp(7px, .7vw, 10px) clamp(10px, 1vw, 16px);
@@ -176,6 +177,14 @@
     color: rgba(255,255,255,.86);
     font-size: clamp(12px, 1.25vw, 18px);
     text-align: center;
+    text-decoration: none;
+  }
+
+  a.basic-regulation:hover,
+  a.basic-regulation:focus-visible {
+    border-color: rgba(255,194,71,.58);
+    background: rgba(255,194,71,.12);
+    color: #fff;
   }
 
   .basic-regulation::after {
@@ -277,6 +286,14 @@
     background: rgba(255,194,71,.055);
     font-size: clamp(8px, .82vw, 12px);
     line-height: 1.12;
+    text-decoration: none;
+  }
+
+  a.reg-card:hover,
+  a.reg-card:focus-visible {
+    border-color: rgba(255,194,71,.52);
+    background: rgba(255,194,71,.105);
+    color: #fff;
   }
 
   .parts {
@@ -342,13 +359,21 @@
   .part-node::before {
     content: "";
     position: absolute;
-    right: 100%;
+    right: calc(100% - 1px);
     top: 50%;
-    width: 11px;
+    width: 14px;
     height: 8px;
     transform: translateY(-50%);
     border-radius: 0;
     background: var(--line-blue);
+  }
+
+  .part-node.small::before {
+    width: 11px;
+  }
+
+  .part-node.wide::before {
+    width: 6px;
   }
 
   .part-node[data-row="1"] { grid-row: 1; }
@@ -491,11 +516,11 @@
           </div>
         </div>
 
-        <div class="basic-regulation">BASIC REGULATION</div>
+        <a class="basic-regulation" href="https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-basic-regulation-regulation-eu-20181139" target="_blank" rel="noopener noreferrer" aria-label="Open EASA Easy Access Rules for Basic Regulation">BASIC REGULATION</a>
 
         <div class="reg-grid">
           <section class="reg-column">
-            <div class="reg-card">Initial<br />Airworthiness</div>
+            <a class="reg-card" href="https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-initial-airworthiness-and-environmental" target="_blank" rel="noopener noreferrer" aria-label="Open EASA Easy Access Rules for Initial Airworthiness and Environmental Protection">Initial<br />Airworthiness</a>
             <div class="parts" style="--trunk-height:48px">
               <span class="part-node" data-row="1" data-regulation="part-21">Part-21</span>
             </div>
@@ -503,7 +528,7 @@
           </section>
 
           <section class="reg-column">
-            <div class="reg-card">Continuing<br />Airworthiness</div>
+            <a class="reg-card" href="https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-continuing-airworthiness" target="_blank" rel="noopener noreferrer" aria-label="Open EASA Easy Access Rules for Continuing Airworthiness">Continuing<br />Airworthiness</a>
             <div class="parts" style="--trunk-height:210px">
               <span class="part-node" data-row="1" data-regulation="part-m">Part-M</span>
               <span class="part-node" data-row="2" data-regulation="part-145">Part-145</span>
@@ -514,7 +539,7 @@
           </section>
 
           <section class="reg-column">
-            <div class="reg-card">Air Crew</div>
+            <a class="reg-card" href="https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-aircrew-regulation-eu-no-11782011" target="_blank" rel="noopener noreferrer" aria-label="Open EASA Easy Access Rules for Aircrew">Air Crew</a>
             <div class="parts" style="--trunk-height:372px">
               <span class="part-node" data-row="1" data-regulation="part-fcl">Part-FCL</span>
               <span class="part-node small" data-row="2" data-regulation="national-license-conversion">Conversion<br />of national<br />licenses</span>
@@ -528,7 +553,7 @@
           </section>
 
           <section class="reg-column">
-            <div class="reg-card">Air<br />Operations</div>
+            <a class="reg-card" href="https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-air-operations" target="_blank" rel="noopener noreferrer" aria-label="Open EASA Easy Access Rules for Air Operations">Air<br />Operations</a>
             <div class="parts" style="--trunk-height:372px">
               <span class="part-node" data-row="1" data-regulation="air-ops-def">DEF</span>
               <span class="part-node" data-row="2" data-regulation="part-aro">Part-ARO</span>
@@ -542,7 +567,7 @@
           </section>
 
           <section class="reg-column">
-            <div class="reg-card">ANS<br />common req.</div>
+            <a class="reg-card" href="https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-air-traffic-managementair-navigation-services-provision-services" target="_blank" rel="noopener noreferrer" aria-label="Open EASA Easy Access Rules for Air Traffic Management and Air Navigation Services Provision Services">ANS<br />common req.</a>
             <div class="parts" style="--trunk-height:264px">
               <span class="part-node" data-row="1" data-regulation="ans-gen">GEN</span>
               <span class="part-node" data-row="2" data-regulation="ans-ats">ATS</span>
@@ -560,7 +585,7 @@
           </section>
 
           <section class="reg-column">
-            <div class="reg-card">ATCO<br />Licensing</div>
+            <a class="reg-card" href="https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-air-traffic-controllers-licensing-and" target="_blank" rel="noopener noreferrer" aria-label="Open EASA Easy Access Rules for Air Traffic Controllers Licensing and Certification">ATCO<br />Licensing</a>
             <div class="parts empty"></div>
             <p class="full-title"><strong>Commission Regulation (EU) No 805/2011</strong> for air traffic controllers' licences and certain certificates pursuant to Regulation (EC) No 216/2008</p>
           </section>
@@ -574,7 +599,7 @@
           </section>
 
           <section class="reg-column">
-            <div class="reg-card">SERA</div>
+            <a class="reg-card" href="https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-standardised-european-rules-air" target="_blank" rel="noopener noreferrer" aria-label="Open EASA Easy Access Rules for Standardised European Rules of the Air">SERA</a>
             <div class="parts" style="--trunk-height:48px">
               <span class="part-node wide" data-row="1" data-regulation="rules-of-the-air">Rules of the<br />air (RoA)</span>
             </div>
@@ -582,7 +607,7 @@
           </section>
 
           <section class="reg-column">
-            <div class="reg-card">Aerodromes</div>
+            <a class="reg-card" href="https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-aerodromes" target="_blank" rel="noopener noreferrer" aria-label="Open EASA Easy Access Rules for Aerodromes">Aerodromes</a>
             <div class="parts" style="--trunk-height:210px">
               <span class="part-node" data-row="1" data-regulation="aerodromes-def">DEF</span>
               <span class="part-node wide" data-row="2" data-regulation="part-adr-ar">Part-ADR.AR</span>
