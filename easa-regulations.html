@@ -57,6 +57,22 @@
     gap: 14px;
   }
 
+  .header-note {
+    max-width: min(46vw, 720px);
+    color: var(--muted);
+    font-size: clamp(8px, .72vw, 11px);
+    line-height: 1.2;
+    text-align: right;
+  }
+
+  .header-note p {
+    margin: 0;
+  }
+
+  .header-note strong {
+    color: rgba(255,255,255,.82);
+  }
+
   .hstack { display: flex; align-items: center; gap: 12px; }
 
   .button {
@@ -101,7 +117,10 @@
   }
 
   .page-title {
-    display: block;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 720px);
+    align-items: center;
+    gap: 20px;
     margin: 8px 0 8px;
   }
 
@@ -131,12 +150,11 @@
   }
 
   .board-head {
-    display: flex;
-    justify-content: flex-end;
-    min-height: clamp(52px, 5vw, 74px);
+    min-height: clamp(12px, 1.2vw, 18px);
   }
 
   .amc-copy {
+    display: none;
     color: rgba(255,255,255,.55);
     font-size: clamp(8px, .72vw, 10px);
     line-height: 1.18;
@@ -180,9 +198,9 @@
     letter-spacing: .02em;
   }
 
-  .side-label.regulations { top: 120px; color: #ff9f3a; }
-  .side-label.annexes { top: 220px; }
-  .side-label.fulltitles { top: 620px; color: rgba(255,255,255,.62); }
+  .side-label.regulations { top: 66px; color: #ff9f3a; }
+  .side-label.annexes { top: 166px; }
+  .side-label.fulltitles { top: 574px; color: rgba(255,255,255,.62); }
 
   .annex-row-label {
     position: absolute;
@@ -191,13 +209,13 @@
     font-size: clamp(13px, 1.2vw, 20px);
   }
 
-  .row-i { top: 270px; }
-  .row-ii { top: 324px; }
-  .row-iii { top: 378px; }
-  .row-iv { top: 432px; }
-  .row-v { top: 486px; }
-  .row-vi { top: 540px; }
-  .row-vii { top: 594px; }
+  .row-i { top: 216px; }
+  .row-ii { top: 270px; }
+  .row-iii { top: 324px; }
+  .row-iv { top: 378px; }
+  .row-v { top: 432px; }
+  .row-vi { top: 486px; }
+  .row-vii { top: 540px; }
 
   .reg-grid {
     position: relative;
@@ -220,7 +238,7 @@
   .reg-column {
     position: relative;
     display: grid;
-    grid-template-rows: 52px 378px auto;
+    grid-template-rows: 52px 432px auto;
     min-width: 0;
   }
 
@@ -334,7 +352,7 @@
 
   .full-title {
     min-height: 116px;
-    padding-top: 9px;
+    padding-top: 16px;
     border-top: 9px solid rgba(104,185,225,.18);
     color: rgba(255,255,255,.62);
     font-size: clamp(5.5px, .5vw, 8px);
@@ -354,13 +372,13 @@
     border-top: 3px dotted rgba(104,185,225,.42);
   }
 
-  .rule-1 { top: 314px; }
-  .rule-2 { top: 368px; }
-  .rule-3 { top: 422px; }
-  .rule-4 { top: 476px; }
-  .rule-5 { top: 530px; }
-  .rule-6 { top: 584px; }
-  .rule-7 { top: 638px; }
+  .rule-1 { top: 260px; }
+  .rule-2 { top: 314px; }
+  .rule-3 { top: 368px; }
+  .rule-4 { top: 422px; }
+  .rule-5 { top: 476px; }
+  .rule-6 { top: 530px; }
+  .rule-7 { top: 584px; }
 
   .mobile-structure {
     display: none;
@@ -394,7 +412,17 @@
       flex-direction: column;
     }
 
-    .page-title { margin-top: 18px; }
+    .header-note {
+      max-width: 100%;
+      text-align: left;
+      font-size: 11px;
+    }
+
+    .page-title {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 18px;
+    }
 
     .page-title h1 {
       font-size: 42px;
@@ -420,6 +448,9 @@
   <main class="container page-shell">
     <section class="page-title" aria-labelledby="pageTitle">
       <h1 id="pageTitle">EASA Regulations Structure</h1>
+      <div class="header-note">
+        <p><strong>AMC/GM</strong> sits with each implementing regulation. <strong>Certification Specifications</strong> are related to the implementing regulations and their parts.</p>
+      </div>
     </section>
 
     <section class="structure-scroll" aria-label="Wide EASA regulations structure diagram">
