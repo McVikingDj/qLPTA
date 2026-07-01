@@ -1,6 +1,17 @@
 {
   "entries": [
     {
+      "version": "v2.5.4",
+      "date": "2026-07-01",
+      "title": "EASA Regulation Update",
+      "changes": [
+        "Added a new EASA Regulations Structure Overview page.",
+        "Added a clickable EASA logo entry beneath the changelog on the main menu.",
+        "Styled the regulations overview to match the qLPTA theme.",
+        "Prepared the regulation structure for future document links."
+      ]
+    },
+    {
       "version": "v2.5.3",
       "date": "2026-06-10",
       "title": "Responsive Layout",
