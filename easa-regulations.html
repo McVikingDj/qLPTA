@@ -250,10 +250,10 @@
   .reg-column::before {
     content: "";
     position: absolute;
-    top: -26px;
+    top: -22px;
     left: 50%;
     width: 10px;
-    height: 30px;
+    height: 24px;
     transform: translateX(-50%);
     border-radius: 0;
     background: var(--line-gold);
@@ -291,7 +291,7 @@
     position: absolute;
     left: 10px;
     top: -1px;
-    bottom: 8px;
+    height: var(--trunk-height, 372px);
     width: 8px;
     border-radius: 0;
     background: var(--line-blue);
@@ -495,7 +495,7 @@
         <div class="reg-grid">
           <section class="reg-column">
             <div class="reg-card">Initial<br />Airworthiness</div>
-            <div class="parts">
+            <div class="parts" style="--trunk-height:48px">
               <span class="part-node" data-row="1" data-regulation="part-21">Part-21</span>
             </div>
             <p class="full-title"><strong>Commission Regulation (EU) No 748/2012 of 03/08/2012</strong> laying down implementing rules for the airworthiness and environmental certification of aircraft and related products, parts and appliances, as well as for the certification of design and production organisations</p>
@@ -503,7 +503,7 @@
 
           <section class="reg-column">
             <div class="reg-card">Continuing<br />Airworthiness</div>
-            <div class="parts">
+            <div class="parts" style="--trunk-height:210px">
               <span class="part-node" data-row="1" data-regulation="part-m">Part-M</span>
               <span class="part-node" data-row="2" data-regulation="part-145">Part-145</span>
               <span class="part-node" data-row="3" data-regulation="part-66">Part-66</span>
@@ -514,7 +514,7 @@
 
           <section class="reg-column">
             <div class="reg-card">Air Crew</div>
-            <div class="parts">
+            <div class="parts" style="--trunk-height:372px">
               <span class="part-node" data-row="1" data-regulation="part-fcl">Part-FCL</span>
               <span class="part-node small" data-row="2" data-regulation="national-license-conversion">Conversion<br />of national<br />licenses</span>
               <span class="part-node small" data-row="3" data-regulation="non-eu-state-licenses">Licenses of<br />non-EU<br />states</span>
@@ -528,7 +528,7 @@
 
           <section class="reg-column">
             <div class="reg-card">Air<br />Operations</div>
-            <div class="parts">
+            <div class="parts" style="--trunk-height:372px">
               <span class="part-node" data-row="1" data-regulation="air-ops-def">DEF</span>
               <span class="part-node" data-row="2" data-regulation="part-aro">Part-ARO</span>
               <span class="part-node" data-row="3" data-regulation="part-oro">Part-ORO</span>
@@ -542,7 +542,7 @@
 
           <section class="reg-column">
             <div class="reg-card">ANS<br />common req.</div>
-            <div class="parts">
+            <div class="parts" style="--trunk-height:264px">
               <span class="part-node" data-row="1" data-regulation="ans-gen">GEN</span>
               <span class="part-node" data-row="2" data-regulation="ans-ats">ATS</span>
               <span class="part-node" data-row="3" data-regulation="ans-met">MET</span>
@@ -566,7 +566,7 @@
 
           <section class="reg-column">
             <div class="reg-card">Airspace<br />usage req.</div>
-            <div class="parts">
+            <div class="parts" style="--trunk-height:48px">
               <span class="part-node wide" data-row="1" data-regulation="part-acas">Part-ACAS</span>
             </div>
             <p class="full-title"><strong>Commission Implementing Regulation (EU) No 1332/2011 of 16 December 2011</strong> laying down common airspace usage requirements and operating procedures for airborne collision avoidance</p>
@@ -574,7 +574,7 @@
 
           <section class="reg-column">
             <div class="reg-card">SERA</div>
-            <div class="parts">
+            <div class="parts" style="--trunk-height:48px">
               <span class="part-node wide" data-row="1" data-regulation="rules-of-the-air">Rules of the<br />air (RoA)</span>
             </div>
             <p class="full-title"><strong>Commission Implementing Regulation (EU) No 923/2012 of 26/09/2011</strong> laying down common rules of the air and operational provisions regarding services and procedures in air navigation</p>
@@ -582,7 +582,7 @@
 
           <section class="reg-column">
             <div class="reg-card">Aerodromes</div>
-            <div class="parts">
+            <div class="parts" style="--trunk-height:210px">
               <span class="part-node" data-row="1" data-regulation="aerodromes-def">DEF</span>
               <span class="part-node wide" data-row="2" data-regulation="part-adr-ar">Part-ADR.AR</span>
               <span class="part-node wide" data-row="3" data-regulation="part-adr-or">Part-ADR.OR</span>
