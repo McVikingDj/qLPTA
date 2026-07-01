@@ -296,6 +296,81 @@ body.light #goStats .search-page-button-icon {
 }
 </style>
 
+<style id="easa-regulations-entry-v26">
+  #easaRegulationsLink {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px;
+    margin-top: 14px;
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 12px;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.018));
+    color: inherit;
+    text-decoration: none;
+    transition: transform .14s ease, border-color .14s ease, background .14s ease, box-shadow .14s ease;
+  }
+
+  #easaRegulationsLink:hover {
+    transform: translateY(-1px);
+    border-color: rgba(0,137,199,.42);
+    background:
+      linear-gradient(180deg, rgba(0,137,199,.12), rgba(255,255,255,.028));
+    box-shadow: 0 12px 28px rgba(0,0,0,.20);
+  }
+
+  #easaRegulationsLink img {
+    width: min(170px, 44%);
+    max-height: 58px;
+    object-fit: contain;
+    flex: 0 0 auto;
+  }
+
+  .easa-regulations-copy {
+    min-width: 0;
+  }
+
+  .easa-regulations-copy strong {
+    display: block;
+    font-size: 14px;
+    line-height: 1.25;
+  }
+
+  .easa-regulations-copy span {
+    display: block;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.35;
+  }
+
+  body.light #easaRegulationsLink {
+    border-color: rgba(15,23,42,.10);
+    background:
+      linear-gradient(180deg, rgba(15,23,42,.035), rgba(15,23,42,.012));
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.65);
+  }
+
+  body.light #easaRegulationsLink:hover {
+    border-color: rgba(0,137,199,.32);
+    background:
+      linear-gradient(180deg, rgba(0,137,199,.08), rgba(15,23,42,.018));
+  }
+
+  @media (max-width: 560px) {
+    #easaRegulationsLink {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    #easaRegulationsLink img {
+      width: 190px;
+      max-width: 100%;
+    }
+  }
+</style>
+
 <style id="results-screen-v26">
   .results-screen {
     overflow: hidden;
@@ -911,6 +986,14 @@ body.light #goStats .search-page-button-icon {
     <span class="small" id="clStatus" style="opacity:.7">Loading…</span>
     <div id="changelogList" class="vstack" style="gap:10px; margin-top:8px; padding-right:6px; scrollbar-gutter:stable;"></div>
   </div>
+
+  <a id="easaRegulationsLink" href="easa-regulations.html" aria-label="Open EASA Regulations Structure Overview">
+    <img src="assets/easa-logo.png" alt="EASA logo" />
+    <span class="easa-regulations-copy">
+      <strong>EASA Regulations Structure Overview</strong>
+      <span>Regulation map and document links</span>
+    </span>
+  </a>
 
 </section>
 <script>
