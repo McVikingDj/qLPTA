@@ -267,8 +267,8 @@
   .reg-grid {
     position: relative;
     display: grid;
-    grid-template-columns: repeat(11, minmax(0, 1fr));
-    gap: clamp(6px, .72vw, 18px);
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+    gap: clamp(8px, .95vw, 24px);
     align-items: start;
   }
 
@@ -484,6 +484,29 @@
     cursor: help;
   }
 
+  .reg-stack {
+    display: grid;
+    align-content: start;
+    gap: 10px;
+    padding-top: 8px;
+  }
+
+  .reg-stack-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    padding: 5px 7px;
+    border: 3px solid rgba(255,194,71,.25);
+    border-radius: clamp(15px, 1.6vw, 24px);
+    background: rgba(255,194,71,.05);
+    color: rgba(255,255,255,.82);
+    font-size: clamp(6.4px, .55vw, 9px);
+    font-weight: 700;
+    line-height: 1.08;
+    text-align: center;
+  }
+
   .additional-regs-panel {
     position: absolute;
     right: 0;
@@ -536,7 +559,7 @@
   .annex-rule {
     position: absolute;
     left: 66px;
-    right: 36px;
+    right: calc(12% + 36px);
     height: 0;
     border-top: 3px dotted rgba(104,185,225,.42);
   }
@@ -730,26 +753,6 @@
           </section>
 
           <section class="reg-column">
-            <div class="reg-card">Balloons<br />Air Ops</div>
-            <div class="parts" style="--trunk-height:128px">
-              <span class="part-node" data-row="1" data-regulation="balloons-def" data-tooltip="Part-DEF: definitions for balloon operations under Regulation (EU) 2018/395." tabindex="0">Part-DEF</span>
-              <span class="part-node" data-row="2" data-regulation="part-bop" data-tooltip="Part-BOP: Balloon Operations. Annex II covers balloon operating requirements." tabindex="0">Part-BOP</span>
-              <span class="part-node" data-row="3" data-regulation="part-bfcl" data-tooltip="Part-BFCL: Balloon Flight Crew Licensing. Annex III covers balloon pilot licensing requirements." tabindex="0">Part-BFCL</span>
-            </div>
-            <p class="full-title"><strong>Commission Regulation (EU) 2018/395</strong> laying down detailed rules for the operation of balloons and balloon flight crew licensing.</p>
-          </section>
-
-          <section class="reg-column">
-            <div class="reg-card">Sailplanes<br />Air Ops</div>
-            <div class="parts" style="--trunk-height:128px">
-              <span class="part-node" data-row="1" data-regulation="sailplanes-def" data-tooltip="Part-DEF: definitions for sailplane operations under Regulation (EU) 2018/1976." tabindex="0">Part-DEF</span>
-              <span class="part-node" data-row="2" data-regulation="part-sao" data-tooltip="Part-SAO: Sailplane Air Operations. Annex II covers sailplane operating requirements." tabindex="0">Part-SAO</span>
-              <span class="part-node" data-row="3" data-regulation="part-sfcl" data-tooltip="Part-SFCL: Sailplane Flight Crew Licensing. Annex III covers sailplane pilot licensing requirements." tabindex="0">Part-SFCL</span>
-            </div>
-            <p class="full-title"><strong>Commission Regulation (EU) 2018/1976</strong> laying down detailed rules for the operation of sailplanes and sailplane flight crew licensing.</p>
-          </section>
-
-          <section class="reg-column">
             <div class="reg-card">Airspace<br />Usage</div>
             <div class="parts" style="--trunk-height:172px">
               <span class="part-node wide" data-row="1" data-regulation="part-acas" data-tooltip="ACAS: Airborne Collision Avoidance System requirements under Regulation (EU) 1332/2011." tabindex="0">ACAS</span>
@@ -792,7 +795,15 @@
                 <li>Information Security, Repository of Information and Ground Handling.</li>
               </ul>
             </div>
-            <div class="parts empty"></div>
+            <div class="reg-stack" aria-label="Additional regulations shown without annex detail">
+              <div class="reg-stack-card">Balloons<br />Air Ops</div>
+              <div class="reg-stack-card">Sailplanes<br />Air Ops</div>
+              <div class="reg-stack-card">ATM/ANS<br />Services</div>
+              <div class="reg-stack-card">ATCO<br />Licensing</div>
+              <div class="reg-stack-card">TCO</div>
+              <div class="reg-stack-card">UAS &amp;<br />U-space</div>
+              <div class="reg-stack-card">Info Security<br />Ground Handling</div>
+            </div>
             <p class="full-title"><strong>Specialist and system-level regulations</strong> kept out of the main pilot overview to preserve readability. See the current PDF for the complete structure.</p>
           </section>
         </div>
@@ -805,12 +816,10 @@
       <div class="mobile-card"><h3>Continuing Airworthiness</h3><ul><li>Part-M</li><li>Part-145</li><li>Part-66</li><li>Part-147</li><li>Part-T</li><li>Part-ML</li><li>Part-CAMO</li><li>Part-CAO</li></ul></div>
       <div class="mobile-card"><h3>Aircrew</h3><ul><li>Part-FCL</li><li>Non-EU licence conversion</li><li>Non-EU state licences</li><li>Part-MED</li><li>Part-CC</li><li>Part-ARA</li><li>Part-ORA</li><li>Part-DTO</li></ul></div>
       <div class="mobile-card"><h3>Air Operations</h3><ul><li>DEF</li><li>Part-ARO</li><li>Part-ORO</li><li>Part-CAT</li><li>Part-SPA</li><li>Part-NCC</li><li>Part-NCO</li><li>Part-SPO</li></ul></div>
-      <div class="mobile-card"><h3>Balloons Air Ops</h3><ul><li>Part-DEF</li><li>Part-BOP</li><li>Part-BFCL</li></ul></div>
-      <div class="mobile-card"><h3>Sailplanes Air Ops</h3><ul><li>Part-DEF</li><li>Part-SAO</li><li>Part-SFCL</li></ul></div>
       <div class="mobile-card"><h3>Airspace Usage</h3><ul><li>ACAS</li><li>Subpart PBN</li><li>Part-COM</li><li>Part-SUR</li></ul></div>
       <div class="mobile-card"><h3>SERA</h3><ul><li>Rules of the Air</li></ul></div>
       <div class="mobile-card"><h3>Aerodromes</h3><ul><li>DEF</li><li>Part-ADR.AR</li><li>Part-ADR.OR</li><li>Part-ADR.OPS</li></ul></div>
-      <div class="mobile-card"><h3>Additional EASA Regulations</h3><ul><li>ATM/ANS</li><li>ATCO</li><li>TCO</li><li>UAS and U-space</li><li>Information Security</li><li>Repository of Information</li><li>Ground Handling</li></ul></div>
+      <div class="mobile-card"><h3>Additional EASA Regulations</h3><ul><li>Balloons Air Ops</li><li>Sailplanes Air Ops</li><li>ATM/ANS</li><li>ATCO</li><li>TCO</li><li>UAS and U-space</li><li>Information Security</li><li>Repository of Information</li><li>Ground Handling</li></ul></div>
     </section>
   </main>
 </body>
