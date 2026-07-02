@@ -345,12 +345,12 @@
     content: "";
     position: absolute;
     left: 10px;
-    top: -3px;
-    height: calc(var(--trunk-height, 372px) + 6px);
+    top: -12px;
+    height: calc(var(--trunk-height, 372px) + 15px);
     width: 8px;
     border-radius: 0;
     background: var(--line-blue);
-    z-index: 3;
+    z-index: 1;
   }
 
   .parts.empty::before { display: none; }
@@ -510,30 +510,24 @@
     position: relative;
   }
 
-  .additional-regs .reg-card {
-    cursor: help;
-    position: relative;
-    z-index: 2;
-    background: linear-gradient(180deg, rgba(255,194,71,.11), rgba(255,194,71,.04)), #1b1a15;
-  }
-
   .additional-regs::after {
     content: "";
     position: absolute;
     left: 50%;
-    top: 42px;
+    top: -14px;
     width: 8px;
-    height: 332px;
+    height: 446px;
     transform: translateX(-50%);
     background: var(--line-gold);
     z-index: 0;
   }
 
   .reg-stack {
+    grid-row: 1 / 3;
     display: grid;
     align-content: start;
-    gap: 10px;
-    padding-top: 8px;
+    gap: 6px;
+    padding-top: 0;
   }
 
   .reg-stack-card {
@@ -542,16 +536,83 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 36px;
+    min-height: 35px;
     padding: 5px 7px;
     border: 3px solid rgba(255,194,71,.25);
     border-radius: clamp(15px, 1.6vw, 24px);
     background: linear-gradient(180deg, rgba(255,194,71,.1), rgba(255,194,71,.035)), #1b1a15;
-    color: rgba(255,255,255,.82);
-    font-size: clamp(6.4px, .55vw, 9px);
-    font-weight: 700;
-    line-height: 1.08;
+    color: rgba(255,255,255,.84);
+    font-size: clamp(7px, .68vw, 11px);
+    line-height: 1.12;
     text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .reg-stack-card:hover,
+  .reg-stack-card:focus-visible {
+    z-index: 80;
+    border-color: rgba(255,194,71,.52);
+    background: linear-gradient(180deg, rgba(255,194,71,.16), rgba(255,194,71,.06)), #1b1a15;
+    color: #fff;
+    outline: none;
+  }
+
+  .reg-stack-card > span:first-child {
+    position: relative;
+    z-index: 2;
+  }
+
+  .reg-stack-card .reg-tooltip {
+    display: none;
+    position: absolute;
+    right: calc(100% + 12px);
+    top: 50%;
+    z-index: 90;
+    width: min(360px, 27vw);
+    max-height: min(360px, 72vh);
+    overflow: auto;
+    padding: 10px 12px;
+    border: 1px solid rgba(255,194,71,.42);
+    border-radius: 8px;
+    background: rgba(11,15,17,.97);
+    box-shadow: 0 16px 34px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.07);
+    color: rgba(255,255,255,.9);
+    font-size: 11px;
+    line-height: 1.24;
+    text-align: left;
+    transform: translate(4px, -50%);
+    pointer-events: none;
+  }
+
+  .reg-tooltip strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #fff;
+  }
+
+  .reg-tooltip ul {
+    margin: 0;
+    padding-left: 16px;
+  }
+
+  .reg-tooltip li + li {
+    margin-top: 3px;
+  }
+
+  .reg-stack-card:hover .reg-tooltip,
+  .reg-stack-card:focus-visible .reg-tooltip {
+    display: block;
+  }
+
+  .reg-stack-card:nth-last-child(-n+2) .reg-tooltip {
+    top: auto;
+    bottom: 0;
+    transform: translate(4px, 0);
+  }
+
+  .additional-regs .full-title {
+    grid-row: 3;
   }
 
   .full-title {
@@ -795,15 +856,47 @@
           </section>
 
           <section class="reg-column additional-regs">
-            <div class="reg-card" tabindex="0">Additional<br />EASA Regs</div>
             <div class="reg-stack" aria-label="Additional regulations shown without annex detail">
-              <div class="reg-stack-card">Balloons<br />Air Ops</div>
-              <div class="reg-stack-card">Sailplanes<br />Air Ops</div>
-              <div class="reg-stack-card">ATM/ANS<br />Services</div>
-              <div class="reg-stack-card">ATCO<br />Licensing</div>
-              <div class="reg-stack-card">TCO</div>
-              <div class="reg-stack-card">UAS &amp;<br />U-space</div>
-              <div class="reg-stack-card">Info Security<br />Ground Handling</div>
+              <a class="reg-stack-card" href="https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-balloons" target="_blank" rel="noopener noreferrer" aria-label="Open EASA Easy Access Rules for Balloons Air Operations">
+                <span>Balloons<br />Air Ops</span>
+                <span class="reg-tooltip"><strong>Balloons - Air Operations<br />IR: (EU) 2018/395</strong><ul><li>Annex I: Part-DEF</li><li>Annex II: Part-BOP</li><li>Annex III: Part-BFCL</li></ul></span>
+              </a>
+              <a class="reg-stack-card" href="https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-sailplanes" target="_blank" rel="noopener noreferrer" aria-label="Open EASA Easy Access Rules for Sailplanes Air Operations">
+                <span>Sailplanes<br />Air Ops</span>
+                <span class="reg-tooltip"><strong>Sailplanes - Air Operations<br />IR: (EU) 2018/1976</strong><ul><li>Annex I: Part-DEF</li><li>Annex II: Part-SAO</li><li>Annex III: Part-SFCL</li></ul></span>
+              </a>
+              <a class="reg-stack-card" href="https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-air-traffic-managementair-navigation-services-provision-services" target="_blank" rel="noopener noreferrer" aria-label="Open EASA Easy Access Rules for ATM/ANS Services">
+                <span>ATM/ANS<br />Services</span>
+                <span class="reg-tooltip"><strong>ATM/ANS - Provision of Services<br />IR: (EU) 2017/373</strong><ul><li>Annex I: Definitions</li><li>Annex II: Part-ATM/ANS.AR</li><li>Annex III: Part-ATM/ANS.OR</li><li>Annex IV: Part-ATS</li><li>Annex V: Part-MET</li><li>Annex VI: Part-AIS</li><li>Annex VII: Part-DAT</li><li>Annex VIII: Part-CNS</li><li>Annex IX: Part-ATFM</li><li>Annex X: Part-ASM</li><li>Annex XI: Part-FPD</li><li>Annex XII: Part-NM</li><li>Annex XIII: Part-PERS</li></ul></span>
+              </a>
+              <a class="reg-stack-card" href="https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-air-traffic-controllers-licensing-and" target="_blank" rel="noopener noreferrer" aria-label="Open EASA Easy Access Rules for ATCO Licensing">
+                <span>ATCO<br />Licensing</span>
+                <span class="reg-tooltip"><strong>Air Traffic Controllers (ATCO)<br />IR: (EU) 2015/340</strong><ul><li>Annex I: Part ATCO</li><li>Annex II: Part ATCO.AR</li><li>Annex III: Part ATCO.OR</li><li>Annex IV: Part ATCO.MED</li></ul></span>
+              </a>
+              <a class="reg-stack-card" href="https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-third-country-operators" target="_blank" rel="noopener noreferrer" aria-label="Open EASA Easy Access Rules for Third Country Operators">
+                <span>TCO</span>
+                <span class="reg-tooltip"><strong>Third Country Operators (TCO)<br />IR: (EU) No 452/2014</strong><ul><li>Annex I: Part-TCO</li><li>Annex II: Part-ART</li></ul></span>
+              </a>
+              <a class="reg-stack-card" href="https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-unmanned-aircraft-systems" target="_blank" rel="noopener noreferrer" aria-label="Open EASA Easy Access Rules for Unmanned Aircraft Systems">
+                <span>UAS</span>
+                <span class="reg-tooltip"><strong>Unmanned Aircraft Systems (UAS)</strong><ul><li>DR: (EU) 2019/945 - Annex</li><li>IR: (EU) 2019/947 - UAS operations in the Open and Specific categories</li></ul></span>
+              </a>
+              <a class="reg-stack-card" href="https://eur-lex.europa.eu/eli/reg_impl/2021/664/oj" target="_blank" rel="noopener noreferrer" aria-label="Open Regulation (EU) 2021/664 for U-space">
+                <span>U-space</span>
+                <span class="reg-tooltip"><strong>Regulatory Framework for the U-space<br />IR: (EU) 2021/664</strong><ul><li>Annex I: Capabilities, performance requirements, operational conditions and airspace constraints</li><li>Annex II: Publication of common information</li><li>Annex III: Data quality, data latency and data protection requirements</li><li>Annex IV: UAS flight authorisation request</li><li>Annex V: Exchange of operational data and information</li><li>Annex VI: Certificate for U-space service provider</li><li>Annex VII: Certificate for single common information service provider</li></ul></span>
+              </a>
+              <a class="reg-stack-card" href="https://eur-lex.europa.eu/eli/reg_impl/2023/203/oj" target="_blank" rel="noopener noreferrer" aria-label="Open Regulation (EU) 2023/203 for Information Security">
+                <span>Info<br />Security</span>
+                <span class="reg-tooltip"><strong>Information Security (IS)</strong><ul><li>DA: (EU) 2022/1645 - Annex: Part-IS.D.OR</li><li>IR: (EU) 2023/203 - Annex I: Part-IS.AR</li><li>IR: (EU) 2023/203 - Annex II: Part-IS.I.OR</li></ul></span>
+              </a>
+              <a class="reg-stack-card" href="https://eur-lex.europa.eu/eli/reg_impl/2023/2117/oj" target="_blank" rel="noopener noreferrer" aria-label="Open Regulation (EU) 2023/2117 for Repository of Information">
+                <span>Repository of<br />Information</span>
+                <span class="reg-tooltip"><strong>Repository of Information<br />IR: (EU) 2023/2117</strong><ul><li>Annex I: List of Information object</li><li>Annex II: Classification of the information</li></ul></span>
+              </a>
+              <a class="reg-stack-card" href="https://eur-lex.europa.eu/eli/reg_del/2025/20/oj" target="_blank" rel="noopener noreferrer" aria-label="Open Regulation (EU) 2025/20 for Ground Handling">
+                <span>Ground<br />Handling</span>
+                <span class="reg-tooltip"><strong>Ground Handling</strong><ul><li>DA: (EU) 2025/20 - Annex I: PART-ORGH</li><li>DA: (EU) 2025/20 - Annex II: PART-GH.OPS</li><li>IR: (EU) 2025/23 - Annex: PART-ARGH</li></ul></span>
+              </a>
             </div>
             <p class="full-title"><strong>Specialist and system-level regulations</strong> kept out of the main pilot overview to preserve readability. See the current PDF for the complete structure.</p>
           </section>
@@ -820,7 +913,7 @@
       <div class="mobile-card"><h3>Airspace Usage</h3><ul><li>ACAS</li><li>Subpart PBN</li><li>Part-COM</li><li>Part-SUR</li></ul></div>
       <div class="mobile-card"><h3>SERA</h3><ul><li>Rules of the Air</li></ul></div>
       <div class="mobile-card"><h3>Aerodromes</h3><ul><li>DEF</li><li>Part-ADR.AR</li><li>Part-ADR.OR</li><li>Part-ADR.OPS</li></ul></div>
-      <div class="mobile-card"><h3>Additional EASA Regulations</h3><ul><li>Balloons Air Ops</li><li>Sailplanes Air Ops</li><li>ATM/ANS</li><li>ATCO</li><li>TCO</li><li>UAS and U-space</li><li>Information Security</li><li>Repository of Information</li><li>Ground Handling</li></ul></div>
+      <div class="mobile-card"><h3>Additional EASA Regulations</h3><ul><li>Balloons Air Ops</li><li>Sailplanes Air Ops</li><li>ATM/ANS Services</li><li>ATCO Licensing</li><li>TCO</li><li>UAS</li><li>U-space</li><li>Information Security</li><li>Repository of Information</li><li>Ground Handling</li></ul></div>
     </section>
   </main>
 </body>
