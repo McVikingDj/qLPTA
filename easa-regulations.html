@@ -250,7 +250,7 @@
 
   .annex-row-label {
     position: absolute;
-    left: clamp(44px, 3vw, 58px);
+    left: clamp(34px, 2.3vw, 46px);
     color: var(--easa-blue);
     font-size: clamp(13px, 1.2vw, 20px);
   }
@@ -346,6 +346,7 @@
     width: 8px;
     border-radius: 0;
     background: var(--line-blue);
+    z-index: 3;
   }
 
   .parts.empty::before { display: none; }
@@ -375,10 +376,15 @@
     padding: 4px clamp(2px, .35vw, 6px);
     border: 3px solid rgba(104,185,225,.28);
     border-radius: clamp(16px, 1.8vw, 27px);
-    background: rgba(104,185,225,.09);
+    background: transparent;
     font-size: clamp(7px, .62vw, 10px);
     line-height: 1.08;
     cursor: help;
+  }
+
+  .part-node > span {
+    position: relative;
+    z-index: 5;
   }
 
   .part-node.small {
@@ -407,6 +413,7 @@
     transform: translateY(-50%);
     border-radius: 0;
     background: var(--line-blue);
+    z-index: 3;
   }
 
   .part-node.small::before {
@@ -418,6 +425,15 @@
   }
 
   .part-node::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: #172932;
+    z-index: 1;
+  }
+
+  .part-node .tooltip {
     content: attr(data-tooltip);
     position: absolute;
     right: 50%;
@@ -445,25 +461,29 @@
   .part-node:hover,
   .part-node:focus-visible {
     border-color: rgba(104,185,225,.56);
-    background: rgba(104,185,225,.14);
     color: #fff;
     outline: none;
   }
 
   .part-node:hover::after,
   .part-node:focus-visible::after {
+    background: #1b3541;
+  }
+
+  .part-node:hover .tooltip,
+  .part-node:focus-visible .tooltip {
     display: block;
     opacity: 1;
     transform: translate(50%, 0);
   }
 
-  .reg-column:last-child .part-node::after {
+  .reg-column:last-child .part-node .tooltip {
     right: 0;
     transform: translate(0, 4px);
   }
 
-  .reg-column:last-child .part-node:hover::after,
-  .reg-column:last-child .part-node:focus-visible::after {
+  .reg-column:last-child .part-node:hover .tooltip,
+  .reg-column:last-child .part-node:focus-visible .tooltip {
     transform: translate(0, 0);
   }
 
@@ -674,9 +694,9 @@
           <section class="reg-column">
             <a class="reg-card" href="https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-initial-airworthiness-and-environmental" target="_blank" rel="noopener noreferrer" aria-label="Open EASA Easy Access Rules for Initial Airworthiness and Environmental Protection">Initial<br />Airworthiness</a>
             <div class="parts" style="--trunk-height:128px">
-              <span class="part-node" data-row="1" data-regulation="part-21" data-tooltip="Part-21: certification of aircraft, products, parts and appliances. Annex I covers design and production organisation requirements." tabindex="0">Part-21</span>
-              <span class="part-node tiny" data-row="2" data-regulation="initial-repealed-regulation" data-tooltip="Annex II: repealed regulation and list of amendments for the Initial Airworthiness regulation." tabindex="0">Repealed<br />reg.</span>
-              <span class="part-node tiny" data-row="3" data-regulation="initial-correlation-table" data-tooltip="Annex III: correlation table linking the old and new Initial Airworthiness provisions." tabindex="0">Correlation<br />table</span>
+              <span class="part-node" data-row="1" data-regulation="part-21" data-tooltip="Part-21: certification of aircraft, products, parts and appliances. Annex I covers design and production organisation requirements." tabindex="0"><span>Part-21</span><span class="tooltip">Part-21: certification of aircraft, products, parts and appliances. Annex I covers design and production organisation requirements.</span></span>
+              <span class="part-node tiny" data-row="2" data-regulation="initial-repealed-regulation" data-tooltip="Annex II: repealed regulation and list of amendments for the Initial Airworthiness regulation." tabindex="0"><span>Repealed<br />reg.</span><span class="tooltip">Annex II: repealed regulation and list of amendments for the Initial Airworthiness regulation.</span></span>
+              <span class="part-node tiny" data-row="3" data-regulation="initial-correlation-table" data-tooltip="Annex III: correlation table linking the old and new Initial Airworthiness provisions." tabindex="0"><span>Correlation<br />table</span><span class="tooltip">Annex III: correlation table linking the old and new Initial Airworthiness provisions.</span></span>
             </div>
             <p class="full-title"><strong>Commission Regulation (EU) No 748/2012</strong> laying down implementing rules for airworthiness and environmental certification of aircraft and related products, parts and appliances.</p>
           </section>
@@ -684,7 +704,7 @@
           <section class="reg-column">
             <div class="reg-card">Additional<br />Airworthiness</div>
             <div class="parts" style="--trunk-height:40px">
-              <span class="part-node" data-row="1" data-regulation="part-26" data-tooltip="Part-26: additional airworthiness specifications for operations. Annex I covers extra airworthiness specifications for certain operational contexts." tabindex="0">Part-26</span>
+              <span class="part-node" data-row="1" data-regulation="part-26" data-tooltip="Part-26: additional airworthiness specifications for operations. Annex I covers extra airworthiness specifications for certain operational contexts." tabindex="0"><span>Part-26</span><span class="tooltip">Part-26: additional airworthiness specifications for operations. Annex I covers extra airworthiness specifications for certain operational contexts.</span></span>
             </div>
             <p class="full-title"><strong>Commission Regulation (EU) 2015/640</strong> on additional airworthiness specifications for a given type of operations.</p>
           </section>
@@ -692,14 +712,14 @@
           <section class="reg-column">
             <a class="reg-card" href="https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-continuing-airworthiness" target="_blank" rel="noopener noreferrer" aria-label="Open EASA Easy Access Rules for Continuing Airworthiness">Continuing<br />Airworthiness</a>
             <div class="parts" style="--trunk-height:348px">
-              <span class="part-node" data-row="1" data-regulation="part-m" data-tooltip="Part-M: continuing airworthiness. Annex I covers aircraft continuing airworthiness requirements." tabindex="0">Part-M</span>
-              <span class="part-node" data-row="2" data-regulation="part-145" data-tooltip="Part-145: approved maintenance organisations. Annex II covers maintenance organisation approval requirements." tabindex="0">Part-145</span>
-              <span class="part-node" data-row="3" data-regulation="part-66" data-tooltip="Part-66: aircraft maintenance licence. Annex III covers certifying staff licensing requirements." tabindex="0">Part-66</span>
-              <span class="part-node" data-row="4" data-regulation="part-147" data-tooltip="Part-147: maintenance training organisations. Annex IV covers training organisation approval requirements." tabindex="0">Part-147</span>
-              <span class="part-node" data-row="5" data-regulation="part-t" data-tooltip="Part-T: continuing airworthiness requirements for certain third-country registered aircraft. Annex Va in Regulation (EU) 1321/2014." tabindex="0">Part-T</span>
-              <span class="part-node" data-row="6" data-regulation="part-ml" data-tooltip="Part-ML: light aircraft continuing airworthiness. Annex Vb is especially relevant to many private and training aircraft." tabindex="0">Part-ML</span>
-              <span class="part-node" data-row="7" data-regulation="part-camo" data-tooltip="Part-CAMO: Continuing Airworthiness Management Organisations. Annex Vc covers CAMO requirements." tabindex="0">Part-CAMO</span>
-              <span class="part-node" data-row="8" data-regulation="part-cao" data-tooltip="Part-CAO: Combined Airworthiness Organisations. Annex Vd covers combined maintenance and airworthiness organisations." tabindex="0">Part-CAO</span>
+              <span class="part-node" data-row="1" data-regulation="part-m" data-tooltip="Part-M: continuing airworthiness. Annex I covers aircraft continuing airworthiness requirements." tabindex="0"><span>Part-M</span><span class="tooltip">Part-M: continuing airworthiness. Annex I covers aircraft continuing airworthiness requirements.</span></span>
+              <span class="part-node" data-row="2" data-regulation="part-145" data-tooltip="Part-145: approved maintenance organisations. Annex II covers maintenance organisation approval requirements." tabindex="0"><span>Part-145</span><span class="tooltip">Part-145: approved maintenance organisations. Annex II covers maintenance organisation approval requirements.</span></span>
+              <span class="part-node" data-row="3" data-regulation="part-66" data-tooltip="Part-66: aircraft maintenance licence. Annex III covers certifying staff licensing requirements." tabindex="0"><span>Part-66</span><span class="tooltip">Part-66: aircraft maintenance licence. Annex III covers certifying staff licensing requirements.</span></span>
+              <span class="part-node" data-row="4" data-regulation="part-147" data-tooltip="Part-147: maintenance training organisations. Annex IV covers training organisation approval requirements." tabindex="0"><span>Part-147</span><span class="tooltip">Part-147: maintenance training organisations. Annex IV covers training organisation approval requirements.</span></span>
+              <span class="part-node" data-row="5" data-regulation="part-t" data-tooltip="Part-T: continuing airworthiness requirements for certain third-country registered aircraft. Annex Va in Regulation (EU) 1321/2014." tabindex="0"><span>Part-T</span><span class="tooltip">Part-T: continuing airworthiness requirements for certain third-country registered aircraft. Annex Va in Regulation (EU) 1321/2014.</span></span>
+              <span class="part-node" data-row="6" data-regulation="part-ml" data-tooltip="Part-ML: light aircraft continuing airworthiness. Annex Vb is especially relevant to many private and training aircraft." tabindex="0"><span>Part-ML</span><span class="tooltip">Part-ML: light aircraft continuing airworthiness. Annex Vb is especially relevant to many private and training aircraft.</span></span>
+              <span class="part-node" data-row="7" data-regulation="part-camo" data-tooltip="Part-CAMO: Continuing Airworthiness Management Organisations. Annex Vc covers CAMO requirements." tabindex="0"><span>Part-CAMO</span><span class="tooltip">Part-CAMO: Continuing Airworthiness Management Organisations. Annex Vc covers CAMO requirements.</span></span>
+              <span class="part-node" data-row="8" data-regulation="part-cao" data-tooltip="Part-CAO: Combined Airworthiness Organisations. Annex Vd covers combined maintenance and airworthiness organisations." tabindex="0"><span>Part-CAO</span><span class="tooltip">Part-CAO: Combined Airworthiness Organisations. Annex Vd covers combined maintenance and airworthiness organisations.</span></span>
             </div>
             <p class="full-title"><strong>Commission Regulation (EU) No 1321/2014</strong> on continuing airworthiness of aircraft and aeronautical products, parts and appliances.</p>
           </section>
@@ -707,14 +727,14 @@
           <section class="reg-column">
             <a class="reg-card" href="https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-aircrew-regulation-eu-no-11782011" target="_blank" rel="noopener noreferrer" aria-label="Open EASA Easy Access Rules for Aircrew">Aircrew</a>
             <div class="parts" style="--trunk-height:348px">
-              <span class="part-node" data-row="1" data-regulation="part-fcl" data-tooltip="Part-FCL: Flight Crew Licensing. Annex I covers licensing requirements for pilots and other flight crew." tabindex="0">Part-FCL</span>
-              <span class="part-node small" data-row="2" data-regulation="non-eu-license-conversion" data-tooltip="Annex II: conversion of non-EU licences into the EASA licensing system." tabindex="0">Non-EU<br />conversion</span>
-              <span class="part-node small" data-row="3" data-regulation="non-eu-state-licenses" data-tooltip="Annex III: licences of non-EU states. Covers acceptance and validation of third-country licences." tabindex="0">Non-EU<br />licences</span>
-              <span class="part-node" data-row="4" data-regulation="part-med" data-tooltip="Part-MED: Medical requirements. Annex IV covers medical fitness rules for flight crew and cabin crew." tabindex="0">Part-MED</span>
-              <span class="part-node" data-row="5" data-regulation="part-cc" data-tooltip="Part-CC: Cabin Crew. Annex V covers cabin crew attestation and qualification requirements." tabindex="0">Part-CC</span>
-              <span class="part-node" data-row="6" data-regulation="part-ara" data-tooltip="Part-ARA: Authority Requirements for Aircrew. Annex VI covers competent authority oversight requirements." tabindex="0">Part-ARA</span>
-              <span class="part-node" data-row="7" data-regulation="part-ora" data-tooltip="Part-ORA: Organisation Requirements for Aircrew. Annex VII covers approved training and aero-medical organisations." tabindex="0">Part-ORA</span>
-              <span class="part-node" data-row="8" data-regulation="part-dto" data-tooltip="Part-DTO: Declared Training Organisations. Annex VIII covers DTO requirements for pilot training." tabindex="0">Part-DTO</span>
+              <span class="part-node" data-row="1" data-regulation="part-fcl" data-tooltip="Part-FCL: Flight Crew Licensing. Annex I covers licensing requirements for pilots and other flight crew." tabindex="0"><span>Part-FCL</span><span class="tooltip">Part-FCL: Flight Crew Licensing. Annex I covers licensing requirements for pilots and other flight crew.</span></span>
+              <span class="part-node small" data-row="2" data-regulation="non-eu-license-conversion" data-tooltip="Annex II: conversion of non-EU licences into the EASA licensing system." tabindex="0"><span>Non-EU<br />conversion</span><span class="tooltip">Annex II: conversion of non-EU licences into the EASA licensing system.</span></span>
+              <span class="part-node small" data-row="3" data-regulation="non-eu-state-licenses" data-tooltip="Annex III: licences of non-EU states. Covers acceptance and validation of third-country licences." tabindex="0"><span>Non-EU<br />licences</span><span class="tooltip">Annex III: licences of non-EU states. Covers acceptance and validation of third-country licences.</span></span>
+              <span class="part-node" data-row="4" data-regulation="part-med" data-tooltip="Part-MED: Medical requirements. Annex IV covers medical fitness rules for flight crew and cabin crew." tabindex="0"><span>Part-MED</span><span class="tooltip">Part-MED: Medical requirements. Annex IV covers medical fitness rules for flight crew and cabin crew.</span></span>
+              <span class="part-node" data-row="5" data-regulation="part-cc" data-tooltip="Part-CC: Cabin Crew. Annex V covers cabin crew attestation and qualification requirements." tabindex="0"><span>Part-CC</span><span class="tooltip">Part-CC: Cabin Crew. Annex V covers cabin crew attestation and qualification requirements.</span></span>
+              <span class="part-node" data-row="6" data-regulation="part-ara" data-tooltip="Part-ARA: Authority Requirements for Aircrew. Annex VI covers competent authority oversight requirements." tabindex="0"><span>Part-ARA</span><span class="tooltip">Part-ARA: Authority Requirements for Aircrew. Annex VI covers competent authority oversight requirements.</span></span>
+              <span class="part-node" data-row="7" data-regulation="part-ora" data-tooltip="Part-ORA: Organisation Requirements for Aircrew. Annex VII covers approved training and aero-medical organisations." tabindex="0"><span>Part-ORA</span><span class="tooltip">Part-ORA: Organisation Requirements for Aircrew. Annex VII covers approved training and aero-medical organisations.</span></span>
+              <span class="part-node" data-row="8" data-regulation="part-dto" data-tooltip="Part-DTO: Declared Training Organisations. Annex VIII covers DTO requirements for pilot training." tabindex="0"><span>Part-DTO</span><span class="tooltip">Part-DTO: Declared Training Organisations. Annex VIII covers DTO requirements for pilot training.</span></span>
             </div>
             <p class="full-title"><strong>Commission Regulation (EU) No 1178/2011</strong> laying down technical requirements and administrative procedures related to civil aviation aircrew.</p>
           </section>
@@ -722,14 +742,14 @@
           <section class="reg-column">
             <a class="reg-card" href="https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-air-operations" target="_blank" rel="noopener noreferrer" aria-label="Open EASA Easy Access Rules for Air Operations">Air<br />Operations</a>
             <div class="parts" style="--trunk-height:348px">
-              <span class="part-node" data-row="1" data-regulation="air-ops-def" data-tooltip="Definitions. Annex I defines terms used throughout the Air Operations regulation." tabindex="0">DEF</span>
-              <span class="part-node" data-row="2" data-regulation="part-aro" data-tooltip="Part-ARO: Authority Requirements for Air Operations. Annex II covers oversight and certification by authorities." tabindex="0">Part-ARO</span>
-              <span class="part-node" data-row="3" data-regulation="part-oro" data-tooltip="Part-ORO: Organisation Requirements for Air Operations. Annex III covers operator organisation requirements." tabindex="0">Part-ORO</span>
-              <span class="part-node" data-row="4" data-regulation="part-cat" data-tooltip="Part-CAT: Commercial Air Transport. Annex IV covers commercial air transport operating requirements." tabindex="0">Part-CAT</span>
-              <span class="part-node" data-row="5" data-regulation="part-spa" data-tooltip="Part-SPA: Specific Approvals. Annex V covers operations requiring special approval." tabindex="0">Part-SPA</span>
-              <span class="part-node" data-row="6" data-regulation="part-ncc" data-tooltip="Part-NCC: non-commercial operations with complex motor-powered aircraft. Annex VI." tabindex="0">Part-NCC</span>
-              <span class="part-node" data-row="7" data-regulation="part-nco" data-tooltip="Part-NCO: non-commercial operations with other-than-complex aircraft. Annex VII." tabindex="0">Part-NCO</span>
-              <span class="part-node" data-row="8" data-regulation="part-spo" data-tooltip="Part-SPO: specialised operations. Annex VIII covers aerial work and other specialised operations." tabindex="0">Part-SPO</span>
+              <span class="part-node" data-row="1" data-regulation="air-ops-def" data-tooltip="Definitions. Annex I defines terms used throughout the Air Operations regulation." tabindex="0"><span>DEF</span><span class="tooltip">Definitions. Annex I defines terms used throughout the Air Operations regulation.</span></span>
+              <span class="part-node" data-row="2" data-regulation="part-aro" data-tooltip="Part-ARO: Authority Requirements for Air Operations. Annex II covers oversight and certification by authorities." tabindex="0"><span>Part-ARO</span><span class="tooltip">Part-ARO: Authority Requirements for Air Operations. Annex II covers oversight and certification by authorities.</span></span>
+              <span class="part-node" data-row="3" data-regulation="part-oro" data-tooltip="Part-ORO: Organisation Requirements for Air Operations. Annex III covers operator organisation requirements." tabindex="0"><span>Part-ORO</span><span class="tooltip">Part-ORO: Organisation Requirements for Air Operations. Annex III covers operator organisation requirements.</span></span>
+              <span class="part-node" data-row="4" data-regulation="part-cat" data-tooltip="Part-CAT: Commercial Air Transport. Annex IV covers commercial air transport operating requirements." tabindex="0"><span>Part-CAT</span><span class="tooltip">Part-CAT: Commercial Air Transport. Annex IV covers commercial air transport operating requirements.</span></span>
+              <span class="part-node" data-row="5" data-regulation="part-spa" data-tooltip="Part-SPA: Specific Approvals. Annex V covers operations requiring special approval." tabindex="0"><span>Part-SPA</span><span class="tooltip">Part-SPA: Specific Approvals. Annex V covers operations requiring special approval.</span></span>
+              <span class="part-node" data-row="6" data-regulation="part-ncc" data-tooltip="Part-NCC: non-commercial operations with complex motor-powered aircraft. Annex VI." tabindex="0"><span>Part-NCC</span><span class="tooltip">Part-NCC: non-commercial operations with complex motor-powered aircraft. Annex VI.</span></span>
+              <span class="part-node" data-row="7" data-regulation="part-nco" data-tooltip="Part-NCO: non-commercial operations with other-than-complex aircraft. Annex VII." tabindex="0"><span>Part-NCO</span><span class="tooltip">Part-NCO: non-commercial operations with other-than-complex aircraft. Annex VII.</span></span>
+              <span class="part-node" data-row="8" data-regulation="part-spo" data-tooltip="Part-SPO: specialised operations. Annex VIII covers aerial work and other specialised operations." tabindex="0"><span>Part-SPO</span><span class="tooltip">Part-SPO: specialised operations. Annex VIII covers aerial work and other specialised operations.</span></span>
             </div>
             <p class="full-title"><strong>Commission Regulation (EU) No 965/2012</strong> laying down technical requirements and administrative procedures related to air operations.</p>
           </section>
@@ -737,10 +757,10 @@
           <section class="reg-column">
             <div class="reg-card">Airspace<br />Usage</div>
             <div class="parts" style="--trunk-height:172px">
-              <span class="part-node wide" data-row="1" data-regulation="part-acas" data-tooltip="ACAS: Airborne Collision Avoidance System requirements under Regulation (EU) 1332/2011." tabindex="0">ACAS</span>
-              <span class="part-node wide" data-row="2" data-regulation="subpart-pbn" data-tooltip="Subpart PBN: Performance Based Navigation requirements under Regulation (EU) 2018/1048." tabindex="0">Subpart<br />PBN</span>
-              <span class="part-node wide" data-row="3" data-regulation="part-com" data-tooltip="Part-COM: communication requirements introduced in the airspace usage structure." tabindex="0">Part-COM</span>
-              <span class="part-node wide" data-row="4" data-regulation="part-sur" data-tooltip="Part-SUR: surveillance requirements introduced in the airspace usage structure." tabindex="0">Part-SUR</span>
+              <span class="part-node wide" data-row="1" data-regulation="part-acas" data-tooltip="ACAS: Airborne Collision Avoidance System requirements under Regulation (EU) 1332/2011." tabindex="0"><span>ACAS</span><span class="tooltip">ACAS: Airborne Collision Avoidance System requirements under Regulation (EU) 1332/2011.</span></span>
+              <span class="part-node wide" data-row="2" data-regulation="subpart-pbn" data-tooltip="Subpart PBN: Performance Based Navigation requirements under Regulation (EU) 2018/1048." tabindex="0"><span>Subpart<br />PBN</span><span class="tooltip">Subpart PBN: Performance Based Navigation requirements under Regulation (EU) 2018/1048.</span></span>
+              <span class="part-node wide" data-row="3" data-regulation="part-com" data-tooltip="Part-COM: communication requirements introduced in the airspace usage structure." tabindex="0"><span>Part-COM</span><span class="tooltip">Part-COM: communication requirements introduced in the airspace usage structure.</span></span>
+              <span class="part-node wide" data-row="4" data-regulation="part-sur" data-tooltip="Part-SUR: surveillance requirements introduced in the airspace usage structure." tabindex="0"><span>Part-SUR</span><span class="tooltip">Part-SUR: surveillance requirements introduced in the airspace usage structure.</span></span>
             </div>
             <p class="full-title"><strong>Airspace usage requirements</strong> including ACAS II, PBN, communication and surveillance requirements.</p>
           </section>
@@ -748,7 +768,7 @@
           <section class="reg-column">
             <a class="reg-card" href="https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-standardised-european-rules-air" target="_blank" rel="noopener noreferrer" aria-label="Open EASA Easy Access Rules for Standardised European Rules of the Air">SERA</a>
             <div class="parts" style="--trunk-height:40px">
-              <span class="part-node wide" data-row="1" data-regulation="rules-of-the-air" data-tooltip="SERA: Standardised European Rules of the Air. The annex contains the common European rules of the air." tabindex="0">Rules of<br />the Air</span>
+              <span class="part-node wide" data-row="1" data-regulation="rules-of-the-air" data-tooltip="SERA: Standardised European Rules of the Air. The annex contains the common European rules of the air." tabindex="0"><span>Rules of<br />the Air</span><span class="tooltip">SERA: Standardised European Rules of the Air. The annex contains the common European rules of the air.</span></span>
             </div>
             <p class="full-title"><strong>Commission Implementing Regulation (EU) No 923/2012</strong> laying down the Standardised European Rules of the Air.</p>
           </section>
@@ -756,10 +776,10 @@
           <section class="reg-column">
             <a class="reg-card" href="https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-aerodromes" target="_blank" rel="noopener noreferrer" aria-label="Open EASA Easy Access Rules for Aerodromes">Aerodromes</a>
             <div class="parts" style="--trunk-height:172px">
-              <span class="part-node" data-row="1" data-regulation="aerodromes-def" data-tooltip="Definitions. Annex I defines terms used throughout the Aerodromes regulation." tabindex="0">DEF</span>
-              <span class="part-node wide" data-row="2" data-regulation="part-adr-ar" data-tooltip="Part-ADR.AR: Authority Requirements for Aerodromes. Annex II covers competent authority oversight requirements." tabindex="0">Part-ADR.AR</span>
-              <span class="part-node wide" data-row="3" data-regulation="part-adr-or" data-tooltip="Part-ADR.OR: Organisation Requirements for Aerodromes. Annex III covers aerodrome operator requirements." tabindex="0">Part-ADR.OR</span>
-              <span class="part-node wide" data-row="4" data-regulation="part-adr-ops" data-tooltip="Part-ADR.OPS: Aerodrome Operations. Annex IV covers operational requirements for aerodromes." tabindex="0">Part-ADR.OPS</span>
+              <span class="part-node" data-row="1" data-regulation="aerodromes-def" data-tooltip="Definitions. Annex I defines terms used throughout the Aerodromes regulation." tabindex="0"><span>DEF</span><span class="tooltip">Definitions. Annex I defines terms used throughout the Aerodromes regulation.</span></span>
+              <span class="part-node wide" data-row="2" data-regulation="part-adr-ar" data-tooltip="Part-ADR.AR: Authority Requirements for Aerodromes. Annex II covers competent authority oversight requirements." tabindex="0"><span>Part-ADR.AR</span><span class="tooltip">Part-ADR.AR: Authority Requirements for Aerodromes. Annex II covers competent authority oversight requirements.</span></span>
+              <span class="part-node wide" data-row="3" data-regulation="part-adr-or" data-tooltip="Part-ADR.OR: Organisation Requirements for Aerodromes. Annex III covers aerodrome operator requirements." tabindex="0"><span>Part-ADR.OR</span><span class="tooltip">Part-ADR.OR: Organisation Requirements for Aerodromes. Annex III covers aerodrome operator requirements.</span></span>
+              <span class="part-node wide" data-row="4" data-regulation="part-adr-ops" data-tooltip="Part-ADR.OPS: Aerodrome Operations. Annex IV covers operational requirements for aerodromes." tabindex="0"><span>Part-ADR.OPS</span><span class="tooltip">Part-ADR.OPS: Aerodrome Operations. Annex IV covers operational requirements for aerodromes.</span></span>
             </div>
             <p class="full-title"><strong>Commission Regulation (EU) No 139/2014</strong> laying down requirements and administrative procedures related to aerodromes.</p>
           </section>
