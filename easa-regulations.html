@@ -376,19 +376,19 @@
     border: 3px solid rgba(104,185,225,.28);
     border-radius: clamp(16px, 1.8vw, 27px);
     background: rgba(104,185,225,.09);
-    font-size: clamp(6.3px, .55vw, 9px);
-    line-height: 1.06;
+    font-size: clamp(7px, .62vw, 10px);
+    line-height: 1.08;
     cursor: help;
   }
 
   .part-node.small {
-    font-size: clamp(5px, .43vw, 6.5px);
+    font-size: clamp(5.6px, .48vw, 7.2px);
     line-height: 1.02;
     width: min(90%, 102px);
   }
 
   .part-node.tiny {
-    font-size: clamp(4.8px, .38vw, 6px);
+    font-size: clamp(5.2px, .43vw, 6.6px);
     line-height: 1.02;
     width: min(94%, 106px);
   }
@@ -507,41 +507,6 @@
     text-align: center;
   }
 
-  .additional-regs-panel {
-    position: absolute;
-    right: 0;
-    top: 56px;
-    z-index: 30;
-    display: none;
-    width: min(340px, 42vw);
-    padding: 12px 14px;
-    border: 1px solid rgba(104,185,225,.42);
-    border-radius: 8px;
-    background: rgba(11,15,17,.97);
-    box-shadow: 0 18px 42px rgba(0,0,0,.44), inset 0 1px 0 rgba(255,255,255,.07);
-    color: rgba(255,255,255,.82);
-    text-align: left;
-  }
-
-  .additional-regs:hover .additional-regs-panel,
-  .additional-regs:focus-within .additional-regs-panel {
-    display: block;
-  }
-
-  .additional-regs-panel h3 {
-    margin: 0 0 8px;
-    color: #fff;
-    font-size: 13px;
-  }
-
-  .additional-regs-panel ul {
-    margin: 0;
-    padding-left: 16px;
-    color: rgba(255,255,255,.68);
-    font-size: 11px;
-    line-height: 1.35;
-  }
-
   .full-title {
     min-height: 116px;
     padding-top: 16px;
@@ -564,14 +529,14 @@
     border-top: 3px dotted rgba(104,185,225,.42);
   }
 
-  .rule-1 { top: 190px; }
-  .rule-2 { top: 234px; }
-  .rule-3 { top: 278px; }
-  .rule-4 { top: 322px; }
-  .rule-5 { top: 366px; }
-  .rule-6 { top: 410px; }
-  .rule-7 { top: 454px; }
-  .rule-8 { top: 498px; }
+  .rule-1 { top: 198px; }
+  .rule-2 { top: 242px; }
+  .rule-3 { top: 286px; }
+  .rule-4 { top: 330px; }
+  .rule-5 { top: 374px; }
+  .rule-6 { top: 418px; }
+  .rule-7 { top: 462px; }
+  .rule-8 { top: 506px; }
 
   .mobile-structure {
     display: none;
@@ -784,17 +749,6 @@
 
           <section class="reg-column additional-regs">
             <div class="reg-card" tabindex="0">Additional<br />EASA Regs</div>
-            <div class="additional-regs-panel" aria-label="Additional EASA regulations">
-              <h3>Additional EASA Regulations</h3>
-              <ul>
-                <li>ATM/ANS - Provision of Services: AR, OR, ATS, MET, AIS, DAT, CNS, ATFM, ASM, FPD, NM, PERS.</li>
-                <li>ATM/ANS - Ground Equipment: certificates, declarations and design/production requirements.</li>
-                <li>ATCO: Part ATCO, ATCO.AR, ATCO.OR and ATCO.MED.</li>
-                <li>Third Country Operators: Part-TCO and Part-ART.</li>
-                <li>UAS and U-space: unmanned aircraft, open/specific categories and U-space services.</li>
-                <li>Information Security, Repository of Information and Ground Handling.</li>
-              </ul>
-            </div>
             <div class="reg-stack" aria-label="Additional regulations shown without annex detail">
               <div class="reg-stack-card">Balloons<br />Air Ops</div>
               <div class="reg-stack-card">Sailplanes<br />Air Ops</div>
