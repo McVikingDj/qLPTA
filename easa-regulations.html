@@ -50,6 +50,10 @@
     backdrop-filter: blur(8px);
   }
 
+  .topbar .container {
+    padding-block: 9px;
+  }
+
   .header {
     display: flex;
     justify-content: space-between;
@@ -79,6 +83,13 @@
 
   .hstack { display: flex; align-items: center; gap: 12px; }
 
+  .header-resource {
+    display: grid;
+    justify-items: end;
+    gap: 4px;
+    text-align: right;
+  }
+
   .button {
     display: inline-flex;
     align-items: center;
@@ -100,6 +111,17 @@
     border-color: rgba(255,255,255,.24);
     background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.055));
     box-shadow: inset 0 1px 0 rgba(255,255,255,.11), 0 12px 28px rgba(0,0,0,.24);
+  }
+
+  .button.resource-button {
+    border-color: rgba(255,194,71,.26);
+    background: linear-gradient(180deg, rgba(255,194,71,.13), rgba(255,194,71,.045));
+  }
+
+  .resource-updated {
+    color: rgba(255,255,255,.48);
+    font-size: 11px;
+    line-height: 1.1;
   }
 
   .badge {
@@ -501,6 +523,11 @@
       flex-direction: column;
     }
 
+    .header-resource {
+      justify-items: start;
+      text-align: left;
+    }
+
     .header-note {
       max-width: 100%;
       text-align: left;
@@ -530,6 +557,10 @@
       <div class="hstack">
         <a class="button" href="index.html">Back</a>
         <img class="logo-mark" src="assets/easa-logo.png" alt="EASA logo" />
+      </div>
+      <div class="header-resource">
+        <a class="button resource-button" href="assets/easa-structure-2026-03-06.pdf" target="_blank" rel="noopener noreferrer">Current Structure PDF</a>
+        <span class="resource-updated">Last updated: 6 March 2026</span>
       </div>
     </div>
   </div>
