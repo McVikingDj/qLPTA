@@ -85,9 +85,9 @@
 
   .header-resource {
     display: grid;
-    justify-items: end;
-    gap: 4px;
-    text-align: right;
+    justify-items: center;
+    gap: 5px;
+    text-align: center;
   }
 
   .button {
@@ -114,8 +114,15 @@
   }
 
   .button.resource-button {
-    border-color: rgba(255,194,71,.26);
-    background: linear-gradient(180deg, rgba(255,194,71,.13), rgba(255,194,71,.045));
+    border-color: rgba(0,137,199,.38);
+    background: linear-gradient(180deg, rgba(0,137,199,.22), rgba(0,137,199,.075));
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 10px 24px rgba(0,137,199,.12);
+  }
+
+  .button.resource-button:hover {
+    border-color: rgba(0,137,199,.6);
+    background: linear-gradient(180deg, rgba(0,137,199,.3), rgba(0,137,199,.11));
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 14px 30px rgba(0,137,199,.18);
   }
 
   .resource-updated {
@@ -147,7 +154,7 @@
     grid-template-columns: minmax(0, 1fr) minmax(420px, 620px);
     align-items: start;
     gap: 20px;
-    margin: 8px 0 8px;
+    margin: 6px 0 6px;
   }
 
   .page-title h1 {
@@ -559,7 +566,7 @@
         <img class="logo-mark" src="assets/easa-logo.png" alt="EASA logo" />
       </div>
       <div class="header-resource">
-        <a class="button resource-button" href="assets/easa-structure-2026-03-06.pdf" target="_blank" rel="noopener noreferrer">Current Structure PDF</a>
+        <a class="button resource-button" href="assets/easa-structure-2026-03-06.pdf" target="_blank" rel="noopener noreferrer">Current Full EASA Regulations Structure</a>
         <span class="resource-updated">Last updated: 6 March 2026</span>
       </div>
     </div>
